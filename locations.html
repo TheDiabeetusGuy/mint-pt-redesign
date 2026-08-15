@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locations — MINT Physical Therapy</title>
+<meta name="description" content="Six MINT Physical Therapy clinics across the Wasatch Front, plus mobile physical therapy in Ogden/Layton, Salt Lake County, and Utah County.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink-950:#14181A; --ink-800:#22282A; --ink-600:#4A5254;
+  --stone-100:#EDEEEA; --stone-50:#F7F7F4;
+  --sage-700:#33473A; --sage-600:#445E4C; --sage-300:#9FB6A4; --sage-200:#C9D6CB;
+  --brass-500:#A9824C; --white:#FFFFFF;
+  --serif:"Fraunces",Georgia,serif; --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --container:1180px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:var(--sans); color:var(--ink-950); background:var(--stone-50); line-height:1.55; -webkit-font-smoothing:antialiased;}
+img{max-width:100%; display:block;}
+a{color:inherit; text-decoration:none;}
+:focus-visible{outline:2px solid var(--brass-500); outline-offset:3px;}
+.wrap{max-width:var(--container); margin:0 auto; padding:0 32px;}
+@media (max-width:640px){ .wrap{padding:0 20px;} }
+.eyebrow{font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--sage-600);}
+.eyebrow.on-dark{color:var(--sage-300);}
+h1,h2,h3{font-family:var(--serif); font-weight:440; line-height:1.08; letter-spacing:-0.01em;}
+h2{font-size:clamp(28px,3.6vw,44px);}
+h3{font-size:20px; font-weight:500;}
+p{color:var(--ink-600);}
+.btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:14px; letter-spacing:0.02em; padding:15px 28px; border-radius:2px; border:1px solid transparent; cursor:pointer; transition:all .2s ease;}
+.btn-primary{background:var(--sage-600); color:var(--white);}
+.btn-primary:hover{background:var(--sage-700);}
+.btn-ghost{border-color:currentColor; color:var(--ink-950); background:transparent;}
+.btn-ghost:hover{background:var(--ink-950); color:var(--white);}
+.btn-ghost.on-dark{color:var(--white);}
+.btn-ghost.on-dark:hover{background:var(--white); color:var(--ink-950);}
+.topbar{background:var(--ink-950); color:var(--sage-200); font-size:13px;}
+.topbar .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:9px; padding-bottom:9px;}
+.topbar a{color:var(--stone-50); font-weight:600;}
+.topbar .tb-left span{margin-right:22px;}
+@media (max-width:760px){ .topbar .tb-left span:nth-child(2){display:none;} }
+header.site{background:var(--stone-50); border-bottom:1px solid rgba(20,24,26,0.08); position:sticky; top:0; z-index:50;}
+header.site .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px;}
+.logo{font-family:var(--serif); font-size:23px; font-weight:500;}
+.logo span{color:var(--sage-600);}
+nav.main{display:flex; align-items:center; gap:34px;}
+nav.main a{font-size:14px; font-weight:500;}
+nav.main a:hover{color:var(--sage-600);}
+nav.main a.active{color:var(--sage-600);}
+.header-cta{display:flex; align-items:center; gap:18px;}
+.nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+.nav-toggle span{display:block; width:22px; height:2px; background:var(--ink-950); margin:5px 0;}
+@media (max-width:920px){
+  nav.main{position:fixed; top:0; right:0; height:100vh; width:78vw; max-width:340px; background:var(--white);
+    flex-direction:column; align-items:flex-start; padding:90px 30px; gap:22px;
+    transform:translateX(100%); transition:transform .3s ease; box-shadow:-8px 0 30px rgba(0,0,0,0.08);}
+  nav.main.open{transform:translateX(0);}
+  .nav-toggle{display:block;}
+  .header-cta .btn-ghost{display:none;}
+}
+.page-hero{background:var(--ink-950); color:var(--stone-100); padding:70px 0 56px;}
+.page-hero h1{color:var(--stone-50); font-size:clamp(36px,5vw,54px); margin-top:14px;}
+.page-hero p{color:var(--sage-200); max-width:52ch; margin-top:16px; font-size:16px;}
+.path-divider{width:100%; height:34px;}
+.path-divider svg{width:100%; height:100%; display:block;}
+section{padding:88px 0;}
+@media (max-width:760px){ section{padding:56px 0;} }
+.loc-full-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(20,24,26,0.1); border:1px solid rgba(20,24,26,0.1);}
+.loc-full-card{background:var(--white); padding:34px 28px; position:relative;}
+.loc-full-card::before{content:""; position:absolute; top:0; left:0; width:0%; height:2px; background:var(--brass-500); transition:width .25s ease;}
+.loc-full-card:hover::before{width:100%;}
+.loc-full-card h3{margin-bottom:14px;}
+.loc-full-card .addr{font-size:14px; margin-bottom:16px;}
+.loc-full-card .addr span{display:block;}
+.loc-full-card .contact-line{font-size:14px; border-top:1px solid rgba(20,24,26,0.1); padding-top:14px; margin-top:6px;}
+.loc-full-card .contact-line div{margin-bottom:4px;}
+.loc-full-card .contact-line a{font-weight:600; color:var(--sage-700);}
+@media (max-width:920px){ .loc-full-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:600px){ .loc-full-grid{grid-template-columns:1fr;} }
+.mobile-section{background:var(--sage-200);}
+.mobile-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:36px;}
+.mobile-card{background:var(--white); padding:28px; border-left:2px solid var(--sage-700);}
+.mobile-card h3{font-size:18px; margin-bottom:8px;}
+.mobile-card p{font-size:14px;}
+@media (max-width:760px){ .mobile-grid{grid-template-columns:1fr;} }
+.final-cta{background:var(--ink-950); color:var(--stone-50); text-align:center;}
+.final-cta h2{color:var(--stone-50); margin:16px 0 24px;}
+.final-cta p{color:var(--sage-200); max-width:44ch; margin:0 auto 34px;}
+.hero-ctas{display:flex; gap:16px; flex-wrap:wrap; justify-content:center;}
+footer{background:var(--ink-950); color:var(--sage-200); border-top:1px solid rgba(255,255,255,0.1);}
+.foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding:64px 0 40px;}
+.foot-logo{font-family:var(--serif); color:var(--stone-50); font-size:22px; margin-bottom:14px;}
+.foot-col h4{font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--stone-50); margin-bottom:16px;}
+.foot-col ul{list-style:none;}
+.foot-col li{margin-bottom:10px; font-size:14px;}
+.foot-col a:hover{color:var(--stone-50);}
+.foot-bottom{border-top:1px solid rgba(255,255,255,0.1); padding:22px 0; font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+@media (max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr; padding:48px 0 30px;} }
+@media (max-width:480px){ .foot-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left"><span>Six Utah clinics + mobile care</span><span>Mon–Fri, 7am–6pm</span></div>
+    <a href="tel:8012100127">(801) 210-0127</a>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a href="index.html" class="logo">MINT<span>.</span></a>
+    <nav class="main" id="mainNav">
+      <a href="services.html">Services</a>
+      <a href="locations.html" class="active">Locations</a>
+      <a href="about.html">About &amp; Providers</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a href="contact.html" class="btn btn-ghost">Request Appointment</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" style="padding-bottom:0;">
+  <div class="wrap">
+    <p class="eyebrow on-dark">Locations</p>
+    <h1>Six clinics. Three mobile service areas.</h1>
+    <p>Find the option that fits your schedule — a nearby clinic, or a therapist who comes to you.</p>
+  </div>
+  <div class="path-divider" style="margin-top:56px;" aria-hidden="true">
+    <svg viewBox="0 0 1200 34" preserveAspectRatio="none">
+      <line x1="0" y1="17" x2="1200" y2="17" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <circle cx="600" cy="17" r="3.5" fill="#A9824C"/>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="loc-full-grid">
+      <div class="loc-full-card">
+        <h3>Murray Clinic</h3>
+        <div class="addr"><span>6095 S Fashion Blvd, Ste 120</span><span>Murray, UT 84107</span></div>
+        <div class="contact-line">
+          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
+          <div>Fax: 801-992-6450</div>
+          <div>info@mint-pt.com</div>
+        </div>
+      </div>
+      <div class="loc-full-card">
+        <h3>Riverton Clinic</h3>
+        <div class="addr"><span>12427 4000 W, #202</span><span>Riverton, UT 84096</span></div>
+        <div class="contact-line">
+          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
+          <div>Fax: 801-992-6450</div>
+          <div>info@mint-pt.com</div>
+        </div>
+      </div>
+      <div class="loc-full-card">
+        <h3>Ogden Clinic</h3>
+        <div class="addr"><span>1186 E 4600 S, #220</span><span>Ogden, UT 84403</span></div>
+        <div class="contact-line">
+          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
+          <div>Fax: 801-992-6450</div>
+          <div>daviscounty@mint-pt.com</div>
+        </div>
+      </div>
+      <div class="loc-full-card">
+        <h3>Clearfield Clinic</h3>
+        <div class="addr"><span>1030 University Park Blvd, Ste 1</span><span>Clearfield, UT 84015</span></div>
+        <div class="contact-line">
+          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
+          <div>Fax: 801-992-6450</div>
+          <div>daviscounty@mint-pt.com</div>
+        </div>
+      </div>
+      <div class="loc-full-card">
+        <h3>Brigham City Clinic</h3>
+        <div class="addr"><span>60 S Main St</span><span>Brigham City, UT 84302</span></div>
+        <div class="contact-line">
+          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
+          <div>Fax: 801-992-6450</div>
+          <div>daviscounty@mint-pt.com</div>
+        </div>
+      </div>
+      <div class="loc-full-card">
+        <h3>West Valley Clinic</h3>
+        <div class="addr"><span>3451 S 5600 W</span><span>West Valley City, UT 84120</span></div>
+        <div class="contact-line">
+          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
+          <div>Fax: 801-992-6450</div>
+          <div>info@mint-pt.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mobile-section">
+  <div class="wrap">
+    <p class="eyebrow">Mobile physical therapy</p>
+    <h2 style="font-size:30px; margin-top:10px;">We come to you.</h2>
+    <p style="max-width:56ch; margin-top:14px; color:var(--sage-700);">Full 1:1 sessions in your home or office — the same evaluation, the same plan, the same therapist you'd see in a clinic.</p>
+    <div class="mobile-grid">
+      <div class="mobile-card"><h3>Ogden / Layton</h3><p>Mobile coverage across northern Davis and Weber counties.</p></div>
+      <div class="mobile-card"><h3>Salt Lake County</h3><p>Mobile coverage from Sandy to West Valley City.</p></div>
+      <div class="mobile-card"><h3>Utah County</h3><p>Mobile coverage across Provo, Orem, and surrounding cities.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <p class="eyebrow on-dark">Find your nearest option</p>
+    <h2>One call sets it up.</h2>
+    <p>We'll match you to the closest clinic — or confirm mobile availability in your area.</p>
+    <div class="hero-ctas">
+      <a href="contact.html" class="btn btn-primary">Request an Appointment</a>
+      <a href="tel:8012100127" class="btn btn-ghost on-dark">Call (801) 210-0127</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">MINT.</div>
+        <p style="max-width:32ch; font-size:14px;">One-on-one physical therapy, clinic-based and mobile, across the Wasatch Front.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Auto Accident Recovery</a></li>
+          <li><a href="services.html">Back &amp; Neck Pain</a></li>
+          <li><a href="services.html">Dry Needling</a></li>
+          <li><a href="services.html">Sports Medicine</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Locations</h4>
+        <ul>
+          <li><a href="locations.html">Murray</a></li>
+          <li><a href="locations.html">Ogden</a></li>
+          <li><a href="locations.html">Riverton</a></li>
+          <li><a href="locations.html">All locations →</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About &amp; Providers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Join Our Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap foot-bottom" style="padding-left:0; padding-right:0;">
+      <span>© 2026 MINT Physical Therapy. All rights reserved.</span>
+      <span>(801) 210-0127 · info@mint-pt.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => document.getElementById('mainNav').classList.toggle('open'));
+</script>
+</body>
+</html>

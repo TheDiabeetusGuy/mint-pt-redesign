@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — MINT Physical Therapy</title>
+<meta name="description" content="Request an appointment at any MINT Physical Therapy clinic, or ask about mobile physical therapy in your area.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink-950:#14181A; --ink-800:#22282A; --ink-600:#4A5254;
+  --stone-100:#EDEEEA; --stone-50:#F7F7F4;
+  --sage-700:#33473A; --sage-600:#445E4C; --sage-300:#9FB6A4; --sage-200:#C9D6CB;
+  --brass-500:#A9824C; --white:#FFFFFF;
+  --serif:"Fraunces",Georgia,serif; --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --container:1180px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:var(--sans); color:var(--ink-950); background:var(--stone-50); line-height:1.55; -webkit-font-smoothing:antialiased;}
+img{max-width:100%; display:block;}
+a{color:inherit; text-decoration:none;}
+:focus-visible{outline:2px solid var(--brass-500); outline-offset:3px;}
+.wrap{max-width:var(--container); margin:0 auto; padding:0 32px;}
+@media (max-width:640px){ .wrap{padding:0 20px;} }
+.eyebrow{font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--sage-600);}
+.eyebrow.on-dark{color:var(--sage-300);}
+h1,h2,h3{font-family:var(--serif); font-weight:440; line-height:1.08; letter-spacing:-0.01em;}
+h2{font-size:clamp(26px,3.2vw,36px);}
+h3{font-size:20px; font-weight:500;}
+p{color:var(--ink-600);}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:600; font-size:14px; letter-spacing:0.02em; padding:15px 28px; border-radius:2px; border:1px solid transparent; cursor:pointer; transition:all .2s ease;}
+.btn-primary{background:var(--sage-600); color:var(--white); width:100%;}
+.btn-primary:hover{background:var(--sage-700);}
+.btn-ghost{border-color:currentColor; color:var(--ink-950); background:transparent;}
+.btn-ghost:hover{background:var(--ink-950); color:var(--white);}
+.btn-ghost.on-dark{color:var(--white);}
+.btn-ghost.on-dark:hover{background:var(--white); color:var(--ink-950);}
+.topbar{background:var(--ink-950); color:var(--sage-200); font-size:13px;}
+.topbar .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:9px; padding-bottom:9px;}
+.topbar a{color:var(--stone-50); font-weight:600;}
+.topbar .tb-left span{margin-right:22px;}
+@media (max-width:760px){ .topbar .tb-left span:nth-child(2){display:none;} }
+header.site{background:var(--stone-50); border-bottom:1px solid rgba(20,24,26,0.08); position:sticky; top:0; z-index:50;}
+header.site .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px;}
+.logo{font-family:var(--serif); font-size:23px; font-weight:500;}
+.logo span{color:var(--sage-600);}
+nav.main{display:flex; align-items:center; gap:34px;}
+nav.main a{font-size:14px; font-weight:500;}
+nav.main a:hover{color:var(--sage-600);}
+nav.main a.active{color:var(--sage-600);}
+.header-cta{display:flex; align-items:center; gap:18px;}
+.nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+.nav-toggle span{display:block; width:22px; height:2px; background:var(--ink-950); margin:5px 0;}
+@media (max-width:920px){
+  nav.main{position:fixed; top:0; right:0; height:100vh; width:78vw; max-width:340px; background:var(--white);
+    flex-direction:column; align-items:flex-start; padding:90px 30px; gap:22px;
+    transform:translateX(100%); transition:transform .3s ease; box-shadow:-8px 0 30px rgba(0,0,0,0.08);}
+  nav.main.open{transform:translateX(0);}
+  .nav-toggle{display:block;}
+  .header-cta .btn-ghost{display:none;}
+}
+.page-hero{background:var(--ink-950); color:var(--stone-100); padding:70px 0 56px;}
+.page-hero h1{color:var(--stone-50); font-size:clamp(36px,5vw,54px); margin-top:14px;}
+.page-hero p{color:var(--sage-200); max-width:52ch; margin-top:16px; font-size:16px;}
+.path-divider{width:100%; height:34px;}
+.path-divider svg{width:100%; height:100%; display:block;}
+section{padding:88px 0;}
+@media (max-width:760px){ section{padding:56px 0;} }
+.contact-grid{display:grid; grid-template-columns:1fr 1.2fr; gap:64px;}
+@media (max-width:900px){ .contact-grid{grid-template-columns:1fr;} }
+.info-block{border-top:1px solid rgba(20,24,26,0.12); padding-top:18px; margin-top:24px;}
+.info-block:first-child{margin-top:0;}
+.info-block h3{font-size:16px; margin-bottom:8px;}
+.info-block p{font-size:14px; margin-bottom:2px;}
+.info-block a{font-weight:600; color:var(--sage-700);}
+.form-card{background:var(--white); border:1px solid rgba(20,24,26,0.12); padding:38px;}
+.form-row{margin-bottom:20px;}
+.form-row label{display:block; font-size:13px; font-weight:600; margin-bottom:7px; letter-spacing:0.02em;}
+.form-row input, .form-row select, .form-row textarea{
+  width:100%; padding:12px 14px; border:1px solid rgba(20,24,26,0.2); background:var(--stone-50);
+  font-family:var(--sans); font-size:14px; color:var(--ink-950); border-radius:2px;
+}
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus{outline:none; border-color:var(--sage-600); background:var(--white);}
+.form-row-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+@media (max-width:520px){ .form-row-2{grid-template-columns:1fr;} }
+.hp-field{position:absolute; left:-9999px; top:-9999px;}
+.form-note{font-size:12px; color:var(--ink-600); margin-top:14px; text-align:center;}
+.form-success{display:none; text-align:center; padding:40px 20px;}
+.form-success.show{display:block;}
+.form-success h3{margin-bottom:10px;}
+footer{background:var(--ink-950); color:var(--sage-200); border-top:1px solid rgba(255,255,255,0.1);}
+.foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding:64px 0 40px;}
+.foot-logo{font-family:var(--serif); color:var(--stone-50); font-size:22px; margin-bottom:14px;}
+.foot-col h4{font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--stone-50); margin-bottom:16px;}
+.foot-col ul{list-style:none;}
+.foot-col li{margin-bottom:10px; font-size:14px;}
+.foot-col a:hover{color:var(--stone-50);}
+.foot-bottom{border-top:1px solid rgba(255,255,255,0.1); padding:22px 0; font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+@media (max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr; padding:48px 0 30px;} }
+@media (max-width:480px){ .foot-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left"><span>Six Utah clinics + mobile care</span><span>Mon–Fri, 7am–6pm</span></div>
+    <a href="tel:8012100127">(801) 210-0127</a>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a href="index.html" class="logo">MINT<span>.</span></a>
+    <nav class="main" id="mainNav">
+      <a href="services.html">Services</a>
+      <a href="locations.html">Locations</a>
+      <a href="about.html">About &amp; Providers</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a href="contact.html" class="btn btn-ghost">Request Appointment</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero" style="padding-bottom:0;">
+  <div class="wrap">
+    <p class="eyebrow on-dark">Contact</p>
+    <h1>Let's get you scheduled.</h1>
+    <p>Request an appointment below, or call your nearest clinic directly.</p>
+  </div>
+  <div class="path-divider" style="margin-top:56px;" aria-hidden="true">
+    <svg viewBox="0 0 1200 34" preserveAspectRatio="none">
+      <line x1="0" y1="17" x2="1200" y2="17" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <circle cx="600" cy="17" r="3.5" fill="#A9824C"/>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <div class="wrap contact-grid">
+    <div>
+      <p class="eyebrow">Get in touch</p>
+      <h2 style="margin:10px 0 6px;">We'll respond within one business day.</h2>
+
+      <div class="info-block">
+        <h3>Call or text</h3>
+        <p><a href="tel:8012100127">(801) 210-0127</a></p>
+      </div>
+      <div class="info-block">
+        <h3>Email</h3>
+        <p><a href="mailto:info@mint-pt.com">info@mint-pt.com</a></p>
+      </div>
+      <div class="info-block">
+        <h3>Hours</h3>
+        <p>Monday – Friday, 7:00am – 6:00pm</p>
+      </div>
+      <div class="info-block">
+        <h3>Insurance &amp; billing</h3>
+        <p>Cash pay, workers' comp, and auto accident claims accepted.</p>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form id="apptForm">
+        <div id="formFields">
+          <div class="form-row-2">
+            <div class="form-row">
+              <label for="fname">First name</label>
+              <input type="text" id="fname" name="fname" required>
+            </div>
+            <div class="form-row">
+              <label for="lname">Last name</label>
+              <input type="text" id="lname" name="lname" required>
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-row">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="clinic">Preferred clinic</label>
+            <select id="clinic" name="clinic">
+              <option>Murray Clinic</option>
+              <option>Riverton Clinic</option>
+              <option>Ogden Clinic</option>
+              <option>Clearfield Clinic</option>
+              <option>Brigham City Clinic</option>
+              <option>West Valley Clinic</option>
+              <option>Mobile — Ogden/Layton</option>
+              <option>Mobile — Salt Lake County</option>
+              <option>Mobile — Utah County</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="reason">What's going on?</label>
+            <textarea id="reason" name="reason" rows="4" placeholder="Briefly describe your injury or condition"></textarea>
+          </div>
+
+          <!-- Honeypot field — invisible to real visitors, positioned off-screen rather than display:none -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+          </div>
+          <input type="hidden" id="ts" name="ts" value="">
+
+          <button type="submit" class="btn btn-primary">Request Appointment</button>
+          <p class="form-note">This is a design demo — no data is submitted or stored. In production, this form would post to a rate-limited endpoint with honeypot and timing checks in place (see contact form handling in the site playbook).</p>
+        </div>
+
+        <div class="form-success" id="formSuccess">
+          <h3>Request received.</h3>
+          <p>Thanks — someone from MINT will reach out within one business day to confirm your appointment.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">MINT.</div>
+        <p style="max-width:32ch; font-size:14px;">One-on-one physical therapy, clinic-based and mobile, across the Wasatch Front.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Auto Accident Recovery</a></li>
+          <li><a href="services.html">Back &amp; Neck Pain</a></li>
+          <li><a href="services.html">Dry Needling</a></li>
+          <li><a href="services.html">Sports Medicine</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Locations</h4>
+        <ul>
+          <li><a href="locations.html">Murray</a></li>
+          <li><a href="locations.html">Ogden</a></li>
+          <li><a href="locations.html">Riverton</a></li>
+          <li><a href="locations.html">All locations →</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About &amp; Providers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Join Our Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap foot-bottom" style="padding-left:0; padding-right:0;">
+      <span>© 2026 MINT Physical Therapy. All rights reserved.</span>
+      <span>(801) 210-0127 · info@mint-pt.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => document.getElementById('mainNav').classList.toggle('open'));
+
+  // Set timing-check timestamp on load (mirrors the playbook's bot-timing pattern; demo only, not enforced without a backend)
+  document.getElementById('ts').value = Date.now();
+
+  document.getElementById('apptForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formFields').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  });
+</script>
+</body>
+</html>

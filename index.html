@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MINT Physical Therapy — Clinic &amp; Mobile Care in Utah</title>
+<meta name="description" content="One-on-one physical therapy at six Utah clinics and in your home. Auto accident recovery, workers' comp, sports medicine, and chronic pain care.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ DESIGN TOKENS ============ */
+:root{
+  --ink-950:#14181A;
+  --ink-800:#22282A;
+  --ink-600:#4A5254;
+  --stone-100:#EDEEEA;
+  --stone-50:#F7F7F4;
+  --sage-700:#33473A;
+  --sage-600:#445E4C;
+  --sage-300:#9FB6A4;
+  --sage-200:#C9D6CB;
+  --brass-500:#A9824C;
+  --white:#FFFFFF;
+
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --container: 1180px;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--sans);
+  color:var(--ink-950);
+  background:var(--stone-50);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; display:block;}
+a{color:inherit; text-decoration:none;}
+:focus-visible{outline:2px solid var(--brass-500); outline-offset:3px;}
+.wrap{max-width:var(--container); margin:0 auto; padding:0 32px;}
+@media (max-width:640px){ .wrap{padding:0 20px;} }
+
+.eyebrow{
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--sage-600);
+}
+.eyebrow.on-dark{color:var(--sage-300);}
+
+h1,h2,h3{font-family:var(--serif); font-weight:440; line-height:1.08; letter-spacing:-0.01em;}
+h2{font-size:clamp(28px,3.6vw,44px);}
+h3{font-size:20px; font-weight:500;}
+p{color:var(--ink-600);}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--sans); font-weight:600; font-size:14px;
+  letter-spacing:0.02em;
+  padding:15px 28px;
+  border-radius:2px;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.btn-primary{background:var(--sage-600); color:var(--white);}
+.btn-primary:hover{background:var(--sage-700);}
+.btn-ghost{border-color:currentColor; color:var(--ink-950); background:transparent;}
+.btn-ghost:hover{background:var(--ink-950); color:var(--white);}
+.btn-ghost.on-dark{color:var(--white);}
+.btn-ghost.on-dark:hover{background:var(--white); color:var(--ink-950);}
+
+/* ============ THE LINE — signature motif ============ */
+.path-divider{width:100%; height:34px; display:block;}
+.path-divider svg{width:100%; height:100%; display:block;}
+
+/* ============ TOP BAR ============ */
+.topbar{background:var(--ink-950); color:var(--sage-200); font-size:13px;}
+.topbar .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:9px; padding-bottom:9px;}
+.topbar a{color:var(--stone-50); font-weight:600;}
+.topbar .tb-left span{margin-right:22px;}
+@media (max-width:760px){ .topbar .tb-left span:nth-child(2){display:none;} }
+
+/* ============ HEADER ============ */
+header.site{background:var(--stone-50); border-bottom:1px solid rgba(20,24,26,0.08); position:sticky; top:0; z-index:50;}
+header.site .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px;}
+.logo{font-family:var(--serif); font-size:23px; font-weight:500; letter-spacing:0.01em;}
+.logo span{color:var(--sage-600);}
+nav.main{display:flex; align-items:center; gap:34px;}
+nav.main a{font-size:14px; font-weight:500;}
+nav.main a:hover{color:var(--sage-600);}
+.header-cta{display:flex; align-items:center; gap:18px;}
+.nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+.nav-toggle span{display:block; width:22px; height:2px; background:var(--ink-950); margin:5px 0;}
+@media (max-width:920px){
+  nav.main{position:fixed; top:0; right:0; height:100vh; width:78vw; max-width:340px; background:var(--white);
+    flex-direction:column; align-items:flex-start; padding:90px 30px; gap:22px;
+    transform:translateX(100%); transition:transform .3s ease; box-shadow:-8px 0 30px rgba(0,0,0,0.08);}
+  nav.main.open{transform:translateX(0);}
+  .nav-toggle{display:block;}
+  .header-cta .btn-ghost{display:none;}
+}
+
+/* ============ HERO ============ */
+.hero{background:var(--stone-50); padding:64px 0 0;}
+.hero-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center;}
+.hero h1{font-size:clamp(42px,6vw,72px); margin:18px 0 22px;}
+.hero p.lede{font-size:18px; max-width:46ch; margin-bottom:34px;}
+.hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+.hero-visual{position:relative; aspect-ratio:4/5; background:var(--sage-600); border-radius:2px; overflow:hidden;}
+.hero-visual::before{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.10), transparent 45%),
+    linear-gradient(155deg, var(--sage-700) 0%, var(--sage-600) 55%, var(--ink-950) 130%);
+}
+.hero-visual svg{position:absolute; inset:0; width:100%; height:100%;}
+.hero-visual-caption{position:absolute; left:28px; bottom:26px; color:var(--stone-50);}
+.hero-visual-caption .eyebrow{color:var(--sage-200);}
+.hero-visual-caption strong{font-family:var(--serif); font-size:22px; font-weight:440; display:block; margin-top:6px;}
+@media (max-width:920px){ .hero-grid{grid-template-columns:1fr;} .hero-visual{aspect-ratio:16/10;} }
+
+/* ============ TRUST STRIP ============ */
+.trust-strip{background:var(--ink-950); color:var(--stone-100);}
+.trust-strip ul{display:flex; flex-wrap:wrap; justify-content:center; gap:0; list-style:none; padding:20px 0;}
+.trust-strip li{font-size:13px; font-weight:500; letter-spacing:0.03em; padding:6px 26px; border-right:1px solid rgba(255,255,255,0.16); text-transform:uppercase;}
+.trust-strip li:last-child{border-right:none;}
+@media (max-width:760px){ .trust-strip li{border-right:none; width:100%; text-align:center; padding:8px 0;} }
+
+/* ============ SECTION SPACING ============ */
+section{padding:96px 0;}
+@media (max-width:760px){ section{padding:64px 0;} }
+.section-head{max-width:640px; margin-bottom:46px;}
+.section-head h2{margin-top:12px;}
+.section-head p{margin-top:16px; font-size:16px;}
+.section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+
+/* ============ PHILOSOPHY ============ */
+.philosophy{background:var(--white);}
+.phil-grid{display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start;}
+.phil-quote{font-family:var(--serif); font-size:clamp(24px,2.6vw,32px); font-weight:440; line-height:1.35; color:var(--ink-950);}
+.phil-quote .mark{color:var(--brass-500);}
+.credential-list{list-style:none; margin-top:26px;}
+.credential-list li{display:flex; gap:12px; padding:12px 0; border-top:1px solid rgba(20,24,26,0.1); font-size:14px; color:var(--ink-600);}
+.credential-list li:last-child{border-bottom:1px solid rgba(20,24,26,0.1);}
+.credential-list li strong{color:var(--ink-950); font-weight:600; min-width:150px;}
+@media (max-width:760px){ .phil-grid{grid-template-columns:1fr;} }
+
+/* ============ SERVICES ============ */
+.services{background:var(--stone-100);}
+.service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(20,24,26,0.1); border:1px solid rgba(20,24,26,0.1);}
+.service-card{background:var(--stone-100); padding:32px 28px; transition:background .2s ease;}
+.service-card:hover{background:var(--white);}
+.service-card h3{margin-bottom:10px;}
+.service-card p{font-size:14px; margin-bottom:14px;}
+.service-card .learn{font-size:13px; font-weight:600; color:var(--sage-700); position:relative;}
+.service-card .learn::after{content:"→"; margin-left:6px; transition:margin .2s ease;}
+.service-card:hover .learn::after{margin-left:12px;}
+@media (max-width:920px){ .service-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:600px){ .service-grid{grid-template-columns:1fr;} }
+
+/* ============ APPROACH (dark bookend) ============ */
+.approach{background:var(--ink-950); color:var(--stone-100);}
+.approach .section-head p{color:var(--sage-200);}
+.approach h2{color:var(--stone-50);}
+.pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:40px; margin-top:20px;}
+.pillar{border-top:1px solid rgba(255,255,255,0.18); padding-top:22px;}
+.pillar h3{color:var(--stone-50); margin-bottom:10px;}
+.pillar p{color:var(--sage-200); font-size:14px;}
+@media (max-width:760px){ .pillars{grid-template-columns:1fr; gap:28px;} }
+
+/* ============ LOCATIONS ============ */
+.locations{background:var(--white);}
+.loc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:40px;}
+.loc-card{border:1px solid rgba(20,24,26,0.12); padding:26px 24px; position:relative;}
+.loc-card::before{content:""; position:absolute; top:0; left:0; width:100%; height:2px; background:var(--sage-300); transform:scaleX(0); transform-origin:left; transition:transform .25s ease;}
+.loc-card:hover::before{transform:scaleX(1);}
+.loc-card h3{margin-bottom:8px; font-size:18px;}
+.loc-card p{font-size:14px; margin-bottom:4px;}
+.mobile-callout{background:var(--sage-200); padding:30px 32px; display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;}
+.mobile-callout h3{margin-bottom:6px;}
+.mobile-callout p{color:var(--sage-700); max-width:52ch;}
+@media (max-width:920px){ .loc-grid{grid-template-columns:1fr 1fr;} }
+@media (max-width:600px){ .loc-grid{grid-template-columns:1fr;} }
+
+/* ============ TESTIMONIALS ============ */
+.testimonials{background:var(--stone-100);}
+.testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:32px;}
+.testi-card{background:var(--white); padding:32px 28px; border-left:2px solid var(--brass-500);}
+.testi-card p.quote{font-family:var(--serif); font-size:18px; font-weight:440; color:var(--ink-950); line-height:1.5; margin-bottom:18px;}
+.testi-card .attrib{font-size:13px; font-weight:600; color:var(--sage-700); text-transform:uppercase; letter-spacing:0.04em;}
+@media (max-width:920px){ .testi-grid{grid-template-columns:1fr;} }
+
+/* ============ VIDEO / PODCAST ============ */
+.showcase{background:var(--white);}
+.showcase-top{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:40px;}
+.video-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.video-thumb{position:relative; aspect-ratio:16/10; background:linear-gradient(155deg, var(--ink-800), var(--ink-950)); overflow:hidden; cursor:pointer;}
+.video-thumb::after{content:""; position:absolute; inset:0; background:radial-gradient(circle at 70% 30%, rgba(169,130,76,0.25), transparent 55%);}
+.play-btn{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:56px; height:56px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.7); display:flex; align-items:center; justify-content:center;}
+.play-btn::after{content:""; border-left:12px solid var(--stone-50); border-top:8px solid transparent; border-bottom:8px solid transparent; margin-left:3px;}
+.video-label{position:absolute; left:18px; bottom:16px; color:var(--stone-50); font-size:13px; font-weight:600;}
+@media (max-width:760px){ .video-grid{grid-template-columns:1fr;} }
+
+/* ============ FINAL CTA (dark bookend) ============ */
+.final-cta{background:var(--ink-950); color:var(--stone-50); text-align:center;}
+.final-cta h2{color:var(--stone-50); max-width:16ch; margin:16px auto 24px;}
+.final-cta p{color:var(--sage-200); max-width:44ch; margin:0 auto 34px;}
+.final-cta .hero-ctas{justify-content:center;}
+
+/* ============ FOOTER ============ */
+footer{background:var(--ink-950); color:var(--sage-200); border-top:1px solid rgba(255,255,255,0.1);}
+.foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding:64px 0 40px;}
+.foot-logo{font-family:var(--serif); color:var(--stone-50); font-size:22px; margin-bottom:14px;}
+.foot-col h4{font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--stone-50); margin-bottom:16px;}
+.foot-col ul{list-style:none;}
+.foot-col li{margin-bottom:10px; font-size:14px;}
+.foot-col a:hover{color:var(--stone-50);}
+.foot-bottom{border-top:1px solid rgba(255,255,255,0.1); padding:22px 0; font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+@media (max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr; padding:48px 0 30px;} }
+@media (max-width:480px){ .foot-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left">
+      <span>Six Utah clinics + mobile care</span>
+      <span>Mon–Fri, 7am–6pm</span>
+    </div>
+    <a href="tel:8012100127">(801) 210-0127</a>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a href="index.html" class="logo">MINT<span>.</span></a>
+    <nav class="main" id="mainNav">
+      <a href="services.html">Services</a>
+      <a href="locations.html">Locations</a>
+      <a href="about.html">About &amp; Providers</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a href="contact.html" class="btn btn-ghost">Request Appointment</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Utah · Clinic &amp; Mobile Physical Therapy</p>
+        <h1>Move without<br>limits.</h1>
+        <p class="lede">One-on-one care from a Doctor of Physical Therapy — never a rotating tech, never a shared session. Six Utah clinics, or we come to you.</p>
+        <div class="hero-ctas">
+          <a href="contact.html" class="btn btn-primary">Request an Appointment</a>
+          <a href="tel:8012100127" class="btn btn-ghost">Call (801) 210-0127</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <path d="M -20 380 C 60 380, 90 250, 160 250 C 230 250, 220 150, 300 150 C 350 150, 360 90, 420 90"
+                fill="none" stroke="rgba(247,247,244,0.85)" stroke-width="2"/>
+          <circle cx="160" cy="250" r="4" fill="#A9824C"/>
+          <circle cx="300" cy="150" r="4" fill="#A9824C"/>
+        </svg>
+        <div class="hero-visual-caption">
+          <p class="eyebrow">The path back</p>
+          <strong>Injury to full movement.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="path-divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 34" preserveAspectRatio="none">
+      <line x1="0" y1="17" x2="1200" y2="17" stroke="#9FB6A4" stroke-width="1"/>
+      <circle cx="600" cy="17" r="3.5" fill="#A9824C"/>
+    </svg>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="wrap">
+    <ul>
+      <li>Clinic-based &amp; mobile</li>
+      <li>Auto accident &amp; workers' comp accepted</li>
+      <li>One-on-one, every visit</li>
+      <li>Six Utah locations</li>
+    </ul>
+  </div>
+</div>
+
+<section class="philosophy">
+  <div class="wrap phil-grid">
+    <div>
+      <p class="phil-quote"><span class="mark">“</span>You get one body. Our job is to make sure a single injury doesn't get to define what the rest of it can do.<span class="mark">”</span></p>
+    </div>
+    <div>
+      <p class="eyebrow">Our approach</p>
+      <h2 style="font-size:26px; margin:10px 0 16px;">Full attention, every visit.</h2>
+      <p>MINT was built around a simple complaint we kept hearing: fifteen minutes with a therapist, forty-five minutes with a machine. We do the opposite. Every session is one patient, one licensed Doctor of Physical Therapy, for the entire visit — in a clinic or in your own home.</p>
+      <ul class="credential-list">
+        <li><strong>Founder &amp; Lead PT</strong> Dr. Brad — Doctor of Physical Therapy</li>
+        <li><strong>Certifications</strong> Orthopedic Certified Specialist, Dry Needling, ASTYM / Active Release</li>
+        <li><strong>Accepted</strong> Cash pay, workers' comp, auto accident claims</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">What we treat</p>
+      <h2>A specialty for nearly every setback.</h2>
+      <p>From a single stubborn ache to full post-accident recovery — six of our most requested specialties below. See the complete list on the Services page.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <h3>Auto Accident Recovery</h3>
+        <p>ASTYM and Active Release Therapy for whiplash, soft tissue injury, and post-collision pain.</p>
+        <a href="services.html" class="learn">Learn more</a>
+      </div>
+      <div class="service-card">
+        <h3>Back &amp; Neck Pain</h3>
+        <p>Manual therapy and targeted conditioning to resolve chronic and acute spinal pain.</p>
+        <a href="services.html" class="learn">Learn more</a>
+      </div>
+      <div class="service-card">
+        <h3>Concussion &amp; mTBI</h3>
+        <p>Structured, staged return-to-function protocols for mild traumatic brain injury.</p>
+        <a href="services.html" class="learn">Learn more</a>
+      </div>
+      <div class="service-card">
+        <h3>Dry Needling</h3>
+        <p>Precise trigger-point release for muscular pain that hasn't responded to other care.</p>
+        <a href="services.html" class="learn">Learn more</a>
+      </div>
+      <div class="service-card">
+        <h3>Sciatica &amp; Chronic Pain</h3>
+        <p>Root-cause assessment for nerve-related and long-standing pain, not just symptom relief.</p>
+        <a href="services.html" class="learn">Learn more</a>
+      </div>
+      <div class="service-card">
+        <h3>Sports Medicine</h3>
+        <p>Return-to-sport conditioning built around your actual sport, not a generic protocol.</p>
+        <a href="services.html" class="learn">Learn more</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="approach">
+  <div class="wrap">
+    <div class="section-head center" style="margin-bottom:10px;">
+      <p class="eyebrow on-dark">How we work</p>
+      <h2>Care built around the visit, not the clock.</h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <h3>One-on-one.</h3>
+        <p>Your full appointment is spent with your Doctor of Physical Therapy — not handed off to an aide once the paperwork's done.</p>
+      </div>
+      <div class="pillar">
+        <h3>Clinic or home.</h3>
+        <p>Six clinics across the Wasatch Front, or a mobile visit if getting there is the hardest part of getting better.</p>
+      </div>
+      <div class="pillar">
+        <h3>A real plan.</h3>
+        <p>Every case starts with a diagnosis, not a default schedule — you'll know why each visit is happening.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="locations">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Where to find us</p>
+      <h2>Six clinics along the Wasatch Front.</h2>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-card">
+        <h3>Murray Clinic</h3>
+        <p>6095 S Fashion Blvd, Ste 120</p>
+        <p>Murray, UT 84107</p>
+      </div>
+      <div class="loc-card">
+        <h3>Riverton Clinic</h3>
+        <p>12427 4000 W, #202</p>
+        <p>Riverton, UT 84096</p>
+      </div>
+      <div class="loc-card">
+        <h3>Ogden Clinic</h3>
+        <p>1186 E 4600 S, #220</p>
+        <p>Ogden, UT 84403</p>
+      </div>
+      <div class="loc-card">
+        <h3>Clearfield Clinic</h3>
+        <p>1030 University Park Blvd, Ste 1</p>
+        <p>Clearfield, UT 84015</p>
+      </div>
+      <div class="loc-card">
+        <h3>Brigham City Clinic</h3>
+        <p>60 S Main St</p>
+        <p>Brigham City, UT 84302</p>
+      </div>
+      <div class="loc-card">
+        <h3>West Valley Clinic</h3>
+        <p>3451 S 5600 W</p>
+        <p>West Valley City, UT 84120</p>
+      </div>
+    </div>
+    <div class="mobile-callout">
+      <div>
+        <h3>Can't get to a clinic?</h3>
+        <p>Mobile physical therapy is available across Ogden/Layton, Salt Lake County, and Utah County — full 1:1 sessions in your home or office.</p>
+      </div>
+      <a href="locations.html" class="btn btn-ghost">View all locations</a>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">In their words</p>
+      <h2>What recovery sounds like.</h2>
+    </div>
+    <!-- Demo copy — swap in real, permission-cleared patient reviews before launch -->
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p class="quote">Thirty years of back pain, and this was the first plan that actually explained what was happening — not just how to manage it.</p>
+        <p class="attrib">D.A. — Murray</p>
+      </div>
+      <div class="testi-card">
+        <p class="quote">I train athletes for a living. This is the only clinic I trust to get them back to full training without cutting corners.</p>
+        <p class="attrib">Z.G. — Riverton</p>
+      </div>
+      <div class="testi-card">
+        <p class="quote">Dry needling gave me more relief in one session than months of stretching on my own ever did.</p>
+        <p class="attrib">J.L. — Ogden</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="showcase">
+  <div class="wrap">
+    <div class="showcase-top">
+      <div class="section-head" style="margin-bottom:0;">
+        <p class="eyebrow">The MINT Condition</p>
+        <h2>Recovery, explained on camera.</h2>
+      </div>
+      <a href="#" class="btn btn-ghost">Watch on YouTube</a>
+    </div>
+    <div class="video-grid">
+      <div class="video-thumb"><div class="play-btn"></div><span class="video-label">Why most PT plans fail in week 3</span></div>
+      <div class="video-thumb"><div class="play-btn"></div><span class="video-label">Inside a real dry needling session</span></div>
+      <div class="video-thumb"><div class="play-btn"></div><span class="video-label">Returning to sport after an ACL tear</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <p class="eyebrow on-dark">Ready when you are</p>
+    <h2>Let's get you moving again.</h2>
+    <p>Tell us what's going on. We'll match you with the right clinic — or bring the clinic to you.</p>
+    <div class="hero-ctas">
+      <a href="contact.html" class="btn btn-primary">Request an Appointment</a>
+      <a href="tel:8012100127" class="btn btn-ghost on-dark">Call (801) 210-0127</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">MINT.</div>
+        <p style="max-width:32ch; font-size:14px;">One-on-one physical therapy, clinic-based and mobile, across the Wasatch Front.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Auto Accident Recovery</a></li>
+          <li><a href="services.html">Back &amp; Neck Pain</a></li>
+          <li><a href="services.html">Dry Needling</a></li>
+          <li><a href="services.html">Sports Medicine</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Locations</h4>
+        <ul>
+          <li><a href="locations.html">Murray</a></li>
+          <li><a href="locations.html">Ogden</a></li>
+          <li><a href="locations.html">Riverton</a></li>
+          <li><a href="locations.html">All locations →</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About &amp; Providers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Join Our Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap foot-bottom" style="padding-left:0; padding-right:0;">
+      <span>© 2026 MINT Physical Therapy. All rights reserved.</span>
+      <span>(801) 210-0127 · info@mint-pt.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+  navToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
+</script>
+</body>
+</html>
