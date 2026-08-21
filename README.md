@@ -54,6 +54,14 @@ everywhere), it's easier to edit `build.py`:
 
 ## Things to double check / finish before launch
 
+- **Phone numbers are placeholders.** Every phone and fax number across the
+  site currently reads `555-555-5555` on purpose. Before launch, replace
+  `PHONE_MAIN` near the top of `build.py` with the real main number, and
+  update the `phone` / `fax` fields in the `LOCATIONS` list with each
+  clinic's real number, then run `python3 build.py` to regenerate every
+  page. (Or, if you'd rather not touch Python, find-and-replace
+  `555-555-5555` directly in the HTML files — it appears in the nav, the
+  hero, the footer, every service page's CTA, and the contact page.)
 - **Brigham City Clinic** — I didn't have a street address for this location
   in the source material, so the page currently says "Call for suite
   details." Update this in `build.py` (search for `brigham-city`) once you

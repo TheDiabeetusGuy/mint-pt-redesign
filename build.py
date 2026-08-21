@@ -10,8 +10,8 @@ from icons import icon, ICONS
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_NAME = "MINT Physical Therapy"
-PHONE_MAIN = "801-831-0362"
-PHONE_MAIN_TEL = "8018310362"
+PHONE_MAIN = "555-555-5555"
+PHONE_MAIN_TEL = "5555555555"
 EMAIL_MAIN = "info@mint-pt.com"
 
 # ---------------------------------------------------------------
@@ -75,23 +75,23 @@ def elevation_chart():
 # ---------------------------------------------------------------
 LOCATIONS = [
     dict(slug="ogden", name="Ogden Clinic", addr1="533 26th St. #202", city="Ogden, UT 84401",
-         phone="385-442-9912", fax="801-992-6450", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
     dict(slug="clearfield", name="Clearfield Clinic", addr1="1030 University Park Blvd, Suite 1", city="Clearfield, UT 84015",
-         phone="385-442-9912", fax="801-992-6450", email="daviscounty@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="daviscounty@mint-pt.com"),
     dict(slug="brigham-city", name="Brigham City Clinic", addr1="Call for suite details", city="Brigham City, UT",
-         phone=PHONE_MAIN, fax="801-992-6450", email=EMAIL_MAIN),
+         phone=PHONE_MAIN, fax="555-555-5555", email=EMAIL_MAIN),
     dict(slug="murray", name="Murray Clinic", addr1="6095 S Fashion Blvd, STE 120", city="Murray, UT 84107",
-         phone="385-541-2754", fax="801-992-6450", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
     dict(slug="riverton", name="Riverton Clinic", addr1="12427 4000 W #202", city="Riverton, UT 84096",
-         phone="385-295-9642", fax="801-992-6450", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
     dict(slug="west-valley-city", name="West Valley City Clinic", addr1="3451 S 5600 W", city="West Valley City, UT 84120",
-         phone="385-295-9642", fax="801-992-6450", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
     dict(slug="lehi", name="Lehi Clinic", addr1="120 W Main St", city="Lehi, UT 84043",
-         phone="385-541-2754", fax="801-992-6450", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
     dict(slug="american-fork", name="American Fork Clinic", addr1="476 N 900 W, Suite B", city="American Fork, UT 84003",
-         phone="385-541-2754", fax="801-992-6450", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
     dict(slug="provo", name="Provo Clinic", addr1="1807 N 1120 W", city="Provo, UT 84604",
-         phone="385-541-2754", fax="801-992-6450", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
 ]
 
 SERVICES = [
