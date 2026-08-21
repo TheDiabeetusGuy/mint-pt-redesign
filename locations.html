@@ -3,273 +3,282 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Locations — MINT Physical Therapy</title>
-<meta name="description" content="Six MINT Physical Therapy clinics across the Wasatch Front, plus mobile physical therapy in Ogden/Layton, Salt Lake County, and Utah County.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink-950:#14181A; --ink-800:#22282A; --ink-600:#4A5254;
-  --stone-100:#EDEEEA; --stone-50:#F7F7F4;
-  --sage-700:#33473A; --sage-600:#445E4C; --sage-300:#9FB6A4; --sage-200:#C9D6CB;
-  --brass-500:#A9824C; --white:#FFFFFF;
-  --serif:"Fraunces",Georgia,serif; --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --container:1180px;
-}
-*{box-sizing:border-box; margin:0; padding:0;}
-body{font-family:var(--sans); color:var(--ink-950); background:var(--stone-50); line-height:1.55; -webkit-font-smoothing:antialiased;}
-img{max-width:100%; display:block;}
-a{color:inherit; text-decoration:none;}
-:focus-visible{outline:2px solid var(--brass-500); outline-offset:3px;}
-.wrap{max-width:var(--container); margin:0 auto; padding:0 32px;}
-@media (max-width:640px){ .wrap{padding:0 20px;} }
-.eyebrow{font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--sage-600);}
-.eyebrow.on-dark{color:var(--sage-300);}
-h1,h2,h3{font-family:var(--serif); font-weight:440; line-height:1.08; letter-spacing:-0.01em;}
-h2{font-size:clamp(28px,3.6vw,44px);}
-h3{font-size:20px; font-weight:500;}
-p{color:var(--ink-600);}
-.btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:14px; letter-spacing:0.02em; padding:15px 28px; border-radius:2px; border:1px solid transparent; cursor:pointer; transition:all .2s ease;}
-.btn-primary{background:var(--sage-600); color:var(--white);}
-.btn-primary:hover{background:var(--sage-700);}
-.btn-ghost{border-color:currentColor; color:var(--ink-950); background:transparent;}
-.btn-ghost:hover{background:var(--ink-950); color:var(--white);}
-.btn-ghost.on-dark{color:var(--white);}
-.btn-ghost.on-dark:hover{background:var(--white); color:var(--ink-950);}
-.topbar{background:var(--ink-950); color:var(--sage-200); font-size:13px;}
-.topbar .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:9px; padding-bottom:9px;}
-.topbar a{color:var(--stone-50); font-weight:600;}
-.topbar .tb-left span{margin-right:22px;}
-@media (max-width:760px){ .topbar .tb-left span:nth-child(2){display:none;} }
-header.site{background:var(--stone-50); border-bottom:1px solid rgba(20,24,26,0.08); position:sticky; top:0; z-index:50;}
-header.site .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px;}
-.logo{font-family:var(--serif); font-size:23px; font-weight:500;}
-.logo span{color:var(--sage-600);}
-nav.main{display:flex; align-items:center; gap:34px;}
-nav.main a{font-size:14px; font-weight:500;}
-nav.main a:hover{color:var(--sage-600);}
-nav.main a.active{color:var(--sage-600);}
-.header-cta{display:flex; align-items:center; gap:18px;}
-.nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
-.nav-toggle span{display:block; width:22px; height:2px; background:var(--ink-950); margin:5px 0;}
-@media (max-width:920px){
-  nav.main{position:fixed; top:0; right:0; height:100vh; width:78vw; max-width:340px; background:var(--white);
-    flex-direction:column; align-items:flex-start; padding:90px 30px; gap:22px;
-    transform:translateX(100%); transition:transform .3s ease; box-shadow:-8px 0 30px rgba(0,0,0,0.08);}
-  nav.main.open{transform:translateX(0);}
-  .nav-toggle{display:block;}
-  .header-cta .btn-ghost{display:none;}
-}
-.page-hero{background:var(--ink-950); color:var(--stone-100); padding:70px 0 56px;}
-.page-hero h1{color:var(--stone-50); font-size:clamp(36px,5vw,54px); margin-top:14px;}
-.page-hero p{color:var(--sage-200); max-width:52ch; margin-top:16px; font-size:16px;}
-.path-divider{width:100%; height:34px;}
-.path-divider svg{width:100%; height:100%; display:block;}
-section{padding:88px 0;}
-@media (max-width:760px){ section{padding:56px 0;} }
-.loc-full-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(20,24,26,0.1); border:1px solid rgba(20,24,26,0.1);}
-.loc-full-card{background:var(--white); padding:34px 28px; position:relative;}
-.loc-full-card::before{content:""; position:absolute; top:0; left:0; width:0%; height:2px; background:var(--brass-500); transition:width .25s ease;}
-.loc-full-card:hover::before{width:100%;}
-.loc-full-card h3{margin-bottom:14px;}
-.loc-full-card .addr{font-size:14px; margin-bottom:16px;}
-.loc-full-card .addr span{display:block;}
-.loc-full-card .contact-line{font-size:14px; border-top:1px solid rgba(20,24,26,0.1); padding-top:14px; margin-top:6px;}
-.loc-full-card .contact-line div{margin-bottom:4px;}
-.loc-full-card .contact-line a{font-weight:600; color:var(--sage-700);}
-@media (max-width:920px){ .loc-full-grid{grid-template-columns:repeat(2,1fr);} }
-@media (max-width:600px){ .loc-full-grid{grid-template-columns:1fr;} }
-.mobile-section{background:var(--sage-200);}
-.mobile-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:36px;}
-.mobile-card{background:var(--white); padding:28px; border-left:2px solid var(--sage-700);}
-.mobile-card h3{font-size:18px; margin-bottom:8px;}
-.mobile-card p{font-size:14px;}
-@media (max-width:760px){ .mobile-grid{grid-template-columns:1fr;} }
-.final-cta{background:var(--ink-950); color:var(--stone-50); text-align:center;}
-.final-cta h2{color:var(--stone-50); margin:16px 0 24px;}
-.final-cta p{color:var(--sage-200); max-width:44ch; margin:0 auto 34px;}
-.hero-ctas{display:flex; gap:16px; flex-wrap:wrap; justify-content:center;}
-footer{background:var(--ink-950); color:var(--sage-200); border-top:1px solid rgba(255,255,255,0.1);}
-.foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding:64px 0 40px;}
-.foot-logo{font-family:var(--serif); color:var(--stone-50); font-size:22px; margin-bottom:14px;}
-.foot-col h4{font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--stone-50); margin-bottom:16px;}
-.foot-col ul{list-style:none;}
-.foot-col li{margin-bottom:10px; font-size:14px;}
-.foot-col a:hover{color:var(--stone-50);}
-.foot-bottom{border-top:1px solid rgba(255,255,255,0.1); padding:22px 0; font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
-@media (max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr; padding:48px 0 30px;} }
-@media (max-width:480px){ .foot-grid{grid-template-columns:1fr;} }
-</style>
+<title>Locations | MINT Physical Therapy</title>
+<meta name="description" content="Nine MINT Physical Therapy clinics across Utah's Wasatch Front, plus mobile visits from Ogden to Payson.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
-
-<div class="topbar">
-  <div class="wrap">
-    <div class="tb-left"><span>Six Utah clinics + mobile care</span><span>Mon–Fri, 7am–6pm</span></div>
-    <a href="tel:8012100127">(801) 210-0127</a>
-  </div>
-</div>
-
-<header class="site">
-  <div class="wrap">
-    <a href="index.html" class="logo">MINT<span>.</span></a>
-    <nav class="main" id="mainNav">
-      <a href="services.html">Services</a>
-      <a href="locations.html" class="active">Locations</a>
-      <a href="about.html">About &amp; Providers</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="header-cta">
-      <a href="contact.html" class="btn btn-ghost">Request Appointment</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-</header>
-
-<section class="page-hero" style="padding-bottom:0;">
-  <div class="wrap">
-    <p class="eyebrow on-dark">Locations</p>
-    <h1>Six clinics. Three mobile service areas.</h1>
-    <p>Find the option that fits your schedule — a nearby clinic, or a therapist who comes to you.</p>
-  </div>
-  <div class="path-divider" style="margin-top:56px;" aria-hidden="true">
-    <svg viewBox="0 0 1200 34" preserveAspectRatio="none">
-      <line x1="0" y1="17" x2="1200" y2="17" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <circle cx="600" cy="17" r="3.5" fill="#A9824C"/>
+<a href="#main" class="skip-link">Skip to content</a>
+<header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <svg class="mark" viewBox="0 0 60 52" aria-hidden="true">
+      <path d="M2 47 L19 7 L27.5 24 L21.5 47 Z" fill="#2FA84F"/>
+      <path d="M22 47 L38 12 L54 47 Z" fill="none" stroke="#2FA84F" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M4 47h5M5.5 43h4M7 39h3" stroke="#2FA84F" stroke-width="3" stroke-linecap="round"/>
     </svg>
-  </div>
-</section>
+        <span>MINT<small>Physical Therapy</small></span>
+      </a>
 
-<section>
-  <div class="wrap">
-    <div class="loc-full-grid">
-      <div class="loc-full-card">
-        <h3>Murray Clinic</h3>
-        <div class="addr"><span>6095 S Fashion Blvd, Ste 120</span><span>Murray, UT 84107</span></div>
-        <div class="contact-line">
-          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
-          <div>Fax: 801-992-6450</div>
-          <div>info@mint-pt.com</div>
-        </div>
-      </div>
-      <div class="loc-full-card">
-        <h3>Riverton Clinic</h3>
-        <div class="addr"><span>12427 4000 W, #202</span><span>Riverton, UT 84096</span></div>
-        <div class="contact-line">
-          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
-          <div>Fax: 801-992-6450</div>
-          <div>info@mint-pt.com</div>
-        </div>
-      </div>
-      <div class="loc-full-card">
-        <h3>Ogden Clinic</h3>
-        <div class="addr"><span>1186 E 4600 S, #220</span><span>Ogden, UT 84403</span></div>
-        <div class="contact-line">
-          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
-          <div>Fax: 801-992-6450</div>
-          <div>daviscounty@mint-pt.com</div>
-        </div>
-      </div>
-      <div class="loc-full-card">
-        <h3>Clearfield Clinic</h3>
-        <div class="addr"><span>1030 University Park Blvd, Ste 1</span><span>Clearfield, UT 84015</span></div>
-        <div class="contact-line">
-          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
-          <div>Fax: 801-992-6450</div>
-          <div>daviscounty@mint-pt.com</div>
-        </div>
-      </div>
-      <div class="loc-full-card">
-        <h3>Brigham City Clinic</h3>
-        <div class="addr"><span>60 S Main St</span><span>Brigham City, UT 84302</span></div>
-        <div class="contact-line">
-          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
-          <div>Fax: 801-992-6450</div>
-          <div>daviscounty@mint-pt.com</div>
-        </div>
-      </div>
-      <div class="loc-full-card">
-        <h3>West Valley Clinic</h3>
-        <div class="addr"><span>3451 S 5600 W</span><span>West Valley City, UT 84120</span></div>
-        <div class="contact-line">
-          <div>Phone: <a href="tel:8012100127">801-210-0127</a></div>
-          <div>Fax: 801-992-6450</div>
-          <div>info@mint-pt.com</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="mobile-section">
-  <div class="wrap">
-    <p class="eyebrow">Mobile physical therapy</p>
-    <h2 style="font-size:30px; margin-top:10px;">We come to you.</h2>
-    <p style="max-width:56ch; margin-top:14px; color:var(--sage-700);">Full 1:1 sessions in your home or office — the same evaluation, the same plan, the same therapist you'd see in a clinic.</p>
-    <div class="mobile-grid">
-      <div class="mobile-card"><h3>Ogden / Layton</h3><p>Mobile coverage across northern Davis and Weber counties.</p></div>
-      <div class="mobile-card"><h3>Salt Lake County</h3><p>Mobile coverage from Sandy to West Valley City.</p></div>
-      <div class="mobile-card"><h3>Utah County</h3><p>Mobile coverage across Provo, Orem, and surrounding cities.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="final-cta">
-  <div class="wrap">
-    <p class="eyebrow on-dark">Find your nearest option</p>
-    <h2>One call sets it up.</h2>
-    <p>We'll match you to the closest clinic — or confirm mobile availability in your area.</p>
-    <div class="hero-ctas">
-      <a href="contact.html" class="btn btn-primary">Request an Appointment</a>
-      <a href="tel:8012100127" class="btn btn-ghost on-dark">Call (801) 210-0127</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <div class="foot-logo">MINT.</div>
-        <p style="max-width:32ch; font-size:14px;">One-on-one physical therapy, clinic-based and mobile, across the Wasatch Front.</p>
-      </div>
-      <div class="foot-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="services.html">Auto Accident Recovery</a></li>
-          <li><a href="services.html">Back &amp; Neck Pain</a></li>
-          <li><a href="services.html">Dry Needling</a></li>
-          <li><a href="services.html">Sports Medicine</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h4>Locations</h4>
-        <ul>
-          <li><a href="locations.html">Murray</a></li>
-          <li><a href="locations.html">Ogden</a></li>
-          <li><a href="locations.html">Riverton</a></li>
-          <li><a href="locations.html">All locations →</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="about.html">About &amp; Providers</a></li>
+      <nav aria-label="Primary">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-dropdown">
+            <button type="button" aria-haspopup="true">Locations <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true" ><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dropdown"><a href="locations.html#ogden">Ogden Clinic</a><a href="locations.html#clearfield">Clearfield Clinic</a><a href="locations.html#brigham-city">Brigham City Clinic</a><a href="locations.html#murray">Murray Clinic</a><a href="locations.html#riverton">Riverton Clinic</a><a href="locations.html#west-valley-city">West Valley City Clinic</a><a href="locations.html#lehi">Lehi Clinic</a><a href="locations.html#american-fork">American Fork Clinic</a><a href="locations.html#provo">Provo Clinic</a></div>
+          </li>
+          <li><a href="providers.html">Our Providers</a></li>
+          <li class="has-dropdown">
+            <button type="button" aria-haspopup="true">Services <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true" ><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dropdown wide"><a href="services/back-pain.html">Back Pain</a><a href="services/sciatica.html">Sciatica</a><a href="services/chronic-pain.html">Chronic Pain</a><a href="services/knee-pain.html">Knee Pain</a><a href="services/shoulder-pain.html">Shoulder Pain</a><a href="services/headaches-migraines.html">Headaches & Migraines</a><a href="services/concussion-tbi.html">Concussion / Mild TBI</a><a href="services/long-covid.html">Long COVID / Post-COVID Syndrome</a><a href="services/dry-needling.html">Dry Needling</a><a href="services/winback-diathermy.html">WinBack Diathermy</a><a href="services/auto-accidents.html">Auto Accident Recovery</a><a href="services/workers-comp.html">Workers' Comp</a></div>
+          </li>
+          <li><a href="join-team.html">Join Our Team</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="#">Join Our Team</a></li>
         </ul>
+      </nav>
+
+      <div class="nav-cta">
+        <div class="nav-phone">
+          <span>Call today</span>
+          <b><a href="tel:+18018310362">801-831-0362</a></b>
+        </div>
+        <a class="btn btn-primary btn-sm" href="contact.html"><span class="long">Request&nbsp;</span>Appointment</a>
+        <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg></button>
       </div>
     </div>
-    <div class="wrap foot-bottom" style="padding-left:0; padding-right:0;">
-      <span>© 2026 MINT Physical Therapy. All rights reserved.</span>
-      <span>(801) 210-0127 · info@mint-pt.com</span>
+  </header>
+<main id="main">
+<section class="page-hero">
+    <svg class="hero-topo" viewBox="0 0 1400 460" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0,69.0 Q0.0,69.0 50.0,57.5 Q100.0,46.0 150.0,42.0 Q200.0,38.0 250.0,44.6 Q300.0,51.2 350.0,63.9 Q400.0,76.6 450.0,86.7 Q500.0,96.8 550.0,98.0 Q600.0,99.1 650.0,91.8 Q700.0,84.6 750.0,75.8 Q800.0,67.0 850.0,64.6 Q900.0,62.2 950.0,68.9 Q1000.0,75.6 1050.0,86.7 Q1100.0,97.9 1150.0,105.1 Q1200.0,112.3 1250.0,109.5 Q1300.0,106.8 1350.0,95.2" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/><path d="M0.0,118.2 Q0.0,118.2 50.0,111.7 Q100.0,105.2 150.0,113.1 Q200.0,120.9 250.0,138.7 Q300.0,156.6 350.0,172.9 Q400.0,189.2 450.0,193.6 Q500.0,198.0 550.0,189.0 Q600.0,179.9 650.0,165.6 Q700.0,151.3 750.0,143.3 Q800.0,135.4 850.0,139.9 Q900.0,144.4 950.0,157.3 Q1000.0,170.3 1050.0,180.8 Q1100.0,191.2 1150.0,189.5 Q1200.0,187.8 1250.0,173.3 Q1300.0,158.8 1350.0,140.6" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/><path d="M0.0,183.4 Q0.0,183.4 50.0,190.1 Q100.0,196.9 150.0,217.8 Q200.0,238.7 250.0,260.3 Q300.0,281.9 350.0,289.7 Q400.0,297.5 450.0,286.8 Q500.0,276.0 550.0,255.1 Q600.0,234.3 650.0,218.5 Q700.0,202.7 750.0,202.6 Q800.0,202.5 850.0,216.0 Q900.0,229.6 950.0,244.1 Q1000.0,258.7 1050.0,260.7 Q1100.0,262.7 1150.0,248.3 Q1200.0,233.9 1250.0,212.1 Q1300.0,190.4 1350.0,176.6" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/><path d="M0.0,292.4 Q0.0,292.4 50.0,302.0 Q100.0,311.6 150.0,323.1 Q200.0,334.7 250.0,339.8 Q300.0,344.9 350.0,339.4 Q400.0,334.0 450.0,321.4 Q500.0,308.8 550.0,297.5 Q600.0,286.2 650.0,283.4 Q700.0,280.6 750.0,287.0 Q800.0,293.4 850.0,302.8 Q900.0,312.2 950.0,316.3 Q1000.0,320.5 1050.0,315.5 Q1100.0,310.6 1150.0,300.0 Q1200.0,289.5 1250.0,281.5 Q1300.0,273.6 1350.0,275.0" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/><path d="M0.0,384.0 Q0.0,384.0 50.0,398.3 Q100.0,412.6 150.0,420.5 Q200.0,428.4 250.0,422.5 Q300.0,416.6 350.0,399.6 Q400.0,382.5 450.0,365.2 Q500.0,347.9 550.0,341.6 Q600.0,335.2 650.0,343.0 Q700.0,350.8 750.0,365.6 Q800.0,380.5 850.0,390.8 Q900.0,401.0 950.0,399.1 Q1000.0,397.1 1050.0,385.3 Q1100.0,373.5 1150.0,362.2 Q1200.0,350.9 1250.0,350.5 Q1300.0,350.1 1350.0,362.8" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/></svg>
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Locations</div>
+      <div class="eyebrow on-dark" style="margin-top:18px;">Nine Clinics &middot; One Standard of Care</div>
+      <h1>Find a MINT Clinic Near You</h1>
+      <p class="lead">Walk-in for 1:1 care at any of our nine Wasatch Front locations, or ask about a mobile visit &mdash; we cover Ogden all the way down to Payson.</p>
     </div>
-  </div>
-</footer>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="tag" style="margin-bottom:26px;"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px"><path d="M3 11l16-7-7 16-2-7z"/></svg> Hours are generally Monday&ndash;Friday, 7am&ndash;6pm. Please call your clinic to confirm.</div>
+      <div class="grid-3">
+        <div class="location-card" id="ogden">
+      <div class="map-swatch" style="background:linear-gradient(135deg,var(--mint-100),var(--stone-200));display:flex;align-items:center;justify-content:center;color:var(--forest-600);">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:30px;height:30px"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+      </div>
+      <div class="body">
+        <h3>Ogden Clinic</h3>
+        <p class="addr">533 26th St. #202<br>Ogden, UT 84401</p>
+        <div class="meta">
+          <span>P 385-442-9912</span>
+          <span>F 801-992-6450</span>
+          <span>info@mint-pt.com</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Ogden+Clinic+533+26th+St.+#202+Ogden,+UT+84401" target="_blank" rel="noopener">Directions</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book</a>
+        </div>
+      </div>
+    </div><div class="location-card" id="clearfield">
+      <div class="map-swatch" style="background:linear-gradient(135deg,var(--mint-100),var(--stone-200));display:flex;align-items:center;justify-content:center;color:var(--forest-600);">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:30px;height:30px"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+      </div>
+      <div class="body">
+        <h3>Clearfield Clinic</h3>
+        <p class="addr">1030 University Park Blvd, Suite 1<br>Clearfield, UT 84015</p>
+        <div class="meta">
+          <span>P 385-442-9912</span>
+          <span>F 801-992-6450</span>
+          <span>daviscounty@mint-pt.com</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Clearfield+Clinic+1030+University+Park+Blvd,+Suite+1+Clearfield,+UT+84015" target="_blank" rel="noopener">Directions</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book</a>
+        </div>
+      </div>
+    </div><div class="location-card" id="brigham-city">
+      <div class="map-swatch" style="background:linear-gradient(135deg,var(--mint-100),var(--stone-200));display:flex;align-items:center;justify-content:center;color:var(--forest-600);">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:30px;height:30px"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+      </div>
+      <div class="body">
+        <h3>Brigham City Clinic</h3>
+        <p class="addr">Call for suite details<br>Brigham City, UT</p>
+        <div class="meta">
+          <span>P 801-831-0362</span>
+          <span>F 801-992-6450</span>
+          <span>info@mint-pt.com</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Brigham+City+Clinic+Call+for+suite+details+Brigham+City,+UT" target="_blank" rel="noopener">Directions</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book</a>
+        </div>
+      </div>
+    </div><div class="location-card" id="murray">
+      <div class="map-swatch" style="background:linear-gradient(135deg,var(--mint-100),var(--stone-200));display:flex;align-items:center;justify-content:center;color:var(--forest-600);">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:30px;height:30px"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+      </div>
+      <div class="body">
+        <h3>Murray Clinic</h3>
+        <p class="addr">6095 S Fashion Blvd, STE 120<br>Murray, UT 84107</p>
+        <div class="meta">
+          <span>P 385-541-2754</span>
+          <span>F 801-992-6450</span>
+          <span>info@mint-pt.com</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Murray+Clinic+6095+S+Fashion+Blvd,+STE+120+Murray,+UT+84107" target="_blank" rel="noopener">Directions</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book</a>
+        </div>
+      </div>
+    </div><div class="location-card" id="riverton">
+      <div class="map-swatch" style="background:linear-gradient(135deg,var(--mint-100),var(--stone-200));display:flex;align-items:center;justify-content:center;color:var(--forest-600);">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:30px;height:30px"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+      </div>
+      <div class="body">
+        <h3>Riverton Clinic</h3>
+        <p class="addr">12427 4000 W #202<br>Riverton, UT 84096</p>
+        <div class="meta">
+          <span>P 385-295-9642</span>
+          <span>F 801-992-6450</span>
+          <span>info@mint-pt.com</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Riverton+Clinic+12427+4000+W+#202+Riverton,+UT+84096" target="_blank" rel="noopener">Directions</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book</a>
+        </div>
+      </div>
+    </div><div class="location-card" id="west-valley-city">
+      <div class="map-swatch" style="background:linear-gradient(135deg,var(--mint-100),var(--stone-200));display:flex;align-items:center;justify-content:center;color:var(--forest-600);">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:30px;height:30px"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+      </div>
+      <div class="body">
+        <h3>West Valley City Clinic</h3>
+        <p class="addr">3451 S 5600 W<br>West Valley City, UT 84120</p>
+        <div class="meta">
+          <span>P 385-295-9642</span>
+          <span>F 801-992-6450</span>
+          <span>info@mint-pt.com</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=West+Valley+City+Clinic+3451+S+5600+W+West+Valley+City,+UT+84120" target="_blank" rel="noopener">Directions</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book</a>
+        </div>
+      </div>
+    </div><div class="location-card" id="lehi">
+      <div class="map-swatch" style="background:linear-gradient(135deg,var(--mint-100),var(--stone-200));display:flex;align-items:center;justify-content:center;color:var(--forest-600);">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:30px;height:30px"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+      </div>
+      <div class="body">
+        <h3>Lehi Clinic</h3>
+        <p class="addr">120 W Main St<br>Lehi, UT 84043</p>
+        <div class="meta">
+          <span>P 385-541-2754</span>
+          <span>F 801-992-6450</span>
+          <span>info@mint-pt.com</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Lehi+Clinic+120+W+Main+St+Lehi,+UT+84043" target="_blank" rel="noopener">Directions</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book</a>
+        </div>
+      </div>
+    </div><div class="location-card" id="american-fork">
+      <div class="map-swatch" style="background:linear-gradient(135deg,var(--mint-100),var(--stone-200));display:flex;align-items:center;justify-content:center;color:var(--forest-600);">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:30px;height:30px"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+      </div>
+      <div class="body">
+        <h3>American Fork Clinic</h3>
+        <p class="addr">476 N 900 W, Suite B<br>American Fork, UT 84003</p>
+        <div class="meta">
+          <span>P 385-541-2754</span>
+          <span>F 801-992-6450</span>
+          <span>info@mint-pt.com</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=American+Fork+Clinic+476+N+900+W,+Suite+B+American+Fork,+UT+84003" target="_blank" rel="noopener">Directions</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book</a>
+        </div>
+      </div>
+    </div><div class="location-card" id="provo">
+      <div class="map-swatch" style="background:linear-gradient(135deg,var(--mint-100),var(--stone-200));display:flex;align-items:center;justify-content:center;color:var(--forest-600);">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:30px;height:30px"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+      </div>
+      <div class="body">
+        <h3>Provo Clinic</h3>
+        <p class="addr">1807 N 1120 W<br>Provo, UT 84604</p>
+        <div class="meta">
+          <span>P 385-541-2754</span>
+          <span>F 801-992-6450</span>
+          <span>info@mint-pt.com</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Provo+Clinic+1807+N+1120+W+Provo,+UT+84604" target="_blank" rel="noopener">Directions</a>
+          <a class="btn btn-primary btn-sm" href="contact.html">Book</a>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </section>
+  <section class="section bg-forest">
+    <div class="container split">
+      <div>
+        <div class="eyebrow on-dark">Can&rsquo;t make it in?</div>
+        <h2 style="font-size:clamp(26px,3.2vw,36px);margin-top:14px;">We&rsquo;ll come to you instead.</h2>
+        <p style="color:rgba(255,255,255,.75);margin-top:16px;font-size:16px;">Mobile physical therapy means the same 1:1 care, delivered at your home or office &mdash; available from Ogden to Payson.</p>
+        <a class="btn btn-gold" style="margin-top:24px;" href="contact.html">Request a Mobile Visit</a>
+      </div>
+      <div class="panel-art dark"><svg class="hero-topo" viewBox="0 0 600 450" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0,77.3 Q0.0,77.3 21.4,71.8 Q42.9,66.3 64.3,56.5 Q85.7,46.7 107.1,41.0 Q128.6,35.4 150.0,39.3 Q171.4,43.3 192.9,55.4 Q214.3,67.4 235.7,79.8 Q257.1,92.2 278.6,96.8 Q300.0,101.4 321.4,95.6 Q342.9,89.8 364.3,78.4 Q385.7,67.1 407.1,58.7 Q428.6,50.3 450.0,50.7 Q471.4,51.1 492.9,59.0 Q514.3,66.9 535.7,75.1 Q557.1,83.3 578.6,84.1" fill="none" stroke="rgba(84,196,110,.4)" stroke-width="1.2"/><path d="M0.0,145.7 Q0.0,145.7 21.4,133.6 Q42.9,121.6 64.3,112.0 Q85.7,102.5 107.1,104.5 Q128.6,106.6 150.0,120.5 Q171.4,134.4 192.9,150.9 Q214.3,167.5 235.7,174.9 Q257.1,182.4 278.6,175.1 Q300.0,167.8 321.4,150.8 Q342.9,133.7 364.3,118.5 Q385.7,103.3 407.1,99.7 Q428.6,96.2 450.0,105.1 Q471.4,114.0 492.9,126.6 Q514.3,139.2 535.7,144.2 Q557.1,149.2 578.6,141.5" fill="none" stroke="rgba(84,196,110,.4)" stroke-width="1.2"/><path d="M0.0,206.9 Q0.0,206.9 21.4,191.5 Q42.9,176.2 64.3,173.1 Q85.7,169.9 107.1,182.5 Q128.6,195.1 150.0,214.1 Q171.4,233.2 192.9,243.6 Q214.3,254.0 235.7,246.6 Q257.1,239.1 278.6,217.3 Q300.0,195.5 321.4,173.4 Q342.9,151.3 364.3,143.1 Q385.7,135.0 407.1,144.5 Q428.6,154.1 450.0,172.4 Q471.4,190.7 492.9,202.8 Q514.3,214.8 535.7,211.3 Q557.1,207.7 578.6,191.9" fill="none" stroke="rgba(84,196,110,.4)" stroke-width="1.2"/><path d="M0.0,253.9 Q0.0,253.9 21.4,248.6 Q42.9,243.3 64.3,247.2 Q85.7,251.0 107.1,260.3 Q128.6,269.6 150.0,276.2 Q171.4,282.9 192.9,280.5 Q214.3,278.1 235.7,267.0 Q257.1,255.9 278.6,243.2 Q300.0,230.5 321.4,224.7 Q342.9,218.9 364.3,223.7 Q385.7,228.4 407.1,239.9 Q428.6,251.4 450.0,261.2 Q471.4,271.0 492.9,272.4 Q514.3,273.9 535.7,266.9 Q557.1,260.0 578.6,251.3" fill="none" stroke="rgba(84,196,110,.4)" stroke-width="1.2"/><path d="M0.0,296.1 Q0.0,296.1 21.4,297.2 Q42.9,298.2 64.3,309.4 Q85.7,320.6 107.1,331.5 Q128.6,342.3 150.0,342.7 Q171.4,343.1 192.9,331.2 Q214.3,319.2 235.7,302.8 Q257.1,286.5 278.6,277.6 Q300.0,268.8 321.4,274.4 Q342.9,280.0 364.3,296.7 Q385.7,313.4 407.1,330.0 Q428.6,346.6 450.0,352.4 Q471.4,358.2 492.9,350.8 Q514.3,343.3 535.7,330.2 Q557.1,317.1 578.6,309.8" fill="none" stroke="rgba(84,196,110,.4)" stroke-width="1.2"/><path d="M0.0,336.7 Q0.0,336.7 21.4,349.6 Q42.9,362.6 64.3,379.3 Q85.7,396.1 107.1,402.5 Q128.6,408.8 150.0,399.2 Q171.4,389.5 192.9,371.3 Q214.3,353.1 235.7,341.1 Q257.1,329.1 278.6,334.0 Q300.0,339.0 321.4,359.5 Q342.9,380.0 364.3,403.0 Q385.7,426.1 407.1,436.7 Q428.6,447.3 450.0,439.6 Q471.4,431.9 492.9,413.2 Q514.3,394.6 535.7,379.8 Q557.1,365.1 578.6,365.3" fill="none" stroke="rgba(84,196,110,.4)" stroke-width="1.2"/></svg></div>
+    </div>
+  </section>
 
-<script>
-  document.getElementById('navToggle').addEventListener('click', () => document.getElementById('mainNav').classList.toggle('open'));
-</script>
+</main>
+<footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand"><svg class="mark" viewBox="0 0 60 52" aria-hidden="true">
+      <path d="M2 47 L19 7 L27.5 24 L21.5 47 Z" fill="#54C46E"/>
+      <path d="M22 47 L38 12 L54 47 Z" fill="none" stroke="#54C46E" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M4 47h5M5.5 43h4M7 39h3" stroke="#54C46E" stroke-width="3" stroke-linecap="round"/>
+    </svg><span>MINT Physical Therapy</span></div>
+          <p style="max-width:280px;font-size:14.5px;">Utah-based, one-on-one physical therapy — in one of our clinics, or at your door. Mobile visits available from Ogden to Payson.</p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/p/MINT-Physical-Therapy-100040214448643/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><path d="M14 9h3V5.5h-3C11.8 5.5 10 7.3 10 9.5V11H8v3.5h2V21h3.5v-6.5h2.7L17 11h-3.5V9.7c0-.4.3-.7.5-.7z"/></svg></a>
+            <a href="https://www.instagram.com/mint.physicaltherapy/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="0.8" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://www.youtube.com/@MINTCONDITION1" target="_blank" rel="noopener" aria-label="YouTube"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10.5 9.3v5.4l5-2.7z" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://open.spotify.com/show/2oc45lmxIXZNCoSB4jgwGP" target="_blank" rel="noopener" aria-label="Spotify"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><circle cx="12" cy="12" r="9.2"/><path d="M7 10.2c3-.8 7-.5 9.6 1"/><path d="M7.4 13c2.5-.6 5.7-.4 8 .9"/><path d="M8 15.6c2-.5 4.5-.3 6.2.7"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Clinics</h4>
+          <ul><li><a href="locations.html#ogden">Ogden Clinic</a></li><li><a href="locations.html#clearfield">Clearfield Clinic</a></li><li><a href="locations.html#brigham-city">Brigham City Clinic</a></li><li><a href="locations.html#murray">Murray Clinic</a></li><li><a href="locations.html#riverton">Riverton Clinic</a></li><li><a href="locations.html#west-valley-city">West Valley City Clinic</a></li><li><a href="locations.html">View all locations &rarr;</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul><li><a href="services/back-pain.html">Back Pain</a></li><li><a href="services/sciatica.html">Sciatica</a></li><li><a href="services/chronic-pain.html">Chronic Pain</a></li><li><a href="services/knee-pain.html">Knee Pain</a></li><li><a href="services/shoulder-pain.html">Shoulder Pain</a></li><li><a href="services/headaches-migraines.html">Headaches & Migraines</a></li><li><a href="services/concussion-tbi.html">Concussion / Mild TBI</a></li><li><a href="services.html">View all services &rarr;</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <ul>
+            <li><a href="tel:+18018310362">801-831-0362</a></li>
+            <li><a href="mailto:info@mint-pt.com">info@mint-pt.com</a></li>
+            <li><a href="providers.html">Our Providers</a></li>
+            <li><a href="join-team.html">Join Our Team</a></li>
+            <li><a href="contact.html">Request an Appointment</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>&copy; 2026 MINT Physical Therapy. All rights reserved.</span>
+      <span>Move &middot; Improve &middot; Nurture &middot; Teach</span>
+    </div>
+    <svg class="footer-skyline" viewBox="0 0 1400 160" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 160 L120 70 220 120 340 40 460 120 600 60 760 130 900 55 1040 120 1180 75 1300 130 1400 90 1400 160 Z" fill="rgba(255,255,255,.04)"/>
+      <path d="M0 160 L90 110 200 150 330 90 480 150 640 100 800 155 960 100 1120 150 1260 105 1400 150 1400 160 Z" fill="rgba(255,255,255,.06)"/>
+    </svg>
+  </footer>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -3,282 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact — MINT Physical Therapy</title>
-<meta name="description" content="Request an appointment at any MINT Physical Therapy clinic, or ask about mobile physical therapy in your area.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink-950:#14181A; --ink-800:#22282A; --ink-600:#4A5254;
-  --stone-100:#EDEEEA; --stone-50:#F7F7F4;
-  --sage-700:#33473A; --sage-600:#445E4C; --sage-300:#9FB6A4; --sage-200:#C9D6CB;
-  --brass-500:#A9824C; --white:#FFFFFF;
-  --serif:"Fraunces",Georgia,serif; --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --container:1180px;
-}
-*{box-sizing:border-box; margin:0; padding:0;}
-body{font-family:var(--sans); color:var(--ink-950); background:var(--stone-50); line-height:1.55; -webkit-font-smoothing:antialiased;}
-img{max-width:100%; display:block;}
-a{color:inherit; text-decoration:none;}
-:focus-visible{outline:2px solid var(--brass-500); outline-offset:3px;}
-.wrap{max-width:var(--container); margin:0 auto; padding:0 32px;}
-@media (max-width:640px){ .wrap{padding:0 20px;} }
-.eyebrow{font-size:12px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--sage-600);}
-.eyebrow.on-dark{color:var(--sage-300);}
-h1,h2,h3{font-family:var(--serif); font-weight:440; line-height:1.08; letter-spacing:-0.01em;}
-h2{font-size:clamp(26px,3.2vw,36px);}
-h3{font-size:20px; font-weight:500;}
-p{color:var(--ink-600);}
-.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:600; font-size:14px; letter-spacing:0.02em; padding:15px 28px; border-radius:2px; border:1px solid transparent; cursor:pointer; transition:all .2s ease;}
-.btn-primary{background:var(--sage-600); color:var(--white); width:100%;}
-.btn-primary:hover{background:var(--sage-700);}
-.btn-ghost{border-color:currentColor; color:var(--ink-950); background:transparent;}
-.btn-ghost:hover{background:var(--ink-950); color:var(--white);}
-.btn-ghost.on-dark{color:var(--white);}
-.btn-ghost.on-dark:hover{background:var(--white); color:var(--ink-950);}
-.topbar{background:var(--ink-950); color:var(--sage-200); font-size:13px;}
-.topbar .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:9px; padding-bottom:9px;}
-.topbar a{color:var(--stone-50); font-weight:600;}
-.topbar .tb-left span{margin-right:22px;}
-@media (max-width:760px){ .topbar .tb-left span:nth-child(2){display:none;} }
-header.site{background:var(--stone-50); border-bottom:1px solid rgba(20,24,26,0.08); position:sticky; top:0; z-index:50;}
-header.site .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px;}
-.logo{font-family:var(--serif); font-size:23px; font-weight:500;}
-.logo span{color:var(--sage-600);}
-nav.main{display:flex; align-items:center; gap:34px;}
-nav.main a{font-size:14px; font-weight:500;}
-nav.main a:hover{color:var(--sage-600);}
-nav.main a.active{color:var(--sage-600);}
-.header-cta{display:flex; align-items:center; gap:18px;}
-.nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
-.nav-toggle span{display:block; width:22px; height:2px; background:var(--ink-950); margin:5px 0;}
-@media (max-width:920px){
-  nav.main{position:fixed; top:0; right:0; height:100vh; width:78vw; max-width:340px; background:var(--white);
-    flex-direction:column; align-items:flex-start; padding:90px 30px; gap:22px;
-    transform:translateX(100%); transition:transform .3s ease; box-shadow:-8px 0 30px rgba(0,0,0,0.08);}
-  nav.main.open{transform:translateX(0);}
-  .nav-toggle{display:block;}
-  .header-cta .btn-ghost{display:none;}
-}
-.page-hero{background:var(--ink-950); color:var(--stone-100); padding:70px 0 56px;}
-.page-hero h1{color:var(--stone-50); font-size:clamp(36px,5vw,54px); margin-top:14px;}
-.page-hero p{color:var(--sage-200); max-width:52ch; margin-top:16px; font-size:16px;}
-.path-divider{width:100%; height:34px;}
-.path-divider svg{width:100%; height:100%; display:block;}
-section{padding:88px 0;}
-@media (max-width:760px){ section{padding:56px 0;} }
-.contact-grid{display:grid; grid-template-columns:1fr 1.2fr; gap:64px;}
-@media (max-width:900px){ .contact-grid{grid-template-columns:1fr;} }
-.info-block{border-top:1px solid rgba(20,24,26,0.12); padding-top:18px; margin-top:24px;}
-.info-block:first-child{margin-top:0;}
-.info-block h3{font-size:16px; margin-bottom:8px;}
-.info-block p{font-size:14px; margin-bottom:2px;}
-.info-block a{font-weight:600; color:var(--sage-700);}
-.form-card{background:var(--white); border:1px solid rgba(20,24,26,0.12); padding:38px;}
-.form-row{margin-bottom:20px;}
-.form-row label{display:block; font-size:13px; font-weight:600; margin-bottom:7px; letter-spacing:0.02em;}
-.form-row input, .form-row select, .form-row textarea{
-  width:100%; padding:12px 14px; border:1px solid rgba(20,24,26,0.2); background:var(--stone-50);
-  font-family:var(--sans); font-size:14px; color:var(--ink-950); border-radius:2px;
-}
-.form-row input:focus, .form-row select:focus, .form-row textarea:focus{outline:none; border-color:var(--sage-600); background:var(--white);}
-.form-row-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-@media (max-width:520px){ .form-row-2{grid-template-columns:1fr;} }
-.hp-field{position:absolute; left:-9999px; top:-9999px;}
-.form-note{font-size:12px; color:var(--ink-600); margin-top:14px; text-align:center;}
-.form-success{display:none; text-align:center; padding:40px 20px;}
-.form-success.show{display:block;}
-.form-success h3{margin-bottom:10px;}
-footer{background:var(--ink-950); color:var(--sage-200); border-top:1px solid rgba(255,255,255,0.1);}
-.foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding:64px 0 40px;}
-.foot-logo{font-family:var(--serif); color:var(--stone-50); font-size:22px; margin-bottom:14px;}
-.foot-col h4{font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--stone-50); margin-bottom:16px;}
-.foot-col ul{list-style:none;}
-.foot-col li{margin-bottom:10px; font-size:14px;}
-.foot-col a:hover{color:var(--stone-50);}
-.foot-bottom{border-top:1px solid rgba(255,255,255,0.1); padding:22px 0; font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
-@media (max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr; padding:48px 0 30px;} }
-@media (max-width:480px){ .foot-grid{grid-template-columns:1fr;} }
-</style>
+<title>Contact | MINT Physical Therapy</title>
+<meta name="description" content="Request an appointment with MINT Physical Therapy — in-clinic or mobile visits across Utah's Wasatch Front.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
-
-<div class="topbar">
-  <div class="wrap">
-    <div class="tb-left"><span>Six Utah clinics + mobile care</span><span>Mon–Fri, 7am–6pm</span></div>
-    <a href="tel:8012100127">(801) 210-0127</a>
-  </div>
-</div>
-
-<header class="site">
-  <div class="wrap">
-    <a href="index.html" class="logo">MINT<span>.</span></a>
-    <nav class="main" id="mainNav">
-      <a href="services.html">Services</a>
-      <a href="locations.html">Locations</a>
-      <a href="about.html">About &amp; Providers</a>
-      <a href="contact.html" class="active">Contact</a>
-    </nav>
-    <div class="header-cta">
-      <a href="contact.html" class="btn btn-ghost">Request Appointment</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-</header>
-
-<section class="page-hero" style="padding-bottom:0;">
-  <div class="wrap">
-    <p class="eyebrow on-dark">Contact</p>
-    <h1>Let's get you scheduled.</h1>
-    <p>Request an appointment below, or call your nearest clinic directly.</p>
-  </div>
-  <div class="path-divider" style="margin-top:56px;" aria-hidden="true">
-    <svg viewBox="0 0 1200 34" preserveAspectRatio="none">
-      <line x1="0" y1="17" x2="1200" y2="17" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <circle cx="600" cy="17" r="3.5" fill="#A9824C"/>
+<a href="#main" class="skip-link">Skip to content</a>
+<header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <svg class="mark" viewBox="0 0 60 52" aria-hidden="true">
+      <path d="M2 47 L19 7 L27.5 24 L21.5 47 Z" fill="#2FA84F"/>
+      <path d="M22 47 L38 12 L54 47 Z" fill="none" stroke="#2FA84F" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M4 47h5M5.5 43h4M7 39h3" stroke="#2FA84F" stroke-width="3" stroke-linecap="round"/>
     </svg>
-  </div>
-</section>
+        <span>MINT<small>Physical Therapy</small></span>
+      </a>
 
-<section>
-  <div class="wrap contact-grid">
-    <div>
-      <p class="eyebrow">Get in touch</p>
-      <h2 style="margin:10px 0 6px;">We'll respond within one business day.</h2>
+      <nav aria-label="Primary">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-dropdown">
+            <button type="button" aria-haspopup="true">Locations <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true" ><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dropdown"><a href="locations.html#ogden">Ogden Clinic</a><a href="locations.html#clearfield">Clearfield Clinic</a><a href="locations.html#brigham-city">Brigham City Clinic</a><a href="locations.html#murray">Murray Clinic</a><a href="locations.html#riverton">Riverton Clinic</a><a href="locations.html#west-valley-city">West Valley City Clinic</a><a href="locations.html#lehi">Lehi Clinic</a><a href="locations.html#american-fork">American Fork Clinic</a><a href="locations.html#provo">Provo Clinic</a></div>
+          </li>
+          <li><a href="providers.html">Our Providers</a></li>
+          <li class="has-dropdown">
+            <button type="button" aria-haspopup="true">Services <svg class="icon chev" viewBox="0 0 24 24" aria-hidden="true" ><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dropdown wide"><a href="services/back-pain.html">Back Pain</a><a href="services/sciatica.html">Sciatica</a><a href="services/chronic-pain.html">Chronic Pain</a><a href="services/knee-pain.html">Knee Pain</a><a href="services/shoulder-pain.html">Shoulder Pain</a><a href="services/headaches-migraines.html">Headaches & Migraines</a><a href="services/concussion-tbi.html">Concussion / Mild TBI</a><a href="services/long-covid.html">Long COVID / Post-COVID Syndrome</a><a href="services/dry-needling.html">Dry Needling</a><a href="services/winback-diathermy.html">WinBack Diathermy</a><a href="services/auto-accidents.html">Auto Accident Recovery</a><a href="services/workers-comp.html">Workers' Comp</a></div>
+          </li>
+          <li><a href="join-team.html">Join Our Team</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
 
-      <div class="info-block">
-        <h3>Call or text</h3>
-        <p><a href="tel:8012100127">(801) 210-0127</a></p>
-      </div>
-      <div class="info-block">
-        <h3>Email</h3>
-        <p><a href="mailto:info@mint-pt.com">info@mint-pt.com</a></p>
-      </div>
-      <div class="info-block">
-        <h3>Hours</h3>
-        <p>Monday – Friday, 7:00am – 6:00pm</p>
-      </div>
-      <div class="info-block">
-        <h3>Insurance &amp; billing</h3>
-        <p>Cash pay, workers' comp, and auto accident claims accepted.</p>
+      <div class="nav-cta">
+        <div class="nav-phone">
+          <span>Call today</span>
+          <b><a href="tel:+18018310362">801-831-0362</a></b>
+        </div>
+        <a class="btn btn-primary btn-sm" href="contact.html"><span class="long">Request&nbsp;</span>Appointment</a>
+        <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg></button>
       </div>
     </div>
-
-    <div class="form-card">
-      <form id="apptForm">
-        <div id="formFields">
-          <div class="form-row-2">
-            <div class="form-row">
-              <label for="fname">First name</label>
-              <input type="text" id="fname" name="fname" required>
-            </div>
-            <div class="form-row">
-              <label for="lname">Last name</label>
-              <input type="text" id="lname" name="lname" required>
-            </div>
-          </div>
-          <div class="form-row-2">
-            <div class="form-row">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" required>
-            </div>
-            <div class="form-row">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <label for="clinic">Preferred clinic</label>
-            <select id="clinic" name="clinic">
-              <option>Murray Clinic</option>
-              <option>Riverton Clinic</option>
-              <option>Ogden Clinic</option>
-              <option>Clearfield Clinic</option>
-              <option>Brigham City Clinic</option>
-              <option>West Valley Clinic</option>
-              <option>Mobile — Ogden/Layton</option>
-              <option>Mobile — Salt Lake County</option>
-              <option>Mobile — Utah County</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label for="reason">What's going on?</label>
-            <textarea id="reason" name="reason" rows="4" placeholder="Briefly describe your injury or condition"></textarea>
-          </div>
-
-          <!-- Honeypot field — invisible to real visitors, positioned off-screen rather than display:none -->
-          <div class="hp-field" aria-hidden="true">
-            <label for="company">Company</label>
-            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
-          </div>
-          <input type="hidden" id="ts" name="ts" value="">
-
-          <button type="submit" class="btn btn-primary">Request Appointment</button>
-          <p class="form-note">This is a design demo — no data is submitted or stored. In production, this form would post to a rate-limited endpoint with honeypot and timing checks in place (see contact form handling in the site playbook).</p>
-        </div>
-
-        <div class="form-success" id="formSuccess">
-          <h3>Request received.</h3>
-          <p>Thanks — someone from MINT will reach out within one business day to confirm your appointment.</p>
-        </div>
-      </form>
+  </header>
+<main id="main">
+<section class="page-hero">
+    <svg class="hero-topo" viewBox="0 0 1400 460" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0,69.0 Q0.0,69.0 50.0,57.5 Q100.0,46.0 150.0,42.0 Q200.0,38.0 250.0,44.6 Q300.0,51.2 350.0,63.9 Q400.0,76.6 450.0,86.7 Q500.0,96.8 550.0,98.0 Q600.0,99.1 650.0,91.8 Q700.0,84.6 750.0,75.8 Q800.0,67.0 850.0,64.6 Q900.0,62.2 950.0,68.9 Q1000.0,75.6 1050.0,86.7 Q1100.0,97.9 1150.0,105.1 Q1200.0,112.3 1250.0,109.5 Q1300.0,106.8 1350.0,95.2" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/><path d="M0.0,118.2 Q0.0,118.2 50.0,111.7 Q100.0,105.2 150.0,113.1 Q200.0,120.9 250.0,138.7 Q300.0,156.6 350.0,172.9 Q400.0,189.2 450.0,193.6 Q500.0,198.0 550.0,189.0 Q600.0,179.9 650.0,165.6 Q700.0,151.3 750.0,143.3 Q800.0,135.4 850.0,139.9 Q900.0,144.4 950.0,157.3 Q1000.0,170.3 1050.0,180.8 Q1100.0,191.2 1150.0,189.5 Q1200.0,187.8 1250.0,173.3 Q1300.0,158.8 1350.0,140.6" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/><path d="M0.0,183.4 Q0.0,183.4 50.0,190.1 Q100.0,196.9 150.0,217.8 Q200.0,238.7 250.0,260.3 Q300.0,281.9 350.0,289.7 Q400.0,297.5 450.0,286.8 Q500.0,276.0 550.0,255.1 Q600.0,234.3 650.0,218.5 Q700.0,202.7 750.0,202.6 Q800.0,202.5 850.0,216.0 Q900.0,229.6 950.0,244.1 Q1000.0,258.7 1050.0,260.7 Q1100.0,262.7 1150.0,248.3 Q1200.0,233.9 1250.0,212.1 Q1300.0,190.4 1350.0,176.6" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/><path d="M0.0,292.4 Q0.0,292.4 50.0,302.0 Q100.0,311.6 150.0,323.1 Q200.0,334.7 250.0,339.8 Q300.0,344.9 350.0,339.4 Q400.0,334.0 450.0,321.4 Q500.0,308.8 550.0,297.5 Q600.0,286.2 650.0,283.4 Q700.0,280.6 750.0,287.0 Q800.0,293.4 850.0,302.8 Q900.0,312.2 950.0,316.3 Q1000.0,320.5 1050.0,315.5 Q1100.0,310.6 1150.0,300.0 Q1200.0,289.5 1250.0,281.5 Q1300.0,273.6 1350.0,275.0" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/><path d="M0.0,384.0 Q0.0,384.0 50.0,398.3 Q100.0,412.6 150.0,420.5 Q200.0,428.4 250.0,422.5 Q300.0,416.6 350.0,399.6 Q400.0,382.5 450.0,365.2 Q500.0,347.9 550.0,341.6 Q600.0,335.2 650.0,343.0 Q700.0,350.8 750.0,365.6 Q800.0,380.5 850.0,390.8 Q900.0,401.0 950.0,399.1 Q1000.0,397.1 1050.0,385.3 Q1100.0,373.5 1150.0,362.2 Q1200.0,350.9 1250.0,350.5 Q1300.0,350.1 1350.0,362.8" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.2"/></svg>
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+      <div class="eyebrow on-dark" style="margin-top:18px;">We&rsquo;d Love to Help</div>
+      <h1>Contact / Request an Appointment</h1>
+      <p class="lead">Fill out the form and our team will reach out to schedule your visit &mdash; in-clinic or mobile. Prefer to talk now? Give us a call.</p>
     </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
+  </section>
+  <section class="section">
+    <div class="container split" style="align-items:start;">
       <div>
-        <div class="foot-logo">MINT.</div>
-        <p style="max-width:32ch; font-size:14px;">One-on-one physical therapy, clinic-based and mobile, across the Wasatch Front.</p>
+        <div class="form-card">
+          <form id="appointment-form">
+            <div class="form-row">
+              <div class="field"><label>First Name <span class="req">*</span></label><input type="text" required></div>
+              <div class="field"><label>Last Name <span class="req">*</span></label><input type="text" required></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label>Email <span class="req">*</span></label><input type="email" required></div>
+              <div class="field"><label>Phone <span class="req">*</span></label><input type="tel" required></div>
+            </div>
+            <div class="field">
+              <label>Preferred Clinic</label>
+              <select><option>Mobile visit (Ogden&ndash;Payson)</option><option>Ogden Clinic</option><option>Clearfield Clinic</option><option>Brigham City Clinic</option><option>Murray Clinic</option><option>Riverton Clinic</option><option>West Valley City Clinic</option><option>Lehi Clinic</option><option>American Fork Clinic</option><option>Provo Clinic</option></select>
+            </div>
+            <div class="field"><label>What&rsquo;s going on?</label><textarea placeholder="Tell us a bit about your injury or goals"></textarea></div>
+            <button class="btn btn-primary btn-block" type="submit">Request Appointment</button>
+            <p class="form-note">By submitting, you agree to be contacted by MINT Physical Therapy about scheduling. We never share your information.</p>
+          </form>
+          <div class="form-success" id="form-success">
+            <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><path d="M4 12.5l5 5L20 6.5"/></svg></div>
+            <h3>Thanks &mdash; we&rsquo;ve got it!</h3>
+            <p style="color:var(--ink-500);margin-top:10px;">A member of our team will reach out shortly to confirm your appointment. Need us sooner? Call 801-831-0362.</p>
+          </div>
+        </div>
       </div>
-      <div class="foot-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="services.html">Auto Accident Recovery</a></li>
-          <li><a href="services.html">Back &amp; Neck Pain</a></li>
-          <li><a href="services.html">Dry Needling</a></li>
-          <li><a href="services.html">Sports Medicine</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h4>Locations</h4>
-        <ul>
-          <li><a href="locations.html">Murray</a></li>
-          <li><a href="locations.html">Ogden</a></li>
-          <li><a href="locations.html">Riverton</a></li>
-          <li><a href="locations.html">All locations →</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="about.html">About &amp; Providers</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="#">Join Our Team</a></li>
-        </ul>
+      <div>
+        <div class="sidebar-card">
+          <h4>MINT Physical Therapy</h4>
+          <p style="font-size:15px;margin-bottom:14px;">Phone: <a href="tel:+18018310362">801-831-0362</a><br>Email: <a href="mailto:info@mint-pt.com">info@mint-pt.com</a></p>
+          <p style="font-size:14.5px;color:var(--ink-500);">Mobile visits available from Ogden to Payson. Cash pay, workers&rsquo; comp, and auto-accident patients all welcome.</p>
+        </div>
+        <div class="sidebar-card">
+          <h4>Our Clinics</h4>
+          <ul class="other-services">
+            <li><a href="locations.html#ogden">Ogden Clinic <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style=&quot;width:14px;height:14px&quot;><path d="M4 12h16"/><path d="M14 6l6 6-6 6"/></svg></a></li><li><a href="locations.html#clearfield">Clearfield Clinic <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style=&quot;width:14px;height:14px&quot;><path d="M4 12h16"/><path d="M14 6l6 6-6 6"/></svg></a></li><li><a href="locations.html#brigham-city">Brigham City Clinic <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style=&quot;width:14px;height:14px&quot;><path d="M4 12h16"/><path d="M14 6l6 6-6 6"/></svg></a></li><li><a href="locations.html#murray">Murray Clinic <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style=&quot;width:14px;height:14px&quot;><path d="M4 12h16"/><path d="M14 6l6 6-6 6"/></svg></a></li><li><a href="locations.html#riverton">Riverton Clinic <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style=&quot;width:14px;height:14px&quot;><path d="M4 12h16"/><path d="M14 6l6 6-6 6"/></svg></a></li><li><a href="locations.html#west-valley-city">West Valley City Clinic <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style=&quot;width:14px;height:14px&quot;><path d="M4 12h16"/><path d="M14 6l6 6-6 6"/></svg></a></li><li><a href="locations.html#lehi">Lehi Clinic <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style=&quot;width:14px;height:14px&quot;><path d="M4 12h16"/><path d="M14 6l6 6-6 6"/></svg></a></li><li><a href="locations.html#american-fork">American Fork Clinic <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style=&quot;width:14px;height:14px&quot;><path d="M4 12h16"/><path d="M14 6l6 6-6 6"/></svg></a></li><li><a href="locations.html#provo">Provo Clinic <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style=&quot;width:14px;height:14px&quot;><path d="M4 12h16"/><path d="M14 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <h4>Follow Along</h4>
+          <div class="footer-social" style="margin-top:0;">
+            <a href="https://www.facebook.com/p/MINT-Physical-Therapy-100040214448643/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><path d="M14 9h3V5.5h-3C11.8 5.5 10 7.3 10 9.5V11H8v3.5h2V21h3.5v-6.5h2.7L17 11h-3.5V9.7c0-.4.3-.7.5-.7z"/></svg></a>
+            <a href="https://www.instagram.com/mint.physicaltherapy/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="0.8" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://www.youtube.com/@MINTCONDITION1" target="_blank" rel="noopener" aria-label="YouTube"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10.5 9.3v5.4l5-2.7z" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://open.spotify.com/show/2oc45lmxIXZNCoSB4jgwGP" target="_blank" rel="noopener" aria-label="Spotify"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><circle cx="12" cy="12" r="9.2"/><path d="M7 10.2c3-.8 7-.5 9.6 1"/><path d="M7.4 13c2.5-.6 5.7-.4 8 .9"/><path d="M8 15.6c2-.5 4.5-.3 6.2.7"/></svg></a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="wrap foot-bottom" style="padding-left:0; padding-right:0;">
-      <span>© 2026 MINT Physical Therapy. All rights reserved.</span>
-      <span>(801) 210-0127 · info@mint-pt.com</span>
+  </section>
+
+</main>
+<footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand"><svg class="mark" viewBox="0 0 60 52" aria-hidden="true">
+      <path d="M2 47 L19 7 L27.5 24 L21.5 47 Z" fill="#54C46E"/>
+      <path d="M22 47 L38 12 L54 47 Z" fill="none" stroke="#54C46E" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M4 47h5M5.5 43h4M7 39h3" stroke="#54C46E" stroke-width="3" stroke-linecap="round"/>
+    </svg><span>MINT Physical Therapy</span></div>
+          <p style="max-width:280px;font-size:14.5px;">Utah-based, one-on-one physical therapy — in one of our clinics, or at your door. Mobile visits available from Ogden to Payson.</p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/p/MINT-Physical-Therapy-100040214448643/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><path d="M14 9h3V5.5h-3C11.8 5.5 10 7.3 10 9.5V11H8v3.5h2V21h3.5v-6.5h2.7L17 11h-3.5V9.7c0-.4.3-.7.5-.7z"/></svg></a>
+            <a href="https://www.instagram.com/mint.physicaltherapy/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="0.8" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://www.youtube.com/@MINTCONDITION1" target="_blank" rel="noopener" aria-label="YouTube"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10.5 9.3v5.4l5-2.7z" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://open.spotify.com/show/2oc45lmxIXZNCoSB4jgwGP" target="_blank" rel="noopener" aria-label="Spotify"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" ><circle cx="12" cy="12" r="9.2"/><path d="M7 10.2c3-.8 7-.5 9.6 1"/><path d="M7.4 13c2.5-.6 5.7-.4 8 .9"/><path d="M8 15.6c2-.5 4.5-.3 6.2.7"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Clinics</h4>
+          <ul><li><a href="locations.html#ogden">Ogden Clinic</a></li><li><a href="locations.html#clearfield">Clearfield Clinic</a></li><li><a href="locations.html#brigham-city">Brigham City Clinic</a></li><li><a href="locations.html#murray">Murray Clinic</a></li><li><a href="locations.html#riverton">Riverton Clinic</a></li><li><a href="locations.html#west-valley-city">West Valley City Clinic</a></li><li><a href="locations.html">View all locations &rarr;</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul><li><a href="services/back-pain.html">Back Pain</a></li><li><a href="services/sciatica.html">Sciatica</a></li><li><a href="services/chronic-pain.html">Chronic Pain</a></li><li><a href="services/knee-pain.html">Knee Pain</a></li><li><a href="services/shoulder-pain.html">Shoulder Pain</a></li><li><a href="services/headaches-migraines.html">Headaches & Migraines</a></li><li><a href="services/concussion-tbi.html">Concussion / Mild TBI</a></li><li><a href="services.html">View all services &rarr;</a></li></ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <ul>
+            <li><a href="tel:+18018310362">801-831-0362</a></li>
+            <li><a href="mailto:info@mint-pt.com">info@mint-pt.com</a></li>
+            <li><a href="providers.html">Our Providers</a></li>
+            <li><a href="join-team.html">Join Our Team</a></li>
+            <li><a href="contact.html">Request an Appointment</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
-
-<script>
-  document.getElementById('navToggle').addEventListener('click', () => document.getElementById('mainNav').classList.toggle('open'));
-
-  // Set timing-check timestamp on load (mirrors the playbook's bot-timing pattern; demo only, not enforced without a backend)
-  document.getElementById('ts').value = Date.now();
-
-  document.getElementById('apptForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    document.getElementById('formFields').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-  });
-</script>
+    <div class="container footer-bottom">
+      <span>&copy; 2026 MINT Physical Therapy. All rights reserved.</span>
+      <span>Move &middot; Improve &middot; Nurture &middot; Teach</span>
+    </div>
+    <svg class="footer-skyline" viewBox="0 0 1400 160" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 160 L120 70 220 120 340 40 460 120 600 60 760 130 900 55 1040 120 1180 75 1300 130 1400 90 1400 160 Z" fill="rgba(255,255,255,.04)"/>
+      <path d="M0 160 L90 110 200 150 330 90 480 150 640 100 800 155 960 100 1120 150 1260 105 1400 150 1400 160 Z" fill="rgba(255,255,255,.06)"/>
+    </svg>
+  </footer>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
