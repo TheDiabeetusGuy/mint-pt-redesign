@@ -469,9 +469,9 @@ def video_frame(caption="Video coming soon"):
 def home_page():
     top_services = SERVICES[:8]
     steps = [
-        dict(n="01", title="Reduces pain naturally", text="Hands-on care and targeted movement calm inflammation and pain without relying on medication."),
-        dict(n="02", title="Speeds up recovery", text="A plan built around your specific injury gets you back to normal faster than resting and hoping."),
-        dict(n="03", title="Prevents future injuries", text="Strengthening the muscles and joints around an injury keeps it from happening again."),
+        dict(n="01", title="Reduces pain naturally", text="Hands-on care and targeted movement calm inflammation and pain without relying on medication.", img="journey-1.jpg", alt="A physical therapist gently guiding a patient through a shoulder stretch"),
+        dict(n="02", title="Speeds up recovery", text="A plan built around your specific injury gets you back to normal faster than resting and hoping.", img="journey-2.jpg", alt="A physical therapist coaching a patient through a resistance-band lunge"),
+        dict(n="03", title="Prevents future injuries", text="Strengthening the muscles and joints around an injury keeps it from happening again.", img="journey-3.jpg", alt="A physical therapist guiding a patient's knee alignment during a kettlebell lunge"),
     ]
     body = f'''
   <section class="home-hero">
@@ -516,7 +516,7 @@ def home_page():
         <h2>Three reasons people choose to move first, not last.</h2>
       </div>
       <div class="journey">
-        {''.join(f"""<div class="journey-step"><div class="n">{s['n']}</div><h3>{s['title']}</h3><p>{s['text']}</p></div>""" for s in steps)}
+        {''.join(f"""<div class="journey-step"><div class="n">{s['n']}</div><h3>{s['title']}</h3><p>{s['text']}</p><div class="journey-photo"><img src="assets/img/{s['img']}" alt="{s['alt']}" loading="lazy"></div></div>""" for s in steps)}
       </div>
     </div>
   </section>
