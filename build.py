@@ -540,8 +540,7 @@ def home_page():
   <section class="section">
     <div class="container split">
       <div class="panel-art dark">
-        {topo_lines(seed=6, rows=6, w=600, h=450, stroke="rgba(84,196,110,.35)")}
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">{icon('home-ico', cls='icon', extra='style="width:56px;height:56px;color:#fff;opacity:.9"')}</div>
+        <img src="assets/img/mobile-pt.jpg" alt="A physical therapist guiding a patient through a shoulder stretch in her living room" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div>
         <div class="eyebrow">Mobile Physical Therapy</div>
