@@ -18,6 +18,7 @@
   --ink-300:   #93A099;
 
   --forest-900:#132A1B;
+  --forest-mid:#1A562D;
   --forest-800:#173B22;
   --forest-700:#1E6B37;
   --forest-600:#238C44;
@@ -400,7 +401,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 
 /* -------------------- CTA band -------------------- */
 .cta-band{
-  background: var(--forest-900); color:#fff; border-radius: var(--radius-l); padding: 56px clamp(28px,5vw,72px);
+  background: var(--forest-mid); color:#fff; border-radius: var(--radius-l); padding: 56px clamp(28px,5vw,72px);
   display:flex; align-items:center; justify-content:space-between; gap:40px; position:relative; overflow:hidden;
 }
 .cta-band h2{ color:#fff; font-size: clamp(26px,3.2vw,36px); max-width:520px; }
@@ -434,12 +435,15 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .form-success .icon-wrap{ width:64px; height:64px; border-radius:50%; background:var(--mint-100); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; color:var(--forest-600); }
 
 /* -------------------- Footer -------------------- */
-.site-footer{ background: var(--forest-900); color: rgba(255,255,255,.68); position:relative; overflow:hidden; }
+.site-footer{ background: var(--forest-mid); color: rgba(255,255,255,.68); position:relative; overflow:hidden; }
 .footer-top{ padding: 72px 0 48px; position:relative; z-index:2; }
 .footer-grid{ display:grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap:40px; }
 @media (max-width: 900px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
 @media (max-width: 560px){ .footer-grid{ grid-template-columns:1fr; } }
-.footer-brand{ display:flex; align-items:center; margin-bottom:16px; }
+.footer-brand{
+  display:flex; align-items:center; margin-bottom:16px; width:fit-content;
+  padding:10px 16px; background:rgba(255,255,255,.9); border-radius:12px;
+}
 .footer-logo{ height:42px; width:auto; display:block; }
 .footer-col h4{ color:#fff; font-family:var(--f-mono); font-size:12.5px; text-transform:uppercase; letter-spacing:.1em; margin-bottom:16px; font-weight:500; }
 .footer-col li{ margin-bottom:10px; font-size:14.5px; }
