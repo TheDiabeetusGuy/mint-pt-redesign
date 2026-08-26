@@ -361,15 +361,16 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .provider-info{ position:relative; height:130px; overflow:hidden; flex:none; }
 .info-layer{
   position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:14px 20px; text-align:center; transition: transform .4s ease;
+  padding:14px 20px; text-align:center;
 }
-.info-default{ transform:translateY(0%); }
+.info-default{ z-index:1; }
 .info-default h3{ font-size:17px; }
 .info-default .role{ font-family:var(--f-mono); font-size:12px; color: var(--forest-700); text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
-.info-bio{ transform:translateY(100%); background: var(--mint-050); }
+.info-bio{
+  z-index:2; background: var(--mint-050); opacity:0; transition: opacity .35s ease; pointer-events:none;
+}
 .info-bio p{ color:var(--ink-700); font-size:13px; line-height:1.5; margin:0; }
-.provider-card:hover .info-default{ transform:translateY(-100%); }
-.provider-card:hover .info-bio{ transform:translateY(0%); }
+.provider-card:hover .info-bio{ opacity:1; pointer-events:auto; }
 
 /* -------------------- Locations -------------------- */
 .location-card{
