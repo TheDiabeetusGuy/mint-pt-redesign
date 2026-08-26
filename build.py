@@ -564,8 +564,7 @@ def home_page():
     <div class="container">
       <div class="section-head center">
         <div class="eyebrow" style="justify-content:center;">Our Team</div>
-        <h2>Sixteen providers. One standard of care.</h2>
-        <p>Doctors of Physical Therapy and PTAs across our Utah clinics, all trained in the same hands-on, whole-person approach.</p>
+        <p style="font-size:clamp(28px,3.6vw,42px); line-height:1.1; margin-top:14px;">Doctors of Physical Therapy and PTAs across our Utah clinics, all trained in the same hands-on, whole-person approach.</p>
       </div>
       <div class="grid-4">
         {''.join(provider_card(p) for p in PROVIDERS[:8])}
