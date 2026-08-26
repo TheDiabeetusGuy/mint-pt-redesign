@@ -18,12 +18,9 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Logo mark (recreated as scalable SVG from the client's existing
 # two-peak "M" mountain logo, so it stays crisp at every size)
 # ---------------------------------------------------------------
-def logo_mark(color="#2FA84F", cls="mark"):
-    return f'''<svg class="{cls}" viewBox="0 0 60 52" aria-hidden="true">
-      <path d="M2 47 L19 7 L27.5 24 L21.5 47 Z" fill="{color}"/>
-      <path d="M22 47 L38 12 L54 47 Z" fill="none" stroke="{color}" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M4 47h5M5.5 43h4M7 39h3" stroke="{color}" stroke-width="3" stroke-linecap="round"/>
-    </svg>'''
+# NOTE: the client's real logo (assets/img/logo.png, background removed,
+# assets/img/logo-icon.png icon-only crop) is used everywhere instead of a
+# recreated mark, per instruction to keep the logo exactly as-is.
 
 # ---------------------------------------------------------------
 # Decorative topographic contour lines (the site's signature motif)
@@ -66,8 +63,8 @@ def elevation_chart():
       <path d="M10 190 L70 165 130 175 190 110 250 130 310 55 370 70 410 20" fill="none" stroke="#54C46E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 10"/>
       <circle cx="10" cy="190" r="6" fill="#F0C878"/>
       <circle cx="410" cy="20" r="7" fill="#54C46E" stroke="#0F2216" stroke-width="3"/>
-      <text x="4" y="208" fill="rgba(255,255,255,.55)" font-family="IBM Plex Mono, monospace" font-size="11">DAY 1</text>
-      <text x="352" y="14" fill="#fff" font-family="IBM Plex Mono, monospace" font-size="11">GOAL</text>
+      <text x="4" y="208" fill="rgba(255,255,255,.55)" font-family="Nunito Sans, sans-serif" font-weight="700" font-size="11">DAY 1</text>
+      <text x="352" y="14" fill="#fff" font-family="Nunito Sans, sans-serif" font-weight="700" font-size="11">GOAL</text>
     </svg>'''
 
 # ---------------------------------------------------------------
@@ -295,10 +292,15 @@ def nav_html(depth="", active=""):
 
     return f'''<header class="site-header">
     <div class="container nav">
-      <a href="{depth}index.html" class="brand">
-        {logo_mark()}
-        <span>MINT<small>Physical Therapy</small></span>
-      </a>
+      <div class="nav-left">
+        <a href="{depth}index.html" class="brand">
+          <img src="{depth}assets/img/logo.png" alt="MINT Physical Therapy" class="brand-logo">
+        </a>
+        <div class="nav-phone-left">
+          <span>Call Us Today</span>
+          <b><a href="tel:+1{PHONE_MAIN_TEL}">{PHONE_MAIN}</a></b>
+        </div>
+      </div>
 
       <nav aria-label="Primary">
         <ul class="nav-links" id="navLinks">
@@ -318,10 +320,6 @@ def nav_html(depth="", active=""):
       </nav>
 
       <div class="nav-cta">
-        <div class="nav-phone">
-          <span>Call today</span>
-          <b><a href="tel:+1{PHONE_MAIN_TEL}">{PHONE_MAIN}</a></b>
-        </div>
         <a class="btn btn-primary btn-sm" href="{depth}contact.html"><span class="long">Request&nbsp;</span>Appointment</a>
         <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">{icon("menu")}</button>
       </div>
@@ -335,7 +333,7 @@ def footer_html(depth=""):
     <div class="container footer-top">
       <div class="footer-grid">
         <div>
-          <div class="footer-brand">{logo_mark(color="#54C46E")}<span>MINT Physical Therapy</span></div>
+          <div class="footer-brand"><img src="{depth}assets/img/logo.png" alt="MINT Physical Therapy" class="footer-logo"></div>
           <p style="max-width:280px;font-size:14.5px;">Utah-based, one-on-one physical therapy — in one of our clinics, or at your door. Mobile visits available from Ogden to Payson.</p>
           <div class="footer-social">
             <a href="{SOCIAL['facebook']}" target="_blank" rel="noopener" aria-label="Facebook">{icon("facebook")}</a>
@@ -379,7 +377,7 @@ def base_page(title, description, body, depth="", active="", extra_head=""):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title} | MINT Physical Therapy</title>
 <meta name="description" content="{description}">
-<link rel="icon" href="{depth}assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{depth}assets/img/favicon.png" type="image/png">
 <link rel="stylesheet" href="{depth}assets/css/style.css">
 {extra_head}
 </head>
@@ -482,43 +480,26 @@ def home_page():
         dict(n="03", title="Prevents future injuries", text="Strengthening the muscles and joints around an injury keeps it from happening again."),
     ]
     body = f'''
-  <section class="hero">
-    {topo_lines(seed=1)}
-    <div class="container hero-inner">
-      <div>
-        <div class="eyebrow on-dark">Mobile &amp; In-Clinic Physical Therapy &middot; Utah</div>
-        <h1>Every step back starts with <em>one</em> good one.</h1>
-        <p class="lead">One-on-one physical therapy &mdash; in one of our nine Utah clinics, or at your own front door. We accept cash pay, workers&rsquo; comp, and auto-accident patients, and we don&rsquo;t stop until you&rsquo;re actually feeling better.</p>
-        <div class="hero-badges">
-          <span class="hero-badge"><b>M</b>ove</span>
-          <span class="hero-badge"><b>I</b>mprove</span>
-          <span class="hero-badge"><b>N</b>urture</span>
-          <span class="hero-badge"><b>T</b>each</span>
-        </div>
-        <div class="hero-cta">
-          <a class="btn btn-gold" href="contact.html">Request an Appointment</a>
-          <a class="btn btn-outline on-dark" href="tel:+1{PHONE_MAIN_TEL}">{icon('phone')} Call {PHONE_MAIN}</a>
-        </div>
-        <div class="hero-callout">
-          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <span>Rated 5 stars by patients across the Wasatch Front</span>
-        </div>
-      </div>
-      <div class="summit-card">
-        {elevation_chart()}
-        <div class="summit-legend">
-          <div><b>Session 1</b>Where you start</div>
-          <div style="text-align:right;"><b>Pain-Free</b>Where we&rsquo;re headed</div>
-        </div>
-      </div>
+  <section class="home-hero">
+    <div class="home-hero-media">
+      <img src="assets/img/hero-home.jpg" alt="Hikers and mountain bikers on a trail near Zion National Park, Utah">
     </div>
-    <div class="hero-strip">
-      <div class="container stat-strip">
-        <div><div class="num">9</div><div class="lbl">Clinics across Utah</div></div>
-        <div><div class="num">1:1</div><div class="lbl">Time with your therapist</div></div>
-        <div><div class="num">16+</div><div class="lbl">Providers &amp; specialists</div></div>
-        <div><div class="num">Ogden&ndash;Payson</div><div class="lbl">Mobile visit coverage</div></div>
+  </section>
+
+  <div class="container home-hero-badges">
+    <span class="tag"><b>M</b>ove</span>
+    <span class="tag"><b>I</b>mprove</span>
+    <span class="tag"><b>N</b>urture</span>
+    <span class="tag"><b>T</b>each</span>
+  </div>
+
+  <section class="home-intro">
+    <div class="container home-intro-grid">
+      <div class="home-intro-social">
+        <a href="{SOCIAL['facebook']}" target="_blank" rel="noopener" aria-label="Facebook">{icon('facebook')}</a>
+        <a href="{SOCIAL['instagram']}" target="_blank" rel="noopener" aria-label="Instagram">{icon('instagram')}</a>
       </div>
+      <p class="home-intro-text">MINT Physical Therapy is a Utah-based practice offering both mobile and in-clinic care. We work with cash-pay, workers&rsquo; compensation, and auto-accident patients, and every session is one-on-one &mdash; so you get the attention and expertise needed to recover faster. If you&rsquo;ve spent years searching for answers, or you&rsquo;re simply looking for a better approach to physical therapy, give us a call. We&rsquo;ll help you find real answers and get back to living pain-free.</p>
     </div>
   </section>
 
@@ -884,12 +865,8 @@ def main():
     write("join-team.html", join_team_page())
     for s in SERVICES:
         write(f"services/{s['slug']}.html", service_detail_page(s))
-
-    fav = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 52">
-      <path d="M2 47 L19 7 L27.5 24 L21.5 47 Z" fill="#2FA84F"/>
-      <path d="M22 47 L38 12 L54 47 Z" fill="none" stroke="#2FA84F" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
-    </svg>'''
-    write("assets/img/favicon.svg", fav)
+    # favicon uses the real logo icon (assets/img/favicon-src.png, cropped
+    # from the client's actual logo) — see generate_logo_assets.py
 
 if __name__ == "__main__":
     main()

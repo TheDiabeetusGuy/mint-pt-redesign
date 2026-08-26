@@ -52,6 +52,35 @@ everywhere), it's easier to edit `build.py`:
    dependencies) — it regenerates every HTML file in a few seconds
 5. Commit and push the updated files
 
+## Picking a color palette
+
+The `color-previews/` folder has 3 standalone pages showing the same layout
+in 3 different color directions — open any of the 3 HTML files in a browser
+and use the switcher bar at the top to flip between them:
+
+- **sage-trail.html** — a refined, warmer version of the current green/stone
+  direction. Calm and grounded.
+- **mint-charcoal.html** — bold and modern: near-black charcoal sections, a
+  brighter mint, coral-accented buttons. Feels more like a confident
+  health-tech brand.
+- **meadow-blush.html** — soft and approachable: fresh meadow green with a
+  warm blush/coral accent instead of gold. Leans a little more wellness-spa.
+
+Once you've picked one, tell me which and I'll apply those exact color
+values to the whole 18-page site (it's just swapping the color variables
+at the top of `assets/css/style.css` — quick to do once you've decided).
+
+## What changed in this round
+
+- **Font:** swapped to Quicksand (headings) + Nunito Sans (body and small
+  labels) for a friendlier, rounder feel.
+- **Logo:** replaced the recreated mountain mark with your actual logo file
+  (`assets/img/logo.png`), background removed so it reads cleanly on both
+  light and dark sections. The favicon is now cropped directly from your
+  real logo's icon mark too, instead of a redrawn version.
+- **Phone numbers:** every phone/fax number site-wide is a placeholder
+  (`555-555-5555`) until you provide real numbers — see below.
+
 ## Things to double check / finish before launch
 
 - **Phone numbers are placeholders.** Every phone and fax number across the
