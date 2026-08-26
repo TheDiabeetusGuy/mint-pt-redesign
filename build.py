@@ -371,7 +371,7 @@ def base_page(title, description, body, depth="", active="", extra_head=""):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title} | MINT Physical Therapy</title>
 <meta name="description" content="{description}">
-<link rel="icon" href="{depth}assets/img/favicon.png" type="image/png">
+<link rel="icon" href="{depth}assets/img/favicon.png?v=2" type="image/png">
 <link rel="stylesheet" href="{depth}assets/css/style.css">
 {extra_head}
 </head>
