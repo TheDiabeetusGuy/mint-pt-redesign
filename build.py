@@ -598,8 +598,8 @@ def home_page():
         <div class="eyebrow" style="justify-content:center;">Patient Stories</div>
         <h2>Real progress, in their own words.</h2>
       </div>
-      <div class="grid-4">
-        {''.join(testimonial_card(t) for t in TESTIMONIALS)}
+      <div class="tc-carousel" id="testimonialCarousel">
+        {''.join(f'<div class="tc-page{" is-active" if i == 0 else ""}"><div class="grid-4">{"".join(testimonial_card(t) for t in page)}</div></div>' for i, page in enumerate([TESTIMONIALS[j:j+4] for j in range(0, len(TESTIMONIALS), 4)]))}
       </div>
     </div>
   </section>

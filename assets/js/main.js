@@ -91,6 +91,41 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /* ---------- Testimonial carousel ---------- */
+  var tCarousel = document.getElementById('testimonialCarousel');
+  if (tCarousel) {
+    var tPages = tCarousel.querySelectorAll('.tc-page');
+    var tCurrent = 0;
+    var tTimer = null;
+
+    function tShowPage(i) {
+      tPages.forEach(function (p, idx) {
+        p.classList.toggle('is-active', idx === i);
+      });
+    }
+
+    function tNext() {
+      tCurrent = (tCurrent + 1) % tPages.length;
+      tShowPage(tCurrent);
+    }
+
+    function tStart() {
+      if (tTimer) return;
+      tTimer = setInterval(tNext, 4000);
+    }
+
+    function tStop() {
+      clearInterval(tTimer);
+      tTimer = null;
+    }
+
+    if (tPages.length > 1) {
+      tStart();
+      tCarousel.addEventListener('mouseenter', tStop);
+      tCarousel.addEventListener('mouseleave', tStart);
+    }
+  }
+
   /* ---------- Video placeholders ---------- */
   document.querySelectorAll('.video-frame').forEach(function (frame) {
     frame.addEventListener('click', function () {

@@ -338,6 +338,11 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .testimonial .who b{ font-size:14px; }
 .testimonial .who span{ display:block; font-size:12px; color:var(--ink-500); }
 
+.tc-carousel{ position:relative; }
+.tc-page{ display:none; }
+.tc-page.is-active{ display:block; animation: tcFadeIn .5s ease; }
+@keyframes tcFadeIn{ from{ opacity:0; } to{ opacity:1; } }
+
 /* -------------------- Providers -------------------- */
 .avatar{
   border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff;
