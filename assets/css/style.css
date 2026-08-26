@@ -208,7 +208,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 }
 @media (max-width: 620px){ .hc-icon{ width:34px; height:34px; } }
 
-.home-intro{ padding: 36px 0 clamp(48px,7vw,88px); }
+.home-intro{ padding: 36px 0 clamp(16px,2.5vw,28px); }
+.intro-divider{ width:72px; height:1px; background:var(--line); margin:28px auto 0; }
 .home-intro-grid{ display:grid; grid-template-columns: 120px 1fr; gap:36px; align-items:start; }
 @media (max-width: 700px){ .home-intro-grid{ grid-template-columns:1fr; } }
 .home-intro-social{ display:flex; flex-direction:row; gap:14px; }
