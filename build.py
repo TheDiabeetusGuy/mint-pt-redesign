@@ -418,10 +418,16 @@ def testimonial_card(t):
 
 def provider_card(p):
     return f'''<div class="provider-card">
-      {avatar(p['name'])}
-      <h3>{p['name']}, {p['cred']}</h3>
-      <div class="role">{p['role']}</div>
-      <p class="bio">{p['bio']}</p>
+      <div class="provider-photo">{avatar(p['name'], 96, 28)}</div>
+      <div class="provider-info">
+        <div class="info-layer info-default">
+          <h3>{p['name']}, {p['cred']}</h3>
+          <div class="role">{p['role']}</div>
+        </div>
+        <div class="info-layer info-bio">
+          <p>{p['bio']}</p>
+        </div>
+      </div>
     </div>'''
 
 def location_card(l, depth=""):
