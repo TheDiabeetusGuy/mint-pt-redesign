@@ -40,6 +40,8 @@ ICONS = {
 "shield": '<path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4.5"/>',
 "home-ico": '<path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/>',
 "navigate": '<path d="M3 11l16-7-7 16-2-7z"/>',
+"squat": '<circle cx="12" cy="4" r="2"/><path d="M12 6v5"/><path d="M8 9h8"/><path d="M12 11l-4 4v4"/><path d="M12 11l4 4v4"/>',
+"run": '<circle cx="15" cy="4" r="2"/><path d="M15 6l-3 6"/><path d="M15 8l3-2"/><path d="M13 9l-3 2"/><path d="M12 12l3 4-1 5"/><path d="M12 12l-4 2 1 6"/>',
 }
 
 def icon(name, cls="icon", extra=""):

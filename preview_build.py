@@ -76,7 +76,6 @@ def preview_page(p):
         </ul>
       </nav>
       <div class="nav-cta">
-        <div class="nav-phone"><span>Call today</span><b>{PHONE_MAIN}</b></div>
         <a class="btn btn-primary btn-sm" href="#">Request Appointment</a>
       </div>
     </div>

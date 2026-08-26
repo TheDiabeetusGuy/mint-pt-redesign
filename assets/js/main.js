@@ -56,6 +56,41 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ---------- Home hero carousel ---------- */
+  var carousel = document.getElementById('homeCarousel');
+  if (carousel) {
+    var slides = carousel.querySelectorAll('.hc-slide');
+    var current = 0;
+    var timer = null;
+
+    function showSlide(i) {
+      slides.forEach(function (s, idx) {
+        s.classList.toggle('is-active', idx === i);
+      });
+    }
+
+    function next() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }
+
+    function start() {
+      if (timer) return;
+      timer = setInterval(next, 4000);
+    }
+
+    function stop() {
+      clearInterval(timer);
+      timer = null;
+    }
+
+    if (slides.length > 1) {
+      start();
+      carousel.addEventListener('mouseenter', stop);
+      carousel.addEventListener('mouseleave', start);
+    }
+  }
+
   /* ---------- Video placeholders ---------- */
   document.querySelectorAll('.video-frame').forEach(function (frame) {
     frame.addEventListener('click', function () {

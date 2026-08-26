@@ -292,17 +292,11 @@ def nav_html(depth="", active=""):
 
     return f'''<header class="site-header">
     <div class="container nav">
-      <div class="nav-left">
-        <a href="{depth}index.html" class="brand">
-          <img src="{depth}assets/img/logo.png" alt="MINT Physical Therapy" class="brand-logo">
-        </a>
-        <div class="nav-phone-left">
-          <span>Call Us Today</span>
-          <b><a href="tel:+1{PHONE_MAIN_TEL}">{PHONE_MAIN}</a></b>
-        </div>
-      </div>
+      <a href="{depth}index.html" class="brand">
+        <img src="{depth}assets/img/logo.png" alt="MINT Physical Therapy" class="brand-logo">
+      </a>
 
-      <nav aria-label="Primary">
+      <nav aria-label="Primary" class="main-nav">
         <ul class="nav-links" id="navLinks">
           <li>{a("index.html", "Home", "home")}</li>
           <li class="has-dropdown">
@@ -320,7 +314,7 @@ def nav_html(depth="", active=""):
       </nav>
 
       <div class="nav-cta">
-        <a class="btn btn-primary btn-sm" href="{depth}contact.html"><span class="long">Request&nbsp;</span>Appointment</a>
+        <a class="btn btn-primary btn-sm" href="{depth}contact.html"><span class="btn-label-full">Request Appointment</span><span class="btn-label-short">Appointment</span></a>
         <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">{icon("menu")}</button>
       </div>
     </div>
@@ -481,17 +475,29 @@ def home_page():
     ]
     body = f'''
   <section class="home-hero">
-    <div class="home-hero-media">
-      <img src="assets/img/hero-home.jpg" alt="Hikers and mountain bikers on a trail near Zion National Park, Utah">
+    <div class="home-carousel" id="homeCarousel">
+      <div class="hc-slide is-active" style="background:linear-gradient(135deg, var(--forest-800), var(--forest-600));">
+        {topo_lines(seed=1, rows=5, stroke="rgba(255,255,255,.12)")}
+        <div class="hc-content">{icon('squat', cls='icon hc-icon')}<div class="hc-label">Move</div></div>
+        <span class="hc-caption">Photo/video coming soon</span>
+      </div>
+      <div class="hc-slide" style="background:linear-gradient(135deg, var(--forest-700), var(--forest-500));">
+        {topo_lines(seed=2, rows=5, stroke="rgba(255,255,255,.12)")}
+        <div class="hc-content">{icon('run', cls='icon hc-icon')}<div class="hc-label">Improve</div></div>
+        <span class="hc-caption">Photo/video coming soon</span>
+      </div>
+      <div class="hc-slide" style="background:linear-gradient(135deg, var(--forest-900), var(--forest-700));">
+        {topo_lines(seed=3, rows=5, stroke="rgba(255,255,255,.12)")}
+        <div class="hc-content">{icon('heart', cls='icon hc-icon')}<div class="hc-label">Nurture</div></div>
+        <span class="hc-caption">Photo/video coming soon</span>
+      </div>
+      <div class="hc-slide" style="background:linear-gradient(135deg, var(--forest-800), var(--forest-500));">
+        {topo_lines(seed=4, rows=5, stroke="rgba(255,255,255,.12)")}
+        <div class="hc-content">{icon('users', cls='icon hc-icon')}<div class="hc-label">Teach</div></div>
+        <span class="hc-caption">Photo/video coming soon</span>
+      </div>
     </div>
   </section>
-
-  <div class="container home-hero-badges">
-    <span class="tag"><b>M</b>ove</span>
-    <span class="tag"><b>I</b>mprove</span>
-    <span class="tag"><b>N</b>urture</span>
-    <span class="tag"><b>T</b>each</span>
-  </div>
 
   <section class="home-intro">
     <div class="container home-intro-grid">
