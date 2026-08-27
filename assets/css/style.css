@@ -484,9 +484,10 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .prov-detail.is-active{ display:block; }
 .prov-detail.is-active.is-visible{ opacity:1; }
 .prov-detail-card{
-  display:grid; grid-template-columns:247px 1fr; gap:32px; align-items:start;
+  display:grid; grid-template-columns:1fr; gap:24px; align-items:start;
   background:none; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible;
 }
+.prov-detail-visual{ max-width:300px; }
 .prov-detail-visual .provider-card{ aspect-ratio: 4/5; }
 .prov-detail-info h3{ font-size:22px; }
 .prov-detail-role{ font-family:var(--f-mono); font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--forest-700); margin-top:6px; }
@@ -495,7 +496,6 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 @media (max-width: 860px){
   .prov-split{ display:none; }
   .prov-tab{ font-size: clamp(20px,2.4vw,27px); }
-  .prov-detail-card{ grid-template-columns:1fr; }
   .prov-detail-visual{ max-width:none; width:80%; margin:0 auto; }
   .prov-detail-info h3{ font-size:18px; }
   .prov-detail-role{ font-size:8px; }
