@@ -305,6 +305,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .loc-list-item:hover{ color:var(--forest-700); }
 .loc-list-item.is-active{ color:var(--forest-700); font-weight:700; }
 .loc-list-item.is-active::before{ border-color:var(--forest-600); background:var(--forest-600); }
+.loc-list-item-mobile{ margin-top:14px; padding-top:23px; border-top:1px solid var(--line-soft); }
 
 .loc-detail{ display:none; opacity:0; transition: opacity .28s ease; }
 .loc-detail.is-active{
@@ -329,11 +330,21 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 }
 .loc-map-chip:hover{ transform: translateY(-2px); box-shadow: var(--shadow-3); }
 .loc-map-chip .icon{ stroke-width:2; }
+
+/* Mobile Visit option: plain text on the page background, no card treatment */
+.loc-detail.loc-mobile-panel.is-active{
+  display:block; background:transparent; border:none; border-top:none; box-shadow:none; border-radius:0; overflow:visible;
+}
+.loc-mobile-panel h2{ font-size: clamp(24px,3vw,32px); margin-top:12px; max-width:520px; }
+.loc-mobile-panel p{ color:var(--ink-500); margin-top:14px; font-size:16px; max-width:480px; }
+.loc-mobile-panel .btn{ margin-top:22px; }
+
 @media (max-width: 860px){
   .loc-split{ grid-template-columns:1fr; gap:28px; }
   .loc-list{ flex-direction:row; flex-wrap:wrap; gap:4px 18px; }
   .loc-list-item{ padding:8px 0 8px 22px; }
   .loc-list-item::after{ width:16px; }
+  .loc-list-item-mobile{ margin-top:0; padding-top:8px; border-top:none; flex-basis:100%; }
   .loc-detail.is-active{ grid-template-columns:1fr; }
   .loc-detail-map{ border-left:none; border-top:1px solid var(--line); }
 }

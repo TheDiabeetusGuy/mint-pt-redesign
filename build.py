@@ -643,6 +643,7 @@ def locations_page():
         f'<li class="loc-list-item{" is-active" if i == 0 else ""}" data-target="loc-{l["slug"]}">{city_label(l)}</li>'
         for i, l in enumerate(LOCATIONS)
     )
+    list_items += '<li class="loc-list-item loc-list-item-mobile" data-target="loc-mobile">Mobile Visit</li>'
 
     def detail_panel(l, i):
         return f'''<div class="loc-detail{" is-active is-visible" if i == 0 else ""}" id="loc-{l['slug']}">
@@ -664,6 +665,12 @@ def locations_page():
     </div>'''
 
     panels = "".join(detail_panel(l, i) for i, l in enumerate(LOCATIONS))
+    panels += '''<div class="loc-detail loc-mobile-panel" id="loc-mobile">
+      <div class="eyebrow">Can&rsquo;t make it in?</div>
+      <h2>We&rsquo;ll come to you instead.</h2>
+      <p>Mobile physical therapy means the same 1:1 care, delivered at your home or office &mdash; available from Ogden to Payson.</p>
+      <a class="btn btn-primary" href="contact.html">Request a Mobile Visit</a>
+    </div>'''
 
     body = f'''{hero}
   <section class="section loc-list-section">
@@ -672,17 +679,6 @@ def locations_page():
         <ul class="loc-list">{list_items}</ul>
         <div class="loc-detail-wrap">{panels}</div>
       </div>
-    </div>
-  </section>
-  <section class="section bg-forest">
-    <div class="container split">
-      <div>
-        <div class="eyebrow on-dark">Can&rsquo;t make it in?</div>
-        <h2 style="font-size:clamp(26px,3.2vw,36px);margin-top:14px;">We&rsquo;ll come to you instead.</h2>
-        <p style="color:rgba(255,255,255,.75);margin-top:16px;font-size:16px;">Mobile physical therapy means the same 1:1 care, delivered at your home or office &mdash; available from Ogden to Payson.</p>
-        <a class="btn btn-gold" style="margin-top:24px;" href="contact.html">Request a Mobile Visit</a>
-      </div>
-      <div class="panel-art dark">{topo_lines(seed=8, rows=6, w=600, h=450, stroke="rgba(84,196,110,.4)")}</div>
     </div>
   </section>
 '''
