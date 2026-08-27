@@ -611,6 +611,20 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .footer-social a:hover{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.4); }
 .footer-social .icon{ width:17px; height:17px; }
 .footer-bottom{ border-top:1px solid rgba(255,255,255,.12); padding:22px 0; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12.5px; position:relative; z-index:2; }
+.footer-legal{ display:flex; gap:20px; }
+.footer-legal a{ color: rgba(255,255,255,.68); transition: color .18s ease; }
+.footer-legal a:hover{ color:#fff; }
+
+/* -------------------- Legal pages (Terms, Privacy) -------------------- */
+.legal-content{ max-width:760px; }
+.legal-updated{ font-family:var(--f-mono); font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-500); margin-bottom:32px; }
+.legal-content h2{ font-size:19px; margin-top:36px; margin-bottom:12px; }
+.legal-content h2:first-of-type{ margin-top:0; }
+.legal-content p{ color:var(--ink-700); font-size:15.5px; line-height:1.7; margin-bottom:14px; }
+.legal-content ul{ list-style:disc; padding-left:22px; margin:0 0 14px; }
+.legal-content ul li{ color:var(--ink-700); font-size:15.5px; line-height:1.7; margin-bottom:6px; }
+.legal-content strong{ color:var(--ink-900); }
+.legal-content a{ color:var(--forest-700); text-decoration:underline; text-underline-offset:2px; }
 .footer-skyline{ position:absolute; bottom:0; left:0; right:0; opacity:.5; pointer-events:none; width:100%; }
 
 /* -------------------- Misc content blocks -------------------- */

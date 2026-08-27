@@ -420,6 +420,10 @@ def footer_html(depth=""):
     </div>
     <div class="container footer-bottom">
       <span>&copy; 2026 MINT Physical Therapy. All rights reserved.</span>
+      <nav class="footer-legal" aria-label="Legal">
+        <a href="{depth}privacy-policy.html">Privacy Policy</a>
+        <a href="{depth}terms-and-conditions.html">Terms &amp; Conditions</a>
+      </nav>
       <span>Move &middot; Improve &middot; Nurture &middot; Teach</span>
     </div>
     {footer_skyline()}
@@ -1000,6 +1004,153 @@ def join_team_page():
 # ---------------------------------------------------------------
 # Write files
 # ---------------------------------------------------------------
+def terms_page():
+    hero = page_hero("Legal", "Terms &amp; Conditions",
+                      "Please read these terms carefully before using our website or scheduling services with us.",
+                      ["Terms &amp; Conditions"])
+    murray = next(l for l in LOCATIONS if l["slug"] == "murray")
+    sections = [
+        ("1. Acceptance of Terms",
+         f'''<p>By accessing or using the website of MINT Physical Therapy (&ldquo;MINT PT,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), located at <a href="https://www.mint-pt.com">www.mint-pt.com</a> (the &ldquo;Site&rdquo;), or by scheduling or receiving services from us, you agree to be bound by these Terms &amp; Conditions (&ldquo;Terms&rdquo;). If you do not agree to these Terms, please do not use the Site or our services.</p>'''),
+        ("2. Use of This Website",
+         '''<p>You agree to use the Site only for lawful purposes. You may not: use the Site in any way that violates applicable law; attempt to gain unauthorized access to our systems or data; copy, scrape, reproduce, or distribute Site content without permission; or interfere with the Site&rsquo;s operation or security. All content on the Site, including text, graphics, logos, and images, is the property of MINT PT or its licensors and may not be used without our written permission.</p>'''),
+        ("3. Medical Disclaimer",
+         '''<p>The content on this Site, including articles, blog posts, videos, and other materials, is provided for general informational and educational purposes only. It is not intended as, and should not be relied upon as, medical advice, diagnosis, or treatment. It does not replace the relationship between you and your physical therapist or other healthcare provider. Always consult a qualified healthcare professional before starting any exercise program or making decisions about your health. Individual results from physical therapy vary, and MINT PT makes no guarantee of specific outcomes.</p>'''),
+        ("4. Emergency Situations",
+         '''<p>This Site is not intended for use in medical emergencies. If you are experiencing a medical emergency, call 911 or go to your nearest emergency room immediately.</p>'''),
+        ("5. Appointment Scheduling &amp; Cancellation Policy",
+         '''<p>Appointments may be scheduled online, by phone, or in person. We require at least [24 hours] notice to cancel or reschedule an appointment. Late cancellations or missed appointments (&ldquo;no-shows&rdquo;) may be subject to a fee of [$XX]. Repeated no-shows may result in changes to our scheduling policy for your account. Arriving late to an appointment may result in a shortened session to accommodate the next scheduled patient.</p>'''),
+        ("6. Payment &amp; Insurance",
+         '''<p>Payment is due at the time services are rendered unless other arrangements have been made in advance. We accept [list accepted payment methods]. If we bill your insurance on your behalf, coverage and reimbursement are not guaranteed, and you remain responsible for any portion of charges not covered by your insurance plan, including deductibles, copays, and coinsurance. It is your responsibility to understand your insurance benefits.</p>'''),
+        ("7. Patient Responsibilities",
+         '''<p>To help ensure safe and effective care, you agree to: provide accurate and complete information about your health history and current condition; inform your treating clinician of any changes in your condition; follow your prescribed treatment plan and home exercise program; and communicate any concerns or adverse reactions to your care team promptly.</p>'''),
+        ("8. Telehealth Services",
+         '''<p>If you receive services via telehealth, you acknowledge that virtual visits have inherent limitations compared to in-person care, that a stable internet connection and compatible device are required, and that telehealth is not appropriate for medical emergencies. Additional telehealth consent may be required prior to your first virtual visit.</p>'''),
+        ("9. Privacy &amp; HIPAA",
+         '''<p>MINT PT is committed to protecting your personal and health information in accordance with the Health Insurance Portability and Accountability Act (HIPAA) and applicable state law. For details on how we collect, use, and protect your information, see our <a href="privacy-policy.html">Privacy Policy</a>.</p>'''),
+        ("10. Text Message (SMS) Communications",
+         '''<p>If you opt in to receive text messages from us, that program is governed by our separate SMS Terms &amp; Conditions.</p>'''),
+        ("11. Testimonials &amp; Reviews",
+         '''<p>Any patient testimonials or reviews shared on the Site reflect individual experiences and results, which vary from person to person. Testimonials are not a guarantee or prediction of the outcome you will experience.</p>'''),
+        ("12. Third-Party Links",
+         '''<p>The Site may contain links to third-party websites for your convenience. We do not control and are not responsible for the content, accuracy, or privacy practices of those sites. Use of any third-party site is at your own risk and subject to that site&rsquo;s own terms.</p>'''),
+        ("13. Limitation of Liability",
+         '''<p>To the fullest extent permitted by law, MINT PT and its owners, employees, and agents will not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Site or our services. Nothing in these Terms is intended to limit any liability that cannot be limited under applicable law.</p>'''),
+        ("14. Indemnification",
+         '''<p>You agree to indemnify and hold harmless MINT PT, its owners, employees, and agents from any claims, damages, or expenses arising out of your violation of these Terms or misuse of the Site.</p>'''),
+        ("15. Governing Law",
+         '''<p>These Terms are governed by the laws of the State of Utah, without regard to conflict-of-law principles. Any disputes arising from these Terms or your use of the Site will be resolved in the state or federal courts located in Salt Lake City, Utah.</p>'''),
+        ("16. Changes to These Terms",
+         '''<p>We may revise these Terms from time to time. The updated version will be posted on this page with a revised effective date. Your continued use of the Site or our services after changes are posted constitutes acceptance of the updated Terms.</p>'''),
+        ("17. Contact Us",
+         f'''<p>If you have questions about these Terms, please contact us:</p>
+         <ul>
+           <li><strong>Business Name:</strong> Mint Physical Therapy</li>
+           <li><strong>Address:</strong> {murray['addr1']}, {murray['city']}</li>
+           <li><strong>Phone:</strong> <a href="tel:+1{PHONE_MAIN_TEL}">{PHONE_MAIN}</a></li>
+           <li><strong>Email:</strong> <a href="mailto:{EMAIL_MAIN}">{EMAIL_MAIN}</a></li>
+           <li><strong>Website:</strong> www.mint-pt.com</li>
+         </ul>'''),
+    ]
+    sections_html = "".join(f"<h2>{title}</h2>{body}" for title, body in sections)
+    body = f'''{hero}
+  <section class="section">
+    <div class="container">
+      <div class="legal-content">
+        <div class="legal-updated">Effective Date: August 5, 2026</div>
+        {sections_html}
+      </div>
+    </div>
+  </section>
+'''
+    return base_page("Terms & Conditions", "Terms and conditions for using the MINT Physical Therapy website and services.", body, active="")
+
+
+def privacy_page():
+    hero = page_hero("Legal", "Privacy Policy",
+                      "How we collect, use, and protect your information.",
+                      ["Privacy Policy"])
+    murray = next(l for l in LOCATIONS if l["slug"] == "murray")
+    sections = [
+        ("1. Introduction",
+         '''<p>This Privacy Policy explains how Mint Physical Therapy (&ldquo;MINT PT,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects, uses, and shares information when you visit our website at www.mint-pt.com (the &ldquo;Site&rdquo;), submit a web form, schedule an appointment, or opt in to receive text messages from us. By using the Site or providing your information to us, you agree to the practices described in this Policy.</p>'''),
+        ("2. Information We Collect",
+         '''<p>We may collect the following types of information:</p>
+         <ul>
+           <li>Contact information: name, mailing address, email address, and phone number (including mobile number if you opt in to SMS)</li>
+           <li>Health and treatment information: medical history, condition details, and treatment records provided as part of your care</li>
+           <li>Insurance and payment information: insurance provider, policy details, and billing information</li>
+           <li>Website usage information: pages visited, browser type, and device information, collected automatically through cookies or similar technologies</li>
+           <li>Communication preferences: including your consent to receive text messages, email, or phone communications</li>
+         </ul>'''),
+        ("3. How We Use Your Information",
+         '''<p>We use the information we collect to:</p>
+         <ul>
+           <li>Schedule, confirm, and remind you of appointments</li>
+           <li>Provide physical therapy treatment and coordinate your care</li>
+           <li>Process billing and insurance claims</li>
+           <li>Communicate with you by phone, email, mail, or text message about your account or appointments</li>
+           <li>Send practice updates and, where you have opted in, marketing or promotional messages</li>
+           <li>Improve our website, services, and patient experience</li>
+           <li>Comply with legal, regulatory, and recordkeeping obligations</li>
+         </ul>'''),
+        ("4. How We Share Your Information",
+         '''<p>We do not sell your personal information. We may share your information only in the following circumstances:</p>
+         <ul>
+           <li>With your treating clinicians and staff at MINT PT to provide care</li>
+           <li>With insurance companies, as needed to process claims and billing</li>
+           <li>With service providers who perform functions on our behalf (such as scheduling software, billing, or text messaging platforms), under agreements that require them to protect your information</li>
+           <li>When required by law, court order, or to protect the safety of a patient or others</li>
+           <li>With your consent, or as otherwise described at the time you provide your information</li>
+         </ul>'''),
+        ("5. Text Messaging (SMS) Privacy",
+         '''<p><strong>SMS consent is not shared with third parties or affiliates for marketing purposes.</strong> If you opt in to receive text messages from MINT PT, your mobile number and consent are used solely to send you the messages described in our SMS Terms &amp; Conditions (for example, appointment reminders, account notifications, practice updates, and where applicable, promotional messages). We do not share your phone number or SMS opt-in status with third parties or affiliates for their own marketing purposes.</p>
+         <ul>
+           <li>Message frequency may vary.</li>
+           <li>Message and data rates may apply.</li>
+           <li>To opt out at any time, text STOP.</li>
+         </ul>
+         <p>For assistance, text HELP or visit our website at www.mint-pt.com.</p>'''),
+        ("6. Cookies &amp; Website Analytics",
+         '''<p>Our Site may use cookies and similar tracking technologies to understand how visitors use the Site and to improve your experience. You can adjust your browser settings to refuse cookies, though some parts of the Site may not function properly without them.</p>'''),
+        ("7. Data Security",
+         '''<p>We use reasonable administrative, technical, and physical safeguards to protect your information from unauthorized access, use, or disclosure. However, no method of transmission or storage is completely secure, and we cannot guarantee absolute security.</p>'''),
+        ("8. Your Choices &amp; Rights",
+         '''<p>You may:</p>
+         <ul>
+           <li>Opt out of text messages at any time by replying STOP</li>
+           <li>Opt out of marketing emails by using the unsubscribe link in any email</li>
+           <li>Request access to, correction of, or a copy of your personal or health information by contacting us directly</li>
+         </ul>
+         <p>Protected health information (PHI) is additionally governed by our HIPAA Notice of Privacy Practices, available upon request.</p>'''),
+        ("9. Children&rsquo;s Privacy",
+         '''<p>Our Site and text messaging program are not directed to children under 13, and we do not knowingly collect personal information from children under 13 without parental consent. If you believe a child has provided us with personal information without appropriate consent, please contact us so we can remove it.</p>'''),
+        ("10. Changes to This Policy",
+         '''<p>We may update this Privacy Policy from time to time. Updates will be posted on this page with a revised effective date. Your continued use of the Site or our services after changes are posted constitutes acceptance of the updated Policy.</p>'''),
+    ]
+    sections_html = "".join(f"<h2>{title}</h2>{body}" for title, body in sections)
+    body = f'''{hero}
+  <section class="section">
+    <div class="container">
+      <div class="legal-content">
+        <div class="legal-updated">Effective Date: August 5, 2026</div>
+        {sections_html}
+        <h2>Questions About This Policy?</h2>
+        <p>If you have questions about this Privacy Policy, please contact us:</p>
+        <ul>
+          <li><strong>Business Name:</strong> Mint Physical Therapy</li>
+          <li><strong>Address:</strong> {murray['addr1']}, {murray['city']}</li>
+          <li><strong>Phone:</strong> <a href="tel:+1{PHONE_MAIN_TEL}">{PHONE_MAIN}</a></li>
+          <li><strong>Email:</strong> <a href="mailto:{EMAIL_MAIN}">{EMAIL_MAIN}</a></li>
+          <li><strong>Website:</strong> www.mint-pt.com</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+'''
+    return base_page("Privacy Policy", "How MINT Physical Therapy collects, uses, and protects your information.", body, active="")
+
+
 def write(path, html):
     full = os.path.join(ROOT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
@@ -1014,6 +1165,8 @@ def main():
     write("services.html", services_page())
     write("contact.html", contact_page())
     write("join-team.html", join_team_page())
+    write("privacy-policy.html", privacy_page())
+    write("terms-and-conditions.html", terms_page())
     for s in SERVICES:
         write(f"services/{s['slug']}.html", service_detail_page(s))
     # favicon uses the real logo icon (assets/img/favicon-src.png, cropped
