@@ -372,25 +372,23 @@ def nav_html(depth="", active=""):
 def footer_html(depth=""):
     return f'''<footer class="site-footer">
     <div class="container footer-top">
-      <div class="footer-grid">
-        <div>
+      <div class="footer-row">
+        <div class="footer-brand-block">
           <div class="footer-brand"><img src="{depth}assets/img/logo.png" alt="MINT Physical Therapy" class="footer-logo"></div>
-          <p style="max-width:280px;font-size:14.5px;">Utah-based, one-on-one physical therapy — in one of our clinics, or at your door. Mobile visits available from Ogden to Payson.</p>
-          <div class="footer-social">
-            <a href="{SOCIAL['facebook']}" target="_blank" rel="noopener" aria-label="Facebook">{icon("facebook")}</a>
-            <a href="{SOCIAL['instagram']}" target="_blank" rel="noopener" aria-label="Instagram">{icon("instagram")}</a>
-            <a href="{SOCIAL['youtube']}" target="_blank" rel="noopener" aria-label="YouTube">{icon("youtube")}</a>
-            <a href="{SOCIAL['spotify']}" target="_blank" rel="noopener" aria-label="Spotify">{icon("spotify")}</a>
-          </div>
+          <p class="footer-tagline">Utah-based, one-on-one physical therapy — in one of our clinics, or at your door. Mobile visits available from Ogden to Payson.</p>
         </div>
-        <div class="footer-col">
-          <h4>Clinics</h4>
-        </div>
-        <div class="footer-col">
-          <h4>Services</h4>
-        </div>
-        <div class="footer-col">
-          <h4>Get in Touch</h4>
+        <nav class="footer-labels" aria-label="Footer">
+          <a href="{depth}locations.html">Clinics</a>
+          <a href="{depth}services.html">Services</a>
+          <a href="{depth}contact.html">Get in Touch</a>
+        </nav>
+      </div>
+      <div class="footer-social-row">
+        <div class="footer-social">
+          <a href="{SOCIAL['facebook']}" target="_blank" rel="noopener" aria-label="Facebook">{icon("facebook")}</a>
+          <a href="{SOCIAL['instagram']}" target="_blank" rel="noopener" aria-label="Instagram">{icon("instagram")}</a>
+          <a href="{SOCIAL['youtube']}" target="_blank" rel="noopener" aria-label="YouTube">{icon("youtube")}</a>
+          <a href="{SOCIAL['spotify']}" target="_blank" rel="noopener" aria-label="Spotify">{icon("spotify")}</a>
         </div>
       </div>
     </div>
