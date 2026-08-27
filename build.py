@@ -370,23 +370,6 @@ def nav_html(depth="", active=""):
   </header>'''
 
 def footer_html(depth=""):
-    footer_loc_slugs = ["ogden", "clearfield", "west-valley-city"]
-    footer_locs = sorted(
-        (l for l in LOCATIONS if l["slug"] in footer_loc_slugs),
-        key=lambda l: footer_loc_slugs.index(l["slug"])
-    )
-    loc_links = "".join(
-        f'<li><a href="{depth}locations.html#{l["slug"]}">{l["name"].replace(" Clinic", "") if l["slug"] == "west-valley-city" else l["name"]}</a></li>'
-        for l in footer_locs
-    )
-
-    footer_svc_slugs = ["back-pain", "chronic-pain", "headaches-migraines"]
-    footer_svcs = sorted(
-        (s for s in SERVICES if s["slug"] in footer_svc_slugs),
-        key=lambda s: footer_svc_slugs.index(s["slug"])
-    )
-    svc_links = "".join(f'<li><a href="{depth}services/{s["slug"]}.html">{s["title"]}</a></li>' for s in footer_svcs)
-
     return f'''<footer class="site-footer">
     <div class="container footer-top">
       <div class="footer-grid">
@@ -402,19 +385,12 @@ def footer_html(depth=""):
         </div>
         <div class="footer-col">
           <h4>Clinics</h4>
-          <ul>{loc_links}<li class="footer-viewall"><a href="{depth}locations.html">View all locations</a></li></ul>
         </div>
         <div class="footer-col">
           <h4>Services</h4>
-          <ul>{svc_links}<li class="footer-viewall"><a href="{depth}services.html">View all services</a></li></ul>
         </div>
         <div class="footer-col">
           <h4>Get in Touch</h4>
-          <ul>
-            <li><a href="tel:+1{PHONE_MAIN_TEL}">{PHONE_MAIN}</a></li>
-            <li><a href="mailto:{EMAIL_MAIN}">{EMAIL_MAIN}</a></li>
-            <li><a href="{depth}contact.html">Request an Appointment</a></li>
-          </ul>
         </div>
       </div>
     </div>
@@ -818,7 +794,7 @@ def providers_page():
       </div>
     </div>
   </section>
-  <section class="section">
+  <section class="section prov-cta-section">
     <div class="container">
       {cta_band("Have a provider in mind?", "Tell us who you&rsquo;d like to see, or which clinic works best, and we&rsquo;ll take care of the rest.")}
     </div>
