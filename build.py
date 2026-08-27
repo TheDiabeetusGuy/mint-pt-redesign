@@ -464,16 +464,13 @@ def testimonial_card(t):
     </div>'''
 
 def provider_card(p):
-    return f'''<div class="provider-card">
-      <div class="provider-photo">{avatar(p['name'], 96, 28)}</div>
-      <div class="provider-info">
-        <div class="info-layer info-default">
-          <h3>{p['name']}, {p['cred']}</h3>
-          <div class="role">{p['role']}</div>
-        </div>
-        <div class="info-layer info-bio">
-          <p>{p['bio']}</p>
-        </div>
+    idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
+    color = AVATAR_COLORS[idx]
+    return f'''<div class="provider-card" style="background:{color};">
+      <span class="provider-initials">{initials(p['name'])}</span>
+      <div class="provider-overlay">
+        <h3>{p['name']}, {p['cred']}</h3>
+        <div class="role">{p['role']}</div>
       </div>
     </div>'''
 
@@ -613,11 +610,11 @@ def home_page():
     </div>
   </section>
 
-  <section class="section bg-mint">
+  <section class="section bg-mint team-section">
     <div class="container">
       <div class="section-head center">
         <div class="eyebrow" style="justify-content:center;">Our Team</div>
-        <p style="font-size:clamp(28px,3.6vw,42px); line-height:1.1; margin-top:14px;">Doctors of Physical Therapy and PTAs across our Utah clinics, all trained in the same hands-on, whole-person approach.</p>
+        <p style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; margin-top:14px;">Doctors of Physical Therapy and PTAs across our Utah clinics, all trained in the same hands-on, whole-person approach.</p>
       </div>
       <div class="grid-4">
         {''.join(provider_card(p) for p in PROVIDERS[:8])}
@@ -683,12 +680,7 @@ def locations_page():
 
     def detail_panel(l, i):
         provs = providers_for_clinic(l["slug"])
-        provider_cards = "".join(f'''<div class="loc-provider-card">
-          {avatar(p['name'], 64, 18)}
-          <h5>{p['name']}, {p['cred']}</h5>
-          <div class="role">{p['role']}</div>
-          <p class="bio">{p['bio']}</p>
-        </div>''' for p in provs)
+        provider_cards = "".join(provider_card(p) for p in provs)
         providers_block = f'''<div class="loc-providers-wrap">
         <div class="loc-providers-heading">Meet the {city_label(l)} Team</div>
         <div class="loc-providers-grid">{provider_cards}</div>
@@ -746,7 +738,7 @@ def providers_page():
     <div class="container">
       <div class="section-head">
         <div class="eyebrow">Doctors of Physical Therapy</div>
-        <h2>Ten DPTs, one shared philosophy.</h2>
+        <h2>Twelve DPTs, one shared philosophy.</h2>
       </div>
       <div class="grid-4">{''.join(provider_card(p) for p in dpts)}</div>
     </div>
