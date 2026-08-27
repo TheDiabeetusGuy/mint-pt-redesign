@@ -766,7 +766,7 @@ def providers_page():
             for p in providers
         )
         slides = "".join(
-            f'''<div class="prov-carousel-slide{" is-active" if prov_slug(p['name']) == default_slug else ""}">
+            f'''<div class="prov-carousel-slide{" is-active is-visible" if prov_slug(p['name']) == default_slug else ""}">
           <div class="prov-detail-card">
             <div class="prov-detail-visual">{provider_card(p, mode="photo-only")}</div>
             <div class="prov-detail-info">

@@ -365,21 +365,22 @@ document.addEventListener('DOMContentLoaded', function () {
     var carousel = section.querySelector('.prov-carousel');
     if (!carousel) return;
     var viewport = carousel.querySelector('.prov-carousel-viewport');
-    var track = carousel.querySelector('.prov-carousel-track');
     var slides = carousel.querySelectorAll('.prov-carousel-slide');
     var prevBtn = carousel.querySelector('.prov-carousel-prev');
     var nextBtn = carousel.querySelector('.prov-carousel-next');
-    if (!viewport || !track || !slides.length) return;
+    if (!viewport || !slides.length) return;
 
     var startIndex = 0;
     slides.forEach(function (s, i) { if (s.classList.contains('is-active')) startIndex = i; });
     var currentIndex = startIndex;
     var timer = null;
     var stopped = false;
+    var switchTimer = null;
 
     function positionArrows() {
       if (!prevBtn || !nextBtn) return;
-      var visual = slides[currentIndex].querySelector('.prov-detail-visual');
+      var activeSlide = carousel.querySelector('.prov-carousel-slide.is-active') || slides[currentIndex];
+      var visual = activeSlide.querySelector('.prov-detail-visual');
       if (!visual) return;
       var carouselRect = carousel.getBoundingClientRect();
       var visualRect = visual.getBoundingClientRect();
@@ -388,23 +389,38 @@ document.addEventListener('DOMContentLoaded', function () {
       nextBtn.style.top = centerY + 'px';
     }
 
-    function render(withTransition) {
-      var w = viewport.clientWidth;
-      track.style.transition = withTransition === false ? 'none' : '';
-      track.style.transform = 'translateX(-' + (currentIndex * w) + 'px)';
-      slides.forEach(function (s, i) {
-        s.style.width = w + 'px';
-        s.classList.toggle('is-active', i === currentIndex);
+    // Same crossfade technique as the desktop list/detail panel: fade the
+    // outgoing slide out, swap which one is in the document flow, then fade
+    // the new one in — smooth regardless of whether it was triggered by an
+    // arrow tap, a swipe, or the automatic 5-second advance.
+    function activateNow(next) {
+      slides.forEach(function (s) { if (s !== next) s.classList.remove('is-active', 'is-visible'); });
+      next.classList.add('is-active');
+      void next.offsetWidth;
+      requestAnimationFrame(function () {
+        next.classList.add('is-visible');
+        positionArrows();
       });
-      // The photo now fills most of the card and varies in height with
-      // screen width, so the arrows track its actual center instead of a
-      // fixed offset.
-      positionArrows();
+    }
+
+    function showSlide(index) {
+      if (switchTimer) { clearTimeout(switchTimer); switchTimer = null; }
+      var next = slides[index];
+      var current = carousel.querySelector('.prov-carousel-slide.is-active');
+      if (current && current !== next) {
+        current.classList.remove('is-visible');
+        switchTimer = window.setTimeout(function () {
+          switchTimer = null;
+          activateNow(next);
+        }, 180);
+      } else {
+        activateNow(next);
+      }
     }
 
     function goTo(index) {
       currentIndex = ((index % slides.length) + slides.length) % slides.length;
-      render();
+      showSlide(currentIndex);
     }
 
     function next() { goTo(currentIndex + 1); }
@@ -428,37 +444,24 @@ document.addEventListener('DOMContentLoaded', function () {
     if (nextBtn) nextBtn.addEventListener('click', function () { stopForGood(); next(); });
 
     var touchStartX = null;
-    var dragBase = 0;
-    var dragging = false;
 
     viewport.addEventListener('touchstart', function (e) {
       if (!e.touches || !e.touches.length) return;
       stopForGood();
-      dragging = true;
       touchStartX = e.touches[0].clientX;
-      dragBase = -currentIndex * viewport.clientWidth;
-      track.style.transition = 'none';
-    }, { passive: true });
-
-    viewport.addEventListener('touchmove', function (e) {
-      if (!dragging || touchStartX === null || !e.touches || !e.touches.length) return;
-      var dx = e.touches[0].clientX - touchStartX;
-      track.style.transform = 'translateX(' + (dragBase + dx) + 'px)';
     }, { passive: true });
 
     viewport.addEventListener('touchend', function (e) {
-      if (!dragging) return;
-      dragging = false;
-      var endX = (e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX) || touchStartX;
-      var dx = endX - touchStartX;
+      if (touchStartX === null) return;
+      var endX = (e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX);
+      var dx = (endX === undefined ? touchStartX : endX) - touchStartX;
       var threshold = 40;
-      if (dx <= -threshold) { goTo(currentIndex + 1); }
-      else if (dx >= threshold) { goTo(currentIndex - 1); }
-      else { render(); }
+      if (dx <= -threshold) next();
+      else if (dx >= threshold) prev();
       touchStartX = null;
     });
 
-    window.addEventListener('resize', function () { render(false); });
+    window.addEventListener('resize', positionArrows);
 
     // Lets the tab-switch handler above fully reset this carousel back to
     // its first slide with the cycle running fresh, same as the desktop list.
@@ -469,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function () {
       start();
     };
 
-    render(false);
+    positionArrows();
     start();
   });
 

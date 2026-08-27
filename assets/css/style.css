@@ -500,7 +500,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
     grid-template-columns:1fr; background:none; border:none; box-shadow:none;
     border-radius:0; padding:0; overflow:visible;
   }
-  .prov-detail-visual{ max-width:none; width:100%; margin:0 auto; }
+  .prov-detail-visual{ max-width:none; width:80%; margin:0 auto; }
   .prov-detail-info h3{ font-size:16px; }
   .prov-detail-role{ font-size:6px; }
   .prov-detail-bio{ font-size:9.5px; }
@@ -510,24 +510,26 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .prov-carousel{ display:none; position:relative; }
 @media (max-width: 860px){ .prov-carousel{ display:block; } }
 .prov-carousel-viewport{ width:100%; overflow:hidden; touch-action:pan-y; }
-.prov-carousel-track{ display:flex; }
-.prov-carousel-slide{ flex:0 0 auto; }
+.prov-carousel-slide{ display:none; opacity:0; transition: opacity .35s ease; }
+.prov-carousel-slide.is-active{ display:block; }
+.prov-carousel-slide.is-active.is-visible{ opacity:1; }
 .prov-carousel-slide .prov-detail-card{ margin:0; }
 .prov-carousel-arrow{
   position:absolute; top:50%; transform:translateY(-50%); z-index:3;
-  width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:#fff;
-  display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--forest-700);
+  width:54px; height:54px; border-radius:50%; border:1px solid rgba(255,255,255,.5); background: rgba(255,255,255,.28);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--forest-800);
   box-shadow: var(--shadow-1);
   transition: background .18s ease, border-color .18s ease;
 }
 .prov-carousel-prev{ left:8px; }
 .prov-carousel-next{ right:8px; }
-.prov-carousel-arrow:hover{ background: var(--stone-100); border-color: var(--forest-600); }
-.prov-carousel-arrow:focus-visible{ outline:2px solid var(--forest-600); outline-offset:2px; }
-.prov-carousel-arrow .icon{ width:18px; height:18px; }
+.prov-carousel-arrow:hover{ background: rgba(255,255,255,.42); border-color: rgba(255,255,255,.8); }
+.prov-carousel-arrow:focus-visible{ outline:2px solid var(--forest-700); outline-offset:2px; }
+.prov-carousel-arrow .icon{ width:24px; height:24px; }
 @media (max-width: 420px){
-  .prov-carousel-arrow{ width:30px; height:30px; }
-  .prov-carousel-arrow .icon{ width:15px; height:15px; }
+  .prov-carousel-arrow{ width:45px; height:45px; }
+  .prov-carousel-arrow .icon{ width:20px; height:20px; }
 }
 .provider-initials{
   font-family:var(--f-display); font-weight:700; font-size:44px; color:rgba(255,255,255,.32); letter-spacing:.02em;
