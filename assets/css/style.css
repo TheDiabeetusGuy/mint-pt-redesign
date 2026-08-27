@@ -469,7 +469,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .prov-detail.is-active{ display:block; }
 .prov-detail.is-active.is-visible{ opacity:1; }
 .prov-detail-card{
-  display:grid; grid-template-columns:190px 1fr; gap:32px; align-items:start;
+  display:grid; grid-template-columns:247px 1fr; gap:32px; align-items:start;
   background:#fff; border:1px solid var(--line); border-top:4px solid var(--forest-600);
   border-radius: var(--radius-m); box-shadow: var(--shadow-1); padding:30px; overflow:hidden;
 }
@@ -483,7 +483,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   .prov-list{ flex-direction:row; flex-wrap:wrap; gap:4px 18px; }
   .prov-list-item{ padding:8px 0 8px 22px; }
   .prov-detail-card{ grid-template-columns:1fr; }
-  .prov-detail-visual{ max-width:160px; }
+  .prov-detail-visual{ max-width:208px; }
 }
 .provider-initials{
   font-family:var(--f-display); font-weight:700; font-size:44px; color:rgba(255,255,255,.32); letter-spacing:.02em;

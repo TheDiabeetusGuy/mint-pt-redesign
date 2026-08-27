@@ -215,25 +215,39 @@ document.addEventListener('DOMContentLoaded', function () {
     var startItem = list.querySelector('.prov-list-item.is-active') || items[0];
     var pinnedTarget = startItem ? startItem.dataset.target : null;
     var activeTarget = pinnedTarget;
+    var switchTimer = null;
+
+    // Makes `next` the only visible/active panel. Defensive: clears is-active
+    // from every other panel (not just the one we think is current), so a
+    // stray double-active state from an interrupted transition can't persist.
+    function activateNow(next) {
+      wrap.querySelectorAll('.prov-detail.is-active').forEach(function (el) {
+        if (el !== next) el.classList.remove('is-active', 'is-visible');
+      });
+      next.classList.add('is-active');
+      void next.offsetWidth;
+      requestAnimationFrame(function () { next.classList.add('is-visible'); });
+    }
 
     function showPanel(targetId) {
       if (!targetId || targetId === activeTarget) return;
+      // Cancel any transition still in flight from a previous hover before
+      // starting a new one — otherwise fast mouse movement across several
+      // list items queues up multiple timers that each activate their own
+      // panel, leaving more than one visible at once.
+      if (switchTimer) { clearTimeout(switchTimer); switchTimer = null; }
       var next = document.getElementById(targetId);
-      var current = wrap.querySelector('.prov-detail.is-active');
       if (!next) return;
+      var current = wrap.querySelector('.prov-detail.is-active');
       activeTarget = targetId;
       if (current && current !== next) {
         current.classList.remove('is-visible');
-        window.setTimeout(function () {
-          current.classList.remove('is-active');
-          next.classList.add('is-active');
-          void next.offsetWidth;
-          requestAnimationFrame(function () { next.classList.add('is-visible'); });
-        }, 220);
+        switchTimer = window.setTimeout(function () {
+          switchTimer = null;
+          activateNow(next);
+        }, 180);
       } else {
-        next.classList.add('is-active');
-        void next.offsetWidth;
-        requestAnimationFrame(function () { next.classList.add('is-visible'); });
+        activateNow(next);
       }
     }
 

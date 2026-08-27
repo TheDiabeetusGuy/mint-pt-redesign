@@ -264,6 +264,19 @@ def providers_for_clinic(slug):
     by_name = {p["name"]: p for p in PROVIDERS}
     return [by_name[n] for n in names if n in by_name]
 
+# Append each provider's primary clinic city to their role (e.g. "Physical
+# Therapist · Ogden"), based on CLINIC_PROVIDERS. Providers who work at more
+# than one clinic get the first one listed below (in LOCATIONS order); a
+# provider with no CLINIC_PROVIDERS entry is left without a city.
+CITY_LABELS = {l["slug"]: l["name"].replace(" Clinic", "") for l in LOCATIONS}
+for p in PROVIDERS:
+    if " · " in p["role"]:
+        continue
+    for l in LOCATIONS:
+        if p["name"] in CLINIC_PROVIDERS.get(l["slug"], []):
+            p["role"] = f"{p['role']} · {CITY_LABELS[l['slug']]}"
+            break
+
 TESTIMONIALS = [
     dict(quote="Brad understands the demands of working with athletes. If my athletes get hurt, I trust him to get them back stronger, not just healed.",
          name="Zachary Gee", meta="Strength & Conditioning Coach"),
