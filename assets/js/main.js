@@ -66,20 +66,44 @@ document.addEventListener('DOMContentLoaded', function () {
         frame.removeAttribute('data-src');
       }
     }
-    var activePanel = document.querySelector('.loc-detail.is-active');
-    if (activePanel) locLoadMap(activePanel);
+
+    function activateLocation(slug, scrollToIt) {
+      var targetId = 'loc-' + slug;
+      var item = locList.querySelector('.loc-list-item[data-target="' + targetId + '"]');
+      var panel = document.getElementById(targetId);
+      if (!item || !panel) return false;
+      locList.querySelectorAll('.loc-list-item').forEach(function (i) { i.classList.remove('is-active'); });
+      item.classList.add('is-active');
+      document.querySelectorAll('.loc-detail').forEach(function (d) { d.classList.remove('is-active'); });
+      panel.classList.add('is-active');
+      locLoadMap(panel);
+      if (scrollToIt) {
+        locList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      return true;
+    }
+
+    // On page load: if the URL points at a specific clinic (e.g. from a
+    // header link), show that one instead of always defaulting to the first.
+    var startSlug = window.location.hash ? window.location.hash.slice(1) : null;
+    if (!startSlug || !activateLocation(startSlug, true)) {
+      var defaultPanel = document.querySelector('.loc-detail.is-active');
+      if (defaultPanel) locLoadMap(defaultPanel);
+    }
 
     locList.querySelectorAll('.loc-list-item').forEach(function (item) {
       item.addEventListener('click', function () {
-        locList.querySelectorAll('.loc-list-item').forEach(function (i) { i.classList.remove('is-active'); });
-        item.classList.add('is-active');
-        document.querySelectorAll('.loc-detail').forEach(function (d) { d.classList.remove('is-active'); });
-        var target = document.getElementById(item.dataset.target);
-        if (target) {
-          target.classList.add('is-active');
-          locLoadMap(target);
-        }
+        var slug = item.dataset.target.replace(/^loc-/, '');
+        history.replaceState(null, '', '#' + slug);
+        activateLocation(slug, false);
       });
+    });
+
+    // Clicking a location link in the header while already on this page only
+    // changes the URL hash (no reload) — listen for that and switch to match.
+    window.addEventListener('hashchange', function () {
+      var slug = window.location.hash ? window.location.hash.slice(1) : null;
+      if (slug) activateLocation(slug, true);
     });
   }
 
