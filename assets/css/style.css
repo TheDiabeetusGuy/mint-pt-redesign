@@ -307,8 +307,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .loc-list-item.is-active::before{ border-color:var(--forest-600); background:var(--forest-600); }
 
 .loc-detail{ display:none; }
-.loc-detail.is-active{ display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:stretch; animation: locFade .35s ease; }
-@keyframes locFade{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+.loc-detail.is-active{ display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:stretch; animation: locFade .45s ease; }
+@keyframes locFade{ from{ opacity:0; } to{ opacity:1; } }
 .loc-detail-info{ background:#fff; border:1px solid var(--line); border-radius: var(--radius-m); padding:30px; display:flex; flex-direction:column; }
 .loc-detail-info h3{ font-size:21px; }
 .loc-detail-addr{ color:var(--ink-500); font-size:14.5px; margin-top:6px; }
