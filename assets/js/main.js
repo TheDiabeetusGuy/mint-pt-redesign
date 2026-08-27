@@ -316,10 +316,15 @@ document.addEventListener('DOMContentLoaded', function () {
     var autoCycleStopped = false;
     startAutoCycle();
 
-    // Lets the tab-switch handler above restart this list's cycle whenever
-    // its tab is shown again, even after a click had stopped it for good.
+    // Lets the tab-switch handler above fully reset this list whenever its
+    // tab is shown again — back to the original starting provider, cycle
+    // running fresh, exactly like a first page load. This covers both a
+    // click-stopped cycle and one that simply drifted while the tab was
+    // hidden; either way, returning to the tab starts over from the top.
     section._resetAutoCycle = function () {
       autoCycleStopped = false;
+      pauseAutoCycle();
+      applyPin(startItem);
       startAutoCycle();
     };
 
