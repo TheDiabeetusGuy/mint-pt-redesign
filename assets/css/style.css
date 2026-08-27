@@ -441,9 +441,15 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .provider-overlay{
   position:absolute; left:0; right:0; bottom:0; padding:16px 16px 14px;
   background: linear-gradient(to top, rgba(19,42,27,.95) 0%, rgba(19,42,27,.72) 60%, rgba(19,42,27,0) 100%);
+  transition: padding-bottom .35s ease;
 }
 .provider-overlay h3{ font-size:15px; color:#fff; line-height:1.25; }
 .provider-overlay .role{ font-family:var(--f-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:rgba(255,255,255,.78); margin-top:3px; }
+.provider-overlay-bio{
+  max-height:0; opacity:0; overflow:hidden; color:rgba(255,255,255,.88); font-size:12.5px; line-height:1.5;
+  transition: max-height .35s ease, opacity .3s ease, margin-top .35s ease;
+}
+.has-bio-hover:hover .provider-overlay-bio{ max-height:160px; opacity:1; margin-top:9px; }
 
 /* -------------------- Locations -------------------- */
 .location-card{

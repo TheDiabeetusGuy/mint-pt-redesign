@@ -463,14 +463,17 @@ def testimonial_card(t):
       <div class="who">{avatar(t['name'], 36, 13)}<div><b>{t['name']}</b><span>{t['meta']}</span></div></div>
     </div>'''
 
-def provider_card(p):
+def provider_card(p, hover_bio=False):
     idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
     color = AVATAR_COLORS[idx]
-    return f'''<div class="provider-card" style="background:{color};">
+    bio_html = f'<p class="provider-overlay-bio">{p["bio"]}</p>' if hover_bio else ''
+    card_cls = "provider-card has-bio-hover" if hover_bio else "provider-card"
+    return f'''<div class="{card_cls}" style="background:{color};">
       <span class="provider-initials">{initials(p['name'])}</span>
       <div class="provider-overlay">
         <h3>{p['name']}, {p['cred']}</h3>
         <div class="role">{p['role']}</div>
+        {bio_html}
       </div>
     </div>'''
 
@@ -617,7 +620,7 @@ def home_page():
         <p style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; margin-top:14px;">Doctors of Physical Therapy and PTAs across our Utah clinics, all trained in the same hands-on, whole-person approach.</p>
       </div>
       <div class="grid-4">
-        {''.join(provider_card(p) for p in PROVIDERS[:8])}
+        {''.join(provider_card(p, hover_bio=True) for p in PROVIDERS[:8])}
       </div>
       <div style="margin-top:34px;text-align:center;">
         <a class="btn btn-outline" href="providers.html">Meet the Full Team {icon('arrow-right')}</a>
