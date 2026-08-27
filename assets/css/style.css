@@ -595,8 +595,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 
 /* -------------------- Footer -------------------- */
 .site-footer{ background: var(--forest-mid); color: rgba(255,255,255,.68); position:relative; overflow:hidden; }
-.footer-top{ padding: 27px 0 21px; position:relative; z-index:2; }
-.footer-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:32px; flex-wrap:wrap; }
+.footer-top{ padding: 20px 0 16px; position:relative; z-index:2; }
+.footer-row{ display:flex; justify-content:space-between; align-items:flex-end; gap:32px; flex-wrap:wrap; }
 .footer-brand-block{ max-width:340px; }
 .footer-tagline{ font-size:14.5px; margin-top:14px; }
 .footer-brand{
@@ -604,10 +604,11 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   padding:10px 16px; background:rgba(255,255,255,.9); border-radius:12px;
 }
 .footer-logo{ height:31.5px; width:auto; display:block; }
-.footer-labels{ display:flex; gap:26px; flex-wrap:wrap; padding-top:6px; }
+.footer-labels-row{ display:flex; justify-content:center; margin-top:14px; }
+.footer-labels{ display:flex; gap:26px; flex-wrap:wrap; }
 .footer-labels a{ color:#fff; font-family:var(--f-mono); font-size:12.5px; text-transform:uppercase; letter-spacing:.1em; font-weight:500; transition: color .18s ease; }
 .footer-labels a:hover{ color: rgba(255,255,255,.68); }
-.footer-social-row{ display:flex; justify-content:center; margin-top:18px; }
+.footer-social-row{ display:flex; justify-content:center; margin-top:14px; }
 .footer-social{ display:flex; gap:10px; margin-top:0; }
 .footer-social a{ width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; transition: border-color .2s ease, background .2s ease; }
 .footer-social a:hover{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.4); }
