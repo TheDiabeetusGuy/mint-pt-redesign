@@ -754,9 +754,6 @@ def locations_page():
 
 
 def providers_page():
-    hero = page_hero("Meet the Team", "Our Providers",
-                      "Doctors of Physical Therapy and PTAs across all nine clinics &mdash; every one of them trained in MINT&rsquo;s hands-on, whole-person approach to recovery.",
-                      ["Our Providers"], extra_class="prov-hero")
     dpts = [p for p in PROVIDERS if p['cred'] == 'PT, DPT']
     ptas = [p for p in PROVIDERS if p['cred'] == 'PTA']
 
@@ -788,31 +785,30 @@ def providers_page():
     dpt_list, dpt_panels = list_and_detail(dpts, "Brad Klemetson")
     pta_list, pta_panels = list_and_detail(ptas, ptas[0]['name'])
 
-    body = f'''{hero}
+    body = f'''
   <section class="section prov-first-section">
     <div class="container prov-container">
       <div class="section-head">
-        <div class="eyebrow">Doctors of Physical Therapy</div>
-        <h2>Twelve DPTs, one shared philosophy.</h2>
+        <div class="eyebrow">Meet the Team</div>
       </div>
-      <div class="prov-list-section">
-        <div class="prov-split">
-          <ul class="prov-list">{dpt_list}</ul>
-          <div class="prov-detail-wrap">{dpt_panels}</div>
+      <div class="prov-tabs" role="tablist">
+        <button type="button" class="prov-tab is-active" role="tab" aria-selected="true" data-tab-target="prov-panel-dpt">Doctors of Physical Therapy</button>
+        <button type="button" class="prov-tab" role="tab" aria-selected="false" data-tab-target="prov-panel-pta">Physical Therapist Assistants</button>
+      </div>
+      <div class="prov-tab-panel is-active" id="prov-panel-dpt" role="tabpanel">
+        <div class="prov-list-section">
+          <div class="prov-split">
+            <ul class="prov-list">{dpt_list}</ul>
+            <div class="prov-detail-wrap">{dpt_panels}</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="section bg-stone">
-    <div class="container prov-container">
-      <div class="section-head">
-        <div class="eyebrow">Physical Therapist Assistants</div>
-        <h2>The team keeping your recovery on track.</h2>
-      </div>
-      <div class="prov-list-section">
-        <div class="prov-split">
-          <ul class="prov-list">{pta_list}</ul>
-          <div class="prov-detail-wrap">{pta_panels}</div>
+      <div class="prov-tab-panel" id="prov-panel-pta" role="tabpanel" hidden>
+        <div class="prov-list-section">
+          <div class="prov-split">
+            <ul class="prov-list">{pta_list}</ul>
+            <div class="prov-detail-wrap">{pta_panels}</div>
+          </div>
         </div>
       </div>
     </div>

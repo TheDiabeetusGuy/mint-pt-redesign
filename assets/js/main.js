@@ -205,6 +205,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /* ---------- Providers page: DPT / PTA tabs ---------- */
+  document.querySelectorAll('.prov-tabs').forEach(function (tabs) {
+    var buttons = tabs.querySelectorAll('.prov-tab');
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var targetId = btn.dataset.tabTarget;
+        buttons.forEach(function (b) {
+          var isMatch = b === btn;
+          b.classList.toggle('is-active', isMatch);
+          b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+        document.querySelectorAll('.prov-tab-panel').forEach(function (panel) {
+          var isMatch = panel.id === targetId;
+          panel.classList.toggle('is-active', isMatch);
+          panel.hidden = !isMatch;
+        });
+      });
+    });
+  });
+
   /* ---------- Providers page: hover-preview / click-to-pin list + detail panel ---------- */
   document.querySelectorAll('.prov-list-section').forEach(function (section) {
     var list = section.querySelector('.prov-list');
