@@ -72,23 +72,23 @@ def elevation_chart():
 # ---------------------------------------------------------------
 LOCATIONS = [
     dict(slug="ogden", name="Ogden Clinic", addr1="533 26th St. #202", city="Ogden, UT 84401",
-         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com", hours="Mon&ndash;Fri: 7am&ndash;6pm<br>Sat&ndash;Sun: Closed"),
     dict(slug="clearfield", name="Clearfield Clinic", addr1="1030 University Park Blvd, Suite 1", city="Clearfield, UT 84015",
-         phone="555-555-5555", fax="555-555-5555", email="daviscounty@mint-pt.com"),
-    dict(slug="brigham-city", name="Brigham City Clinic", addr1="Call for suite details", city="Brigham City, UT",
-         phone=PHONE_MAIN, fax="555-555-5555", email=EMAIL_MAIN),
+         phone="555-555-5555", fax="555-555-5555", email="daviscounty@mint-pt.com", hours="Mon&ndash;Fri: 7am&ndash;6pm<br>Sat&ndash;Sun: Closed"),
+    dict(slug="brigham-city", name="Brigham City Clinic", addr1="60 S Main St", city="Brigham City, UT 84302",
+         phone="555-555-5555", fax="555-555-5555", email=EMAIL_MAIN, hours="Mon&ndash;Fri: 7am&ndash;6pm<br>Sat&ndash;Sun: Closed"),
     dict(slug="murray", name="Murray Clinic", addr1="6095 S Fashion Blvd, STE 120", city="Murray, UT 84107",
-         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com", hours="Mon&ndash;Fri: 7am&ndash;6pm<br>Sat&ndash;Sun: Closed"),
     dict(slug="riverton", name="Riverton Clinic", addr1="12427 4000 W #202", city="Riverton, UT 84096",
-         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com", hours="Mon&ndash;Fri: 7am&ndash;6pm<br>Sat&ndash;Sun: Closed"),
     dict(slug="west-valley-city", name="West Valley City Clinic", addr1="3451 S 5600 W", city="West Valley City, UT 84120",
-         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com", hours="Mon&ndash;Fri: 7am&ndash;6pm<br>Sat&ndash;Sun: Closed"),
     dict(slug="lehi", name="Lehi Clinic", addr1="120 W Main St", city="Lehi, UT 84043",
-         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com", hours="Mon&ndash;Fri: 7am&ndash;6pm<br>Sat&ndash;Sun: Closed"),
     dict(slug="american-fork", name="American Fork Clinic", addr1="476 N 900 W, Suite B", city="American Fork, UT 84003",
-         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com", hours="Mon&ndash;Fri: 7am&ndash;6pm<br>Sat&ndash;Sun: Closed"),
     dict(slug="provo", name="Provo Clinic", addr1="1807 N 1120 W", city="Provo, UT 84604",
-         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com"),
+         phone="555-555-5555", fax="555-555-5555", email="info@mint-pt.com", hours="Mon&ndash;Fri: 7am&ndash;6pm<br>Sat&ndash;Sun: Closed"),
 ]
 
 SERVICES = [
@@ -653,6 +653,7 @@ def locations_page():
           <div><span>Phone</span>{l['phone']}</div>
           <div><span>Fax</span>{l['fax']}</div>
           <div><span>Email</span>{l['email']}</div>
+          <div><span>Hours</span>{l['hours']}</div>
         </div>
         <a class="btn btn-primary" href="contact.html">Request an Appointment</a>
       </div>
@@ -664,8 +665,8 @@ def locations_page():
     panels = "".join(detail_panel(l, i) for i, l in enumerate(LOCATIONS))
 
     body = f'''{hero}
-  <section class="section">
-    <div class="container">
+  <section class="section loc-list-section">
+    <div class="container loc-container">
       <div class="loc-split">
         <ul class="loc-list">{list_items}</ul>
         <div class="loc-detail-wrap">{panels}</div>
