@@ -205,6 +205,52 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /* ---------- Provider bio modal (Providers page) ---------- */
+  var providerModal = document.getElementById('providerModal');
+  if (providerModal) {
+    var pmName = document.getElementById('providerModalName');
+    var pmRole = document.getElementById('providerModalRole');
+    var pmBio = document.getElementById('providerModalBio');
+    var lastFocused = null;
+
+    function openProviderModal(card) {
+      pmName.textContent = card.dataset.name || '';
+      pmRole.textContent = card.dataset.role || '';
+      pmBio.textContent = card.dataset.bio || '';
+      lastFocused = document.activeElement;
+      providerModal.classList.add('is-open');
+      providerModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      providerModal.querySelector('.provider-modal-close').focus();
+    }
+
+    // Only one provider's bio is ever shown at a time: clicking a new card
+    // just repopulates this same modal, so the previous bio always closes.
+    function closeProviderModal() {
+      providerModal.classList.remove('is-open');
+      providerModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      if (lastFocused) lastFocused.focus();
+    }
+
+    document.querySelectorAll('.provider-card-clickable').forEach(function (card) {
+      card.addEventListener('click', function () { openProviderModal(card); });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openProviderModal(card);
+        }
+      });
+    });
+
+    providerModal.querySelectorAll('[data-close-modal]').forEach(function (el) {
+      el.addEventListener('click', closeProviderModal);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && providerModal.classList.contains('is-open')) closeProviderModal();
+    });
+  }
+
   /* ---------- Video placeholders ---------- */
   document.querySelectorAll('.video-frame').forEach(function (frame) {
     frame.addEventListener('click', function () {

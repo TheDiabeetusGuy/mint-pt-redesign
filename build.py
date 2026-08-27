@@ -5,7 +5,7 @@ Run: python3 build.py
 Outputs plain HTML files (no build step needed to view the site —
 this script is just a convenience for keeping ~20 pages consistent).
 """
-import os, math, re
+import os, math, re, html
 from icons import icon, ICONS
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -208,31 +208,31 @@ EXTRA_SPECIALTIES = ["Active Release Therapy (ASTYM)", "Manual Therapy & Massage
 
 PROVIDERS = [
     dict(name="Brad Klemetson", cred="PT, DPT", role="Founder & Clinical Director",
-         bio="The steady hand behind MINT — patients call him relentless in the best way, staying on a problem until it's actually solved."),
+         bio="Brad earned his Doctorate of Physical Therapy from UNLV in 2017 and has published research on balance and Parkinson's disease. He treats neck pain, dizziness, headaches, and migraines, using dry needling and manual therapy to speed recovery, and is certified in FCE, FJA, POET, and FFD testing. He also takes time to walk patients through their MRI findings and treatment options. Special interests: headaches, migraines, radiculopathies, auto accident and workplace injury care, and injury prevention."),
     dict(name="Ryan Rindlesbacher", cred="PT, DPT", role="Physical Therapist",
-         bio="Brings a calm, methodical approach to complex cases, breaking recovery into steps that make sense."),
+         bio="Ryan grew up in northern Utah and earned his degree in Human Movement Science from Utah State University before completing his Doctorate of Physical Therapy at Touro University Nevada. He's trained in dry needling, FCE, FJA, POET, and FFD testing, and focuses on reducing workplace injury risk and helping injured workers return to the job. Ryan is fluent in Spanish and enjoys serving Utah's Hispanic community."),
     dict(name="Joseph Zeigler", cred="PT, DPT", role="Physical Therapist · Ogden",
-         bio="Focused on function first — getting patients back to the specific movements their life and work demand."),
+         bio="Joseph grew up in Mesa, AZ playing soccer, swimming, cross country, and ultimate frisbee — recovering from his own sports injuries is what drew him to physical therapy. He earned a B.S. in Athletic Training from BYU and his Doctorate of Physical Therapy from Northern Arizona University. He's worked with collegiate and high school athletic teams, skilled nursing facilities, general orthopedics, and home health, with additional training in dry needling, myofascial release, joint manipulation, KT taping, and cupping. Special interests: shoulder and rotator cuff injuries, neck pain, headaches, knee pain, and low back pain."),
     dict(name="Christian Bentley", cred="PT, DPT", role="Physical Therapist",
-         bio="Blends manual therapy with hands-on coaching, with an eye for the small details that speed recovery."),
+         bio="Christian earned his B.S. in Kinesiology, exercise science emphasis, from the University of Utah, and his Doctorate of Physical Therapy from Rocky Mountain University of Health Professions in 2024. He's trained in dry needling, spinal manipulation, and manual therapy, pairing that with exercise science to help patients reach their goals. Outside the clinic, he's usually with his wife and two kids, playing sports, or debating Lord of the Rings lore."),
     dict(name="Grace Waters", cred="PT, DPT", role="Physical Therapist",
-         bio="Brings warmth and patience to every session, with a gift for making a hard recovery feel manageable."),
+         bio="Grace has been a physical therapist since 2019, specializing in pelvic health while treating all conditions with a whole-body, person-specific approach. She builds creative, activity-specific exercises to rebuild strength and confidence in the movements patients find hardest. Outside the clinic, she's an avid reader and traveler — she's lived in 16 states — and enjoys yoga, biking, and mountain time."),
     dict(name="Adam Gilbert", cred="PT, DPT", role="Physical Therapist · Ogden",
          bio="Direct and encouraging, with a strength-and-conditioning background that shows in his treatment plans."),
     dict(name="Kate Light", cred="PT, DPT", role="Physical Therapist",
-         bio="Approaches every patient as an individual, tailoring pace and technique to what actually works for them."),
+         bio="Kate studied Exercise Science at Ohio State and the University of Alabama as a Division I student-athlete, then earned her Doctorate of Physical Therapy from George Washington University with advanced pediatric certification from Georgetown. A former NFL cheerleader and current Utah Jazz dancer, she draws on that background to help patients perform at their best. Special interests: dance-related injuries, hypermobility, injury prevention, reflex integration, and pediatric neurodevelopmental care."),
     dict(name="Casey Snell", cred="PT, DPT", role="Physical Therapist",
          bio="Combines a sharp clinical eye with genuine encouragement — patients leave sessions knowing their why."),
     dict(name="Andrew Mitchell", cred="PT, DPT", role="Physical Therapist",
          bio="Detail-oriented and thorough, with a knack for catching what other evaluations miss."),
     dict(name="Josh", cred="PT, DPT", role="Physical Therapist · Ogden",
-         bio="Brings energy and a genuine investment in every patient's progress, session after session."),
+         bio="Josh earned his Kinesiology degree from the University of Utah and his Doctor of Physical Therapy from Duke University. He's treated a wide range of orthopedic and neurological conditions and post-surgical patients across outpatient, home health, and hospital settings, and takes a practical, patient-centered approach tailored to each person's goals. Outside the clinic, he's a husband and father of three who enjoys fishing, playing drums, and getting outdoors."),
     dict(name="Sandy Larson", cred="PTA", role="Physical Therapist Assistant",
-         bio="A friendly, familiar face for patients working through their day-to-day exercise progressions."),
+         bio="Sandy has worked in healthcare for over 10 years and graduated from Salt Lake Community College's PTA program in 2022. She's passionate about getting to know her patients and helping them reach their health goals. Outside of work, she's a mother of three who enjoys softball, running, and yoga with her family."),
     dict(name="Maryn Christensen", cred="PTA", role="Physical Therapist Assistant",
-         bio="Keeps sessions upbeat and encouraging, helping patients stay consistent with their home programs."),
+         bio="Maryn grew up in Boise, ID and earned her Kinesiology degree at Utah State before completing her PTA degree in 2022. She's passionate about improving patients' wellbeing and advocating for their health every step of the way. Outside of work, she's a mom to one little boy and loves spending time outdoors with him."),
     dict(name="Tawny Cruz", cred="PTA", role="Physical Therapist Assistant",
-         bio="Brings hands-on care and steady encouragement to every appointment."),
+         bio="Tawny earned an Associate Degree in Exercise Science before completing the PTA program at Provo College in 2023. She's worked across inpatient rehab, outpatient therapy, and home health, and finds it rewarding to make a difference for patients and their families. Outside of work, she's a health and fitness enthusiast, married 12 years with three kids, who enjoys the outdoors as much as a good movie night in."),
     dict(name="Natoshia Diffendaffer", cred="PTA", role="Physical Therapist Assistant",
          bio="Detail-focused and supportive, helping translate the treatment plan into real daily progress."),
     dict(name="Amber Hankes", cred="PTA", role="Physical Therapist Assistant",
@@ -435,8 +435,9 @@ def base_page(title, description, body, depth="", active="", extra_head=""):
 </body>
 </html>'''
 
-def page_hero(eyebrow, title, lead, crumbs=None, depth=""):
-    return f'''<section class="page-hero">
+def page_hero(eyebrow, title, lead, crumbs=None, depth="", extra_class=""):
+    cls = f"page-hero {extra_class}".strip()
+    return f'''<section class="{cls}">
     {topo_lines(seed=3, rows=5)}
     <div class="container">
       <div class="eyebrow on-dark">{eyebrow}</div>
@@ -463,12 +464,26 @@ def testimonial_card(t):
       <div class="who">{avatar(t['name'], 36, 13)}<div><b>{t['name']}</b><span>{t['meta']}</span></div></div>
     </div>'''
 
-def provider_card(p, hover_bio=False):
+def provider_card(p, mode="static"):
+    # mode "static": no bio, no interaction (Locations page team sections)
+    # mode "hover":  bio reveals on hover (Home page)
+    # mode "modal":  card is clickable, opens the full bio in a modal (Providers page)
     idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
     color = AVATAR_COLORS[idx]
-    bio_html = f'<p class="provider-overlay-bio">{p["bio"]}</p>' if hover_bio else ''
-    card_cls = "provider-card has-bio-hover" if hover_bio else "provider-card"
-    return f'''<div class="{card_cls}" style="background:{color};">
+    bio_html = ""
+    extra_attrs = ""
+    card_cls = "provider-card"
+    if mode == "hover":
+        card_cls = "provider-card has-bio-hover"
+        bio_html = f'<p class="provider-overlay-bio">{p["bio"]}</p>'
+    elif mode == "modal":
+        card_cls = "provider-card provider-card-clickable"
+        name_attr = html.escape(f"{p['name']}, {p['cred']}", quote=True)
+        role_attr = html.escape(p['role'], quote=True)
+        bio_attr = html.escape(p['bio'], quote=True)
+        extra_attrs = (f' tabindex="0" role="button" aria-haspopup="dialog"'
+                        f' data-name="{name_attr}" data-role="{role_attr}" data-bio="{bio_attr}"')
+    return f'''<div class="{card_cls}" style="background:{color};"{extra_attrs}>
       <span class="provider-initials">{initials(p['name'])}</span>
       <div class="provider-overlay">
         <h3>{p['name']}, {p['cred']}</h3>
@@ -620,7 +635,7 @@ def home_page():
         <p style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; margin-top:14px;">Doctors of Physical Therapy and PTAs across our Utah clinics, all trained in the same hands-on, whole-person approach.</p>
       </div>
       <div class="grid-4">
-        {''.join(provider_card(p, hover_bio=True) for p in PROVIDERS[:8])}
+        {''.join(provider_card(p, mode="hover") for p in PROVIDERS[:8])}
       </div>
       <div style="margin-top:34px;text-align:center;">
         <a class="btn btn-outline" href="providers.html">Meet the Full Team {icon('arrow-right')}</a>
@@ -733,17 +748,17 @@ def locations_page():
 def providers_page():
     hero = page_hero("Meet the Team", "Our Providers",
                       "Doctors of Physical Therapy and PTAs across all nine clinics &mdash; every one of them trained in MINT&rsquo;s hands-on, whole-person approach to recovery.",
-                      ["Our Providers"])
+                      ["Our Providers"], extra_class="prov-hero")
     dpts = [p for p in PROVIDERS if p['cred'] == 'PT, DPT']
     ptas = [p for p in PROVIDERS if p['cred'] == 'PTA']
     body = f'''{hero}
-  <section class="section">
+  <section class="section prov-first-section">
     <div class="container">
       <div class="section-head">
         <div class="eyebrow">Doctors of Physical Therapy</div>
         <h2>Twelve DPTs, one shared philosophy.</h2>
       </div>
-      <div class="grid-4">{''.join(provider_card(p) for p in dpts)}</div>
+      <div class="grid-4">{''.join(provider_card(p, mode="modal") for p in dpts)}</div>
     </div>
   </section>
   <section class="section bg-stone">
@@ -752,7 +767,7 @@ def providers_page():
         <div class="eyebrow">Physical Therapist Assistants</div>
         <h2>The team keeping your recovery on track.</h2>
       </div>
-      <div class="grid-4">{''.join(provider_card(p) for p in ptas)}</div>
+      <div class="grid-4">{''.join(provider_card(p, mode="modal") for p in ptas)}</div>
     </div>
   </section>
   <section class="section">
@@ -760,6 +775,15 @@ def providers_page():
       {cta_band("Have a provider in mind?", "Tell us who you&rsquo;d like to see, or which clinic works best, and we&rsquo;ll take care of the rest.")}
     </div>
   </section>
+  <div class="provider-modal" id="providerModal" aria-hidden="true">
+    <div class="provider-modal-backdrop" data-close-modal></div>
+    <div class="provider-modal-panel" role="dialog" aria-modal="true" aria-labelledby="providerModalName">
+      <button type="button" class="provider-modal-close" data-close-modal aria-label="Close">{icon('x')}</button>
+      <h3 id="providerModalName"></h3>
+      <div class="role" id="providerModalRole"></div>
+      <p id="providerModalBio"></p>
+    </div>
+  </div>
 '''
     return base_page("Our Providers", "Meet the Doctors of Physical Therapy and PTAs at MINT Physical Therapy across Utah.", body, active="providers")
 
