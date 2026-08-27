@@ -286,9 +286,9 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .loc-hero h1{ margin-top:0; }
 
 /* -------------------- Locations: city list + detail panel -------------------- */
-.loc-list-section{ padding-top: clamp(28px,4.5vw,60px); }
+.loc-list-section{ padding-top: clamp(28px,4.5vw,60px); padding-bottom: clamp(28px,4.5vw,60px); }
 .loc-container{ padding-left: clamp(10px,2.5vw,32px); }
-.loc-split{ display:grid; grid-template-columns: 190px 1fr; gap:52px; align-items:start; }
+.loc-split{ display:grid; grid-template-columns: 190px 1fr; gap:52px; align-items:center; }
 .loc-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
 .loc-list-item{
   position:relative; padding:13px 0 13px 26px; font-size:13px; color:var(--ink-700); font-weight:500;
@@ -305,14 +305,15 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .loc-list-item:hover{ color:var(--forest-700); }
 .loc-list-item.is-active{ color:var(--forest-700); font-weight:700; }
 .loc-list-item.is-active::before{ border-color:var(--forest-600); background:var(--forest-600); }
-.loc-list-item-mobile{ margin-top:14px; padding-top:23px; border-top:1px solid var(--line-soft); }
+.loc-list-item-mobile{ }
 
 .loc-detail{ display:none; opacity:0; transition: opacity .28s ease; }
 .loc-detail.is-active{
-  display:grid; grid-template-columns:1fr 1fr; align-items:stretch;
+  display:grid; grid-template-columns:1fr 1fr; align-items:stretch; max-width:820px; margin:0 auto;
   background:#fff; border:1px solid var(--line); border-top:4px solid var(--forest-600);
   border-radius: var(--radius-m); box-shadow: var(--shadow-1); overflow:hidden;
 }
+.loc-detail.loc-mobile-panel.is-active{ max-width:none; margin:0; }
 .loc-detail.is-active.is-visible{ opacity:1; }
 .loc-detail-info{ padding:30px; display:flex; flex-direction:column; }
 .loc-detail-info h3{ font-size:21px; display:flex; align-items:center; gap:8px; }
@@ -344,7 +345,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   .loc-list{ flex-direction:row; flex-wrap:wrap; gap:4px 18px; }
   .loc-list-item{ padding:8px 0 8px 22px; }
   .loc-list-item::after{ width:16px; }
-  .loc-list-item-mobile{ margin-top:0; padding-top:8px; border-top:none; flex-basis:100%; }
+  .loc-list-item-mobile{ flex-basis:100%; }
   .loc-detail.is-active{ grid-template-columns:1fr; }
   .loc-detail-map{ border-left:none; border-top:1px solid var(--line); }
 }
