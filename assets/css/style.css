@@ -497,9 +497,9 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   .prov-split{ display:none; }
   .prov-tab{ font-size: clamp(20px,2.4vw,27px); }
   .prov-detail-visual{ max-width:none; width:80%; margin:0 auto; }
-  .prov-detail-info h3{ font-size:18px; -webkit-text-size-adjust:none; text-size-adjust:none; }
-  .prov-detail-role{ font-size:8px; -webkit-text-size-adjust:none; text-size-adjust:none; }
-  .prov-detail-bio{ font-size:11.5px; -webkit-text-size-adjust:none; text-size-adjust:none; }
+  .prov-detail-info h3{ font-size:22px; line-height:1.25; -webkit-text-size-adjust:none; text-size-adjust:none; }
+  .prov-detail-role{ font-size:13px; line-height:1.4; -webkit-text-size-adjust:none; text-size-adjust:none; }
+  .prov-detail-bio{ font-size:16px; line-height:1.65; -webkit-text-size-adjust:none; text-size-adjust:none; }
 }
 
 /* -------------------- Providers page: mobile carousel -------------------- */
