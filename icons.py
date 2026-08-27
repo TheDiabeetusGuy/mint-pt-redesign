@@ -5,6 +5,8 @@ ICONS = {
 "mountain": '<path d="M2 19h20L15.5 6 11 13.5 8.5 10 2 19z"/><path d="M6 19l3.2-4.8"/>',
 "chev-down": '<path d="M6 9l6 6 6-6"/>',
 "arrow-right": '<path d="M4 12h16"/><path d="M14 6l6 6-6 6"/>',
+"chevron-left": '<path d="M15 5l-7 7 7 7"/>',
+"chevron-right": '<path d="M9 5l7 7-7 7"/>',
 "phone": '<path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v4a2 2 0 0 1-2 2C9.6 21 3 14.4 3 6a2 2 0 0 1 2-2z"/>',
 "mail": '<path d="M3 5h18v14H3z"/><path d="M3 6l9 7 9-7"/>',
 "pin": '<path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/>',

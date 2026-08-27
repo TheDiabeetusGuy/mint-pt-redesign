@@ -220,12 +220,13 @@ document.addEventListener('DOMContentLoaded', function () {
           var isMatch = panel.id === targetId;
           panel.classList.toggle('is-active', isMatch);
           panel.hidden = !isMatch;
-          // Coming back to a tab restarts its auto-cycle if a click had
-          // stopped it — only leaving the page (or a real refresh) should
-          // otherwise be needed to bring it back.
+          // Coming back to a tab restarts its auto-cycle (desktop list or
+          // mobile carousel, whichever applies) if it had stopped — only
+          // leaving the page (or a real refresh) should otherwise do that.
           if (isMatch) {
             var shownSection = panel.querySelector('.prov-list-section');
             if (shownSection && shownSection._resetAutoCycle) shownSection._resetAutoCycle();
+            if (shownSection && shownSection._resetCarousel) shownSection._resetCarousel();
           }
         });
       });
@@ -357,6 +358,104 @@ document.addEventListener('DOMContentLoaded', function () {
         startAutoCycle();
       });
     });
+  });
+
+  /* ---------- Providers page: mobile carousel (swipe/arrows, auto-advance every 5s) ---------- */
+  document.querySelectorAll('.prov-list-section').forEach(function (section) {
+    var carousel = section.querySelector('.prov-carousel');
+    if (!carousel) return;
+    var viewport = carousel.querySelector('.prov-carousel-viewport');
+    var track = carousel.querySelector('.prov-carousel-track');
+    var slides = carousel.querySelectorAll('.prov-carousel-slide');
+    var prevBtn = carousel.querySelector('.prov-carousel-prev');
+    var nextBtn = carousel.querySelector('.prov-carousel-next');
+    if (!viewport || !track || !slides.length) return;
+
+    var startIndex = 0;
+    slides.forEach(function (s, i) { if (s.classList.contains('is-active')) startIndex = i; });
+    var currentIndex = startIndex;
+    var timer = null;
+    var stopped = false;
+
+    function render(withTransition) {
+      var w = viewport.clientWidth;
+      track.style.transition = withTransition === false ? 'none' : '';
+      track.style.transform = 'translateX(-' + (currentIndex * w) + 'px)';
+      slides.forEach(function (s, i) {
+        s.style.width = w + 'px';
+        s.classList.toggle('is-active', i === currentIndex);
+      });
+    }
+
+    function goTo(index) {
+      currentIndex = ((index % slides.length) + slides.length) % slides.length;
+      render();
+    }
+
+    function next() { goTo(currentIndex + 1); }
+    function prev() { goTo(currentIndex - 1); }
+
+    function pause() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() {
+      if (stopped || slides.length <= 1 || timer) return;
+      timer = window.setInterval(next, 5000);
+    }
+
+    // Tapping an arrow or starting a swipe is a deliberate interaction — it
+    // stops the auto-advance for good, just like a click does on desktop.
+    // Only leaving the tab and coming back (or a refresh) restarts it.
+    function stopForGood() {
+      stopped = true;
+      pause();
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { stopForGood(); prev(); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { stopForGood(); next(); });
+
+    var touchStartX = null;
+    var dragBase = 0;
+    var dragging = false;
+
+    viewport.addEventListener('touchstart', function (e) {
+      if (!e.touches || !e.touches.length) return;
+      stopForGood();
+      dragging = true;
+      touchStartX = e.touches[0].clientX;
+      dragBase = -currentIndex * viewport.clientWidth;
+      track.style.transition = 'none';
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', function (e) {
+      if (!dragging || touchStartX === null || !e.touches || !e.touches.length) return;
+      var dx = e.touches[0].clientX - touchStartX;
+      track.style.transform = 'translateX(' + (dragBase + dx) + 'px)';
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', function (e) {
+      if (!dragging) return;
+      dragging = false;
+      var endX = (e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX) || touchStartX;
+      var dx = endX - touchStartX;
+      var threshold = 40;
+      if (dx <= -threshold) { goTo(currentIndex + 1); }
+      else if (dx >= threshold) { goTo(currentIndex - 1); }
+      else { render(); }
+      touchStartX = null;
+    });
+
+    window.addEventListener('resize', function () { render(false); });
+
+    // Lets the tab-switch handler above fully reset this carousel back to
+    // its first slide with the cycle running fresh, same as the desktop list.
+    section._resetCarousel = function () {
+      stopped = false;
+      pause();
+      goTo(startIndex);
+      start();
+    };
+
+    render(false);
+    start();
   });
 
   /* ---------- Video placeholders ---------- */

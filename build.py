@@ -456,11 +456,18 @@ def testimonial_card(t):
     </div>'''
 
 def provider_card(p, mode="static"):
-    # mode "static": no bio, no interaction (Locations page team sections,
-    #                and the small visual snippet on the Providers page)
-    # mode "hover":  bio reveals on hover (Home page)
+    # mode "static":     no bio, no interaction (Locations page team sections)
+    # mode "hover":      bio reveals on hover (Home page)
+    # mode "photo-only": just the color/initials square, no overlay at all —
+    #                    used wherever the name/role/bio already appears
+    #                    right next to the photo (Providers page detail card
+    #                    and mobile carousel), so it isn't shown twice.
     idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
     color = AVATAR_COLORS[idx]
+    if mode == "photo-only":
+        return f'''<div class="provider-card" style="background:{color};">
+      <span class="provider-initials">{initials(p['name'])}</span>
+    </div>'''
     bio_html = ""
     card_cls = "provider-card"
     if mode == "hover":
@@ -748,7 +755,7 @@ def providers_page():
         panels = "".join(
             f'''<div class="prov-detail{" is-active is-visible" if prov_slug(p['name']) == default_slug else ""}" id="prov-{prov_slug(p['name'])}">
         <div class="prov-detail-card">
-          <div class="prov-detail-visual">{provider_card(p)}</div>
+          <div class="prov-detail-visual">{provider_card(p, mode="photo-only")}</div>
           <div class="prov-detail-info">
             <h3>{p['name']}, {p['cred']}</h3>
             <div class="prov-detail-role">{p['role']}</div>
@@ -758,10 +765,30 @@ def providers_page():
       </div>'''
             for p in providers
         )
-        return list_items, panels
+        slides = "".join(
+            f'''<div class="prov-carousel-slide{" is-active" if prov_slug(p['name']) == default_slug else ""}">
+          <div class="prov-detail-card">
+            <div class="prov-detail-visual">{provider_card(p, mode="photo-only")}</div>
+            <div class="prov-detail-info">
+              <h3>{p['name']}, {p['cred']}</h3>
+              <div class="prov-detail-role">{p['role']}</div>
+              <p class="prov-detail-bio">{p['bio']}</p>
+            </div>
+          </div>
+        </div>'''
+            for p in providers
+        )
+        carousel = f'''<div class="prov-carousel">
+        <button type="button" class="prov-carousel-arrow prov-carousel-prev" aria-label="Previous provider">{icon('chevron-left')}</button>
+        <div class="prov-carousel-viewport">
+          <div class="prov-carousel-track">{slides}</div>
+        </div>
+        <button type="button" class="prov-carousel-arrow prov-carousel-next" aria-label="Next provider">{icon('chevron-right')}</button>
+      </div>'''
+        return list_items, panels, carousel
 
-    dpt_list, dpt_panels = list_and_detail(dpts, "Brad Klemetson")
-    pta_list, pta_panels = list_and_detail(ptas, ptas[0]['name'])
+    dpt_list, dpt_panels, dpt_carousel = list_and_detail(dpts, "Brad Klemetson")
+    pta_list, pta_panels, pta_carousel = list_and_detail(ptas, ptas[0]['name'])
 
     hero = page_hero("Meet the Team", "Our Providers",
                       "Doctors of Physical Therapy and PTAs across all nine clinics &mdash; every one of them trained in MINT&rsquo;s hands-on, whole-person approach to recovery.",
@@ -780,6 +807,7 @@ def providers_page():
             <ul class="prov-list">{dpt_list}</ul>
             <div class="prov-detail-wrap">{dpt_panels}</div>
           </div>
+          {dpt_carousel}
         </div>
       </div>
       <div class="prov-tab-panel" id="prov-panel-pta" role="tabpanel" hidden>
@@ -788,6 +816,7 @@ def providers_page():
             <ul class="prov-list">{pta_list}</ul>
             <div class="prov-detail-wrap">{pta_panels}</div>
           </div>
+          {pta_carousel}
         </div>
       </div>
     </div>
