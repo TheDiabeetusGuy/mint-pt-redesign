@@ -56,6 +56,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ---------- Locations page: city list + detail panel ---------- */
+  var locList = document.querySelector('.loc-list');
+  if (locList) {
+    function locLoadMap(panel) {
+      var frame = panel.querySelector('iframe[data-src]');
+      if (frame) {
+        frame.src = frame.getAttribute('data-src');
+        frame.removeAttribute('data-src');
+      }
+    }
+    var activePanel = document.querySelector('.loc-detail.is-active');
+    if (activePanel) locLoadMap(activePanel);
+
+    locList.querySelectorAll('.loc-list-item').forEach(function (item) {
+      item.addEventListener('click', function () {
+        locList.querySelectorAll('.loc-list-item').forEach(function (i) { i.classList.remove('is-active'); });
+        item.classList.add('is-active');
+        document.querySelectorAll('.loc-detail').forEach(function (d) { d.classList.remove('is-active'); });
+        var target = document.getElementById(item.dataset.target);
+        if (target) {
+          target.classList.add('is-active');
+          locLoadMap(target);
+        }
+      });
+    });
+  }
+
   /* ---------- Home hero carousel ---------- */
   var carousel = document.getElementById('homeCarousel');
   if (carousel) {

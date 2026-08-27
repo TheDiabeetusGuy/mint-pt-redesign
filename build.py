@@ -279,6 +279,19 @@ def maps_href(loc):
     q = f"{loc['name']} {loc.get('addr1','')} {loc['city']}".replace(" ", "+")
     return f"https://www.google.com/maps/search/?api=1&query={q}"
 
+def maps_embed_src(loc):
+    # Falls back to just the city when the street address isn't on file yet
+    # (e.g. Brigham City), so the map still resolves to a sensible pin.
+    if "call for" in loc.get("addr1", "").lower():
+        q = f"{loc['name']} {loc['city']}"
+    else:
+        q = f"{loc['name']} {loc['addr1']} {loc['city']}"
+    q = q.replace(" ", "+")
+    return f"https://www.google.com/maps?q={q}&output=embed"
+
+def city_label(loc):
+    return loc["name"].replace(" Clinic", "")
+
 # ---------------------------------------------------------------
 # Header / Footer / Base layout
 # ---------------------------------------------------------------
@@ -386,13 +399,11 @@ def base_page(title, description, body, depth="", active="", extra_head=""):
 </body>
 </html>'''
 
-def page_hero(eyebrow, title, lead, crumbs, depth=""):
-    crumb_html = " / ".join([f'<a href="{depth}index.html">Home</a>'] + crumbs)
+def page_hero(eyebrow, title, lead, crumbs=None, depth=""):
     return f'''<section class="page-hero">
     {topo_lines(seed=3, rows=5)}
     <div class="container">
-      <div class="breadcrumb">{crumb_html}</div>
-      <div class="eyebrow on-dark" style="margin-top:18px;">{eyebrow}</div>
+      <div class="eyebrow on-dark">{eyebrow}</div>
       <h1>{title}</h1>
       <p class="lead">{lead}</p>
     </div>
@@ -620,16 +631,44 @@ def home_page():
 
 
 def locations_page():
-    hero = page_hero("Nine Clinics &middot; One Standard of Care", "Find a MINT Clinic Near You",
-                      "Walk-in for 1:1 care at any of our nine Wasatch Front locations, or ask about a mobile visit &mdash; we cover Ogden all the way down to Payson.",
-                      ["Locations"])
-    cards = "".join(location_card(l) for l in LOCATIONS)
+    hero = f'''<section class="page-hero loc-hero">
+    {topo_lines(seed=3, rows=5)}
+    <div class="container">
+      <h1>Find a MINT Clinic Near You</h1>
+      <p class="lead">Walk-in for 1:1 care at any of our nine Wasatch Front locations, or ask about a mobile visit &mdash; we cover Ogden all the way down to Payson.</p>
+    </div>
+  </section>'''
+
+    list_items = "".join(
+        f'<li class="loc-list-item{" is-active" if i == 0 else ""}" data-target="loc-{l["slug"]}">{city_label(l)}</li>'
+        for i, l in enumerate(LOCATIONS)
+    )
+
+    def detail_panel(l, i):
+        return f'''<div class="loc-detail{" is-active" if i == 0 else ""}" id="loc-{l['slug']}">
+      <div class="loc-detail-info">
+        <h3>{l['name']}</h3>
+        <p class="loc-detail-addr">{l['addr1']}<br>{l['city']}</p>
+        <div class="loc-detail-meta">
+          <div><span>Phone</span>{l['phone']}</div>
+          <div><span>Fax</span>{l['fax']}</div>
+          <div><span>Email</span>{l['email']}</div>
+        </div>
+        <a class="btn btn-primary" href="contact.html">Request an Appointment</a>
+      </div>
+      <div class="loc-detail-map">
+        <iframe data-src="{maps_embed_src(l)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to {l['name']}"></iframe>
+      </div>
+    </div>'''
+
+    panels = "".join(detail_panel(l, i) for i, l in enumerate(LOCATIONS))
+
     body = f'''{hero}
   <section class="section">
     <div class="container">
-      <div class="tag" style="margin-bottom:26px;">{icon('navigate', cls='icon', extra='style="width:15px;height:15px"')} Hours are generally Monday&ndash;Friday, 7am&ndash;6pm. Please call your clinic to confirm.</div>
-      <div class="grid-3">
-        {cards}
+      <div class="loc-split">
+        <ul class="loc-list">{list_items}</ul>
+        <div class="loc-detail-wrap">{panels}</div>
       </div>
     </div>
   </section>
