@@ -5,7 +5,7 @@ Run: python3 build.py
 Outputs plain HTML files (no build step needed to view the site —
 this script is just a convenience for keeping ~20 pages consistent).
 """
-import os, math, re, html
+import os, math, re
 from icons import icon, ICONS
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -465,25 +465,17 @@ def testimonial_card(t):
     </div>'''
 
 def provider_card(p, mode="static"):
-    # mode "static": no bio, no interaction (Locations page team sections)
+    # mode "static": no bio, no interaction (Locations page team sections,
+    #                and the small visual snippet on the Providers page)
     # mode "hover":  bio reveals on hover (Home page)
-    # mode "modal":  card is clickable, opens the full bio in a modal (Providers page)
     idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
     color = AVATAR_COLORS[idx]
     bio_html = ""
-    extra_attrs = ""
     card_cls = "provider-card"
     if mode == "hover":
         card_cls = "provider-card has-bio-hover"
         bio_html = f'<p class="provider-overlay-bio">{p["bio"]}</p>'
-    elif mode == "modal":
-        card_cls = "provider-card provider-card-clickable"
-        name_attr = html.escape(f"{p['name']}, {p['cred']}", quote=True)
-        role_attr = html.escape(p['role'], quote=True)
-        bio_attr = html.escape(p['bio'], quote=True)
-        extra_attrs = (f' tabindex="0" role="button" aria-haspopup="dialog"'
-                        f' data-name="{name_attr}" data-role="{role_attr}" data-bio="{bio_attr}"')
-    return f'''<div class="{card_cls}" style="background:{color};"{extra_attrs}>
+    return f'''<div class="{card_cls}" style="background:{color};">
       <span class="provider-initials">{initials(p['name'])}</span>
       <div class="provider-overlay">
         <h3>{p['name']}, {p['cred']}</h3>
@@ -491,6 +483,9 @@ def provider_card(p, mode="static"):
         {bio_html}
       </div>
     </div>'''
+
+def prov_slug(name):
+    return re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')
 
 def location_card(l, depth=""):
     return f'''<div class="location-card" id="{l['slug']}">
@@ -751,23 +746,62 @@ def providers_page():
                       ["Our Providers"], extra_class="prov-hero")
     dpts = [p for p in PROVIDERS if p['cred'] == 'PT, DPT']
     ptas = [p for p in PROVIDERS if p['cred'] == 'PTA']
+
+    def list_and_detail(providers, default_name):
+        default_slug = prov_slug(default_name)
+        list_items = "".join(
+            f'''<li class="prov-list-item{" is-active" if prov_slug(p['name']) == default_slug else ""}"
+          data-target="prov-{prov_slug(p['name'])}" tabindex="0" role="button">
+        <span class="prov-list-name">{p['name']}, {p['cred']}</span>
+        <span class="prov-list-role">{p['role']}</span>
+      </li>'''
+            for p in providers
+        )
+        panels = "".join(
+            f'''<div class="prov-detail{" is-active is-visible" if prov_slug(p['name']) == default_slug else ""}" id="prov-{prov_slug(p['name'])}">
+        <div class="prov-detail-card">
+          <div class="prov-detail-visual">{provider_card(p)}</div>
+          <div class="prov-detail-info">
+            <h3>{p['name']}, {p['cred']}</h3>
+            <div class="prov-detail-role">{p['role']}</div>
+            <p class="prov-detail-bio">{p['bio']}</p>
+          </div>
+        </div>
+      </div>'''
+            for p in providers
+        )
+        return list_items, panels
+
+    dpt_list, dpt_panels = list_and_detail(dpts, "Brad Klemetson")
+    pta_list, pta_panels = list_and_detail(ptas, ptas[0]['name'])
+
     body = f'''{hero}
   <section class="section prov-first-section">
-    <div class="container">
+    <div class="container prov-container">
       <div class="section-head">
         <div class="eyebrow">Doctors of Physical Therapy</div>
         <h2>Twelve DPTs, one shared philosophy.</h2>
       </div>
-      <div class="grid-4">{''.join(provider_card(p, mode="modal") for p in dpts)}</div>
+      <div class="prov-list-section">
+        <div class="prov-split">
+          <ul class="prov-list">{dpt_list}</ul>
+          <div class="prov-detail-wrap">{dpt_panels}</div>
+        </div>
+      </div>
     </div>
   </section>
   <section class="section bg-stone">
-    <div class="container">
+    <div class="container prov-container">
       <div class="section-head">
         <div class="eyebrow">Physical Therapist Assistants</div>
         <h2>The team keeping your recovery on track.</h2>
       </div>
-      <div class="grid-4">{''.join(provider_card(p, mode="modal") for p in ptas)}</div>
+      <div class="prov-list-section">
+        <div class="prov-split">
+          <ul class="prov-list">{pta_list}</ul>
+          <div class="prov-detail-wrap">{pta_panels}</div>
+        </div>
+      </div>
     </div>
   </section>
   <section class="section">
@@ -775,15 +809,6 @@ def providers_page():
       {cta_band("Have a provider in mind?", "Tell us who you&rsquo;d like to see, or which clinic works best, and we&rsquo;ll take care of the rest.")}
     </div>
   </section>
-  <div class="provider-modal" id="providerModal" aria-hidden="true">
-    <div class="provider-modal-backdrop" data-close-modal></div>
-    <div class="provider-modal-panel" role="dialog" aria-modal="true" aria-labelledby="providerModalName">
-      <button type="button" class="provider-modal-close" data-close-modal aria-label="Close">{icon('x')}</button>
-      <h3 id="providerModalName"></h3>
-      <div class="role" id="providerModalRole"></div>
-      <p id="providerModalBio"></p>
-    </div>
-  </div>
 '''
     return base_page("Our Providers", "Meet the Doctors of Physical Therapy and PTAs at MINT Physical Therapy across Utah.", body, active="providers")
 

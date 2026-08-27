@@ -205,51 +205,61 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /* ---------- Provider bio modal (Providers page) ---------- */
-  var providerModal = document.getElementById('providerModal');
-  if (providerModal) {
-    var pmName = document.getElementById('providerModalName');
-    var pmRole = document.getElementById('providerModalRole');
-    var pmBio = document.getElementById('providerModalBio');
-    var lastFocused = null;
+  /* ---------- Providers page: hover-preview / click-to-pin list + detail panel ---------- */
+  document.querySelectorAll('.prov-list-section').forEach(function (section) {
+    var list = section.querySelector('.prov-list');
+    var wrap = section.querySelector('.prov-detail-wrap');
+    if (!list || !wrap) return;
 
-    function openProviderModal(card) {
-      pmName.textContent = card.dataset.name || '';
-      pmRole.textContent = card.dataset.role || '';
-      pmBio.textContent = card.dataset.bio || '';
-      lastFocused = document.activeElement;
-      providerModal.classList.add('is-open');
-      providerModal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-      providerModal.querySelector('.provider-modal-close').focus();
+    var items = list.querySelectorAll('.prov-list-item');
+    var startItem = list.querySelector('.prov-list-item.is-active') || items[0];
+    var pinnedTarget = startItem ? startItem.dataset.target : null;
+    var activeTarget = pinnedTarget;
+
+    function showPanel(targetId) {
+      if (!targetId || targetId === activeTarget) return;
+      var next = document.getElementById(targetId);
+      var current = wrap.querySelector('.prov-detail.is-active');
+      if (!next) return;
+      activeTarget = targetId;
+      if (current && current !== next) {
+        current.classList.remove('is-visible');
+        window.setTimeout(function () {
+          current.classList.remove('is-active');
+          next.classList.add('is-active');
+          void next.offsetWidth;
+          requestAnimationFrame(function () { next.classList.add('is-visible'); });
+        }, 220);
+      } else {
+        next.classList.add('is-active');
+        void next.offsetWidth;
+        requestAnimationFrame(function () { next.classList.add('is-visible'); });
+      }
     }
 
-    // Only one provider's bio is ever shown at a time: clicking a new card
-    // just repopulates this same modal, so the previous bio always closes.
-    function closeProviderModal() {
-      providerModal.classList.remove('is-open');
-      providerModal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-      if (lastFocused) lastFocused.focus();
+    function pinItem(item) {
+      pinnedTarget = item.dataset.target;
+      items.forEach(function (i) { i.classList.toggle('is-active', i === item); });
+      showPanel(pinnedTarget);
     }
 
-    document.querySelectorAll('.provider-card-clickable').forEach(function (card) {
-      card.addEventListener('click', function () { openProviderModal(card); });
-      card.addEventListener('keydown', function (e) {
+    items.forEach(function (item) {
+      // Hovering previews a provider's bio without changing what's pinned;
+      // moving away reverts to whichever provider was last clicked (or the
+      // default), so only one bio is ever shown at a time.
+      item.addEventListener('mouseenter', function () { showPanel(item.dataset.target); });
+      item.addEventListener('mouseleave', function () { showPanel(pinnedTarget); });
+      item.addEventListener('click', function () { pinItem(item); });
+      item.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          openProviderModal(card);
+          pinItem(item);
         }
       });
+      item.addEventListener('focus', function () { showPanel(item.dataset.target); });
+      item.addEventListener('blur', function () { showPanel(pinnedTarget); });
     });
-
-    providerModal.querySelectorAll('[data-close-modal]').forEach(function (el) {
-      el.addEventListener('click', closeProviderModal);
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && providerModal.classList.contains('is-open')) closeProviderModal();
-    });
-  }
+  });
 
   /* ---------- Video placeholders ---------- */
   document.querySelectorAll('.video-frame').forEach(function (frame) {
