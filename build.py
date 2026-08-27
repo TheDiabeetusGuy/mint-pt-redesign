@@ -377,8 +377,6 @@ def footer_html(depth=""):
           <div class="footer-brand"><img src="{depth}assets/img/logo.png" alt="MINT Physical Therapy" class="footer-logo"></div>
           <p class="footer-tagline">Utah-based, one-on-one physical therapy — in one of our clinics, or at your door. Mobile visits available from Ogden to Payson.</p>
         </div>
-      </div>
-      <div class="footer-labels-row">
         <nav class="footer-labels" aria-label="Footer">
           <a href="{depth}locations.html">Clinics</a>
           <a href="{depth}services.html">Services</a>
