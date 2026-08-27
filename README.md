@@ -97,9 +97,27 @@ at the top of `assets/css/style.css` — quick to do once you've decided).
   have the address, or edit `locations.html` directly.
 - **Provider bios** — the original site had bios hidden behind dropdown
   arrows that weren't visible in the screenshots I worked from, so I wrote
-  short, warm, generic placeholder bios for all 16 providers. Swap in real
-  bios whenever you have them (each one is a one-line `bio="..."` entry in
-  `build.py`, or just find-and-replace the text directly in `providers.html`).
+  short, warm, generic placeholder bios for all 18 providers (see note below
+  on the 2 newly added ones). Swap in real bios whenever you have them (each
+  one is a one-line `bio="..."` entry in `build.py`, or just find-and-replace
+  the text directly in `providers.html`).
+- **Two providers found late** — while matching up which providers work at
+  which clinic (for the new team sections on the Locations page), I found
+  two people in the original location photos who weren't in the original
+  16-person roster: **Jason Gubler** (Brigham City) and **Skyler Little**
+  (Riverton). I added them to `PROVIDERS` in `build.py` with the same style
+  of placeholder bio as everyone else — worth a quick look to confirm their
+  names/credentials are spelled correctly and that no one else is missing.
+- **Clinic team assignments** — the Locations page now shows each clinic's
+  own PT/PTA team, pulled from the per-location staff photos in the original
+  site. This lives in the `CLINIC_PROVIDERS` dictionary near the top of
+  `build.py` — it's just a list of names per clinic slug, so adding, removing,
+  or moving someone between clinics is a one-line edit. One thing I noticed
+  while going through this: the original site also had a page for a "West
+  Jordan Clinic" (with its own address and staff) that isn't one of the 9
+  clinics in the current Locations nav — it may be outdated, or it may be a
+  10th real location that just never made it into the main menu. Worth
+  checking with whoever runs the clinics day-to-day.
 - **Photography** — the site currently uses icon-based and gradient/topo-line
   visuals instead of photos, since I didn't want to guess at or fabricate
   real photography. Swap in real clinic, team, and action photos wherever

@@ -239,7 +239,30 @@ PROVIDERS = [
          bio="Patient and thorough, with a talent for putting nervous first-time patients at ease."),
     dict(name="Gabby Willardsen", cred="PTA", role="Physical Therapist Assistant",
          bio="Brings consistency and care to every session, cheering on every bit of progress along the way."),
+    dict(name="Jason Gubler", cred="PT, DPT", role="Physical Therapist · Brigham City",
+         bio="Combines technical precision with genuine care, making sure every plan fits the person in front of him."),
+    dict(name="Skyler Little", cred="PT, DPT", role="Physical Therapist · Riverton",
+         bio="Approaches every recovery with patience and a clear plan, so patients know exactly what to expect next."),
 ]
+
+# Which providers see patients at which clinic, drawn from the per-location
+# staff photos in the original site. Names must match PROVIDERS entries above.
+CLINIC_PROVIDERS = {
+    "ogden": ["Joseph Zeigler", "Adam Gilbert", "Josh"],
+    "clearfield": ["Joseph Zeigler", "Adam Gilbert", "Josh"],
+    "brigham-city": ["Jason Gubler"],
+    "murray": ["Christian Bentley", "Brad Klemetson", "Grace Waters"],
+    "riverton": ["Skyler Little", "Sandy Larson", "Amber Hankes"],
+    "west-valley-city": ["Ryan Rindlesbacher", "Brad Klemetson"],
+    "lehi": ["Casey Snell", "Natoshia Diffendaffer"],
+    "american-fork": ["Casey Snell", "Natoshia Diffendaffer"],
+    "provo": ["Andrew Mitchell", "Natoshia Diffendaffer"],
+}
+
+def providers_for_clinic(slug):
+    names = CLINIC_PROVIDERS.get(slug, [])
+    by_name = {p["name"]: p for p in PROVIDERS}
+    return [by_name[n] for n in names if n in by_name]
 
 TESTIMONIALS = [
     dict(quote="Brad understands the demands of working with athletes. If my athletes get hurt, I trust him to get them back stronger, not just healed.",
@@ -659,22 +682,36 @@ def locations_page():
     list_items += '<li class="loc-list-item loc-list-item-mobile" data-target="loc-mobile">Mobile Visit</li>'
 
     def detail_panel(l, i):
+        provs = providers_for_clinic(l["slug"])
+        provider_cards = "".join(f'''<div class="loc-provider-card">
+          {avatar(p['name'], 64, 18)}
+          <h5>{p['name']}, {p['cred']}</h5>
+          <div class="role">{p['role']}</div>
+          <p class="bio">{p['bio']}</p>
+        </div>''' for p in provs)
+        providers_block = f'''<div class="loc-providers-wrap">
+        <div class="loc-providers-heading">Meet the {city_label(l)} Team</div>
+        <div class="loc-providers-grid">{provider_cards}</div>
+      </div>''' if provs else ""
         return f'''<div class="loc-detail{" is-active is-visible" if i == 0 else ""}" id="loc-{l['slug']}">
-      <div class="loc-detail-info">
-        <h3>{icon('pin', cls='icon', extra='style="width:17px;height:17px;color:var(--forest-600);flex:none"')}{l['name']}</h3>
-        <p class="loc-detail-addr">{l['addr1']}, {l['city']}</p>
-        <div class="loc-detail-meta">
-          <div><span>Phone</span>{l['phone']}</div>
-          <div><span>Fax</span>{l['fax']}</div>
-          <div><span>Email</span>{l['email']}</div>
-          <div><span>Hours</span>{l['hours']}</div>
+      <div class="loc-detail-card">
+        <div class="loc-detail-info">
+          <h3>{icon('pin', cls='icon', extra='style="width:17px;height:17px;color:var(--forest-600);flex:none"')}{l['name']}</h3>
+          <p class="loc-detail-addr">{l['addr1']}, {l['city']}</p>
+          <div class="loc-detail-meta">
+            <div><span>Phone</span>{l['phone']}</div>
+            <div><span>Fax</span>{l['fax']}</div>
+            <div><span>Email</span>{l['email']}</div>
+            <div><span>Hours</span>{l['hours']}</div>
+          </div>
+          <a class="btn btn-primary" href="contact.html">Request an Appointment</a>
         </div>
-        <a class="btn btn-primary" href="contact.html">Request an Appointment</a>
+        <div class="loc-detail-map">
+          <iframe data-src="{maps_embed_src(l)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to {l['name']}"></iframe>
+          <a class="loc-map-chip" href="{maps_href(l)}" target="_blank" rel="noopener">{icon('navigate', cls='icon', extra='style="width:13px;height:13px"')} Get Directions</a>
+        </div>
       </div>
-      <div class="loc-detail-map">
-        <iframe data-src="{maps_embed_src(l)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to {l['name']}"></iframe>
-        <a class="loc-map-chip" href="{maps_href(l)}" target="_blank" rel="noopener">{icon('navigate', cls='icon', extra='style="width:13px;height:13px"')} Get Directions</a>
-      </div>
+      {providers_block}
     </div>'''
 
     panels = "".join(detail_panel(l, i) for i, l in enumerate(LOCATIONS))
