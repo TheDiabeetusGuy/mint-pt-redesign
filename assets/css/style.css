@@ -286,7 +286,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .loc-hero{ background: var(--forest-mid); padding: 39px 0 45px; }
 .loc-hero h1{ margin-top:0; }
 
-.prov-first-section{ padding-top: clamp(48px,7vw,96px); }
+.prov-hero{ background: var(--forest-mid); padding: 21px 0 48px; }
+.prov-first-section{ padding-top: clamp(28px,4.5vw,60px); }
 
 /* -------------------- Locations: city list + detail panel -------------------- */
 .loc-list-section{ padding-top: clamp(28px,4.5vw,60px); padding-bottom: clamp(28px,4.5vw,60px); }
@@ -444,7 +445,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 
 .prov-tabs{ display:flex; align-items:center; gap:16px; margin: 18px 0 36px; flex-wrap:wrap; }
 .prov-tab{
-  font-family:var(--f-display); font-weight:700; font-size: clamp(19px,2.4vw,26px); line-height:1.15;
+  font-family:var(--f-display); font-weight:700; font-size: clamp(23px,2.4vw,30px); line-height:1.15;
   background:none; border:none; padding:0; cursor:pointer; color: var(--ink-300);
   letter-spacing:-0.01em; transition: color .18s ease;
 }

@@ -789,12 +789,13 @@ def providers_page():
     dpt_list, dpt_panels = list_and_detail(dpts, "Brad Klemetson")
     pta_list, pta_panels = list_and_detail(ptas, ptas[0]['name'])
 
-    body = f'''
+    hero = page_hero("Meet the Team", "Our Providers",
+                      "Doctors of Physical Therapy and PTAs across all nine clinics &mdash; every one of them trained in MINT&rsquo;s hands-on, whole-person approach to recovery.",
+                      ["Our Providers"], extra_class="prov-hero")
+
+    body = f'''{hero}
   <section class="section prov-first-section">
     <div class="container prov-container">
-      <div class="section-head">
-        <div class="eyebrow">Meet the Team</div>
-      </div>
       <div class="prov-tabs" role="tablist">
         <button type="button" class="prov-tab is-active" role="tab" aria-selected="true" data-tab-target="prov-panel-dpt">Doctors of Physical Therapy</button>
         <button type="button" class="prov-tab" role="tab" aria-selected="false" data-tab-target="prov-panel-pta">Physical Therapist Assistants</button>
