@@ -220,6 +220,13 @@ document.addEventListener('DOMContentLoaded', function () {
           var isMatch = panel.id === targetId;
           panel.classList.toggle('is-active', isMatch);
           panel.hidden = !isMatch;
+          // Coming back to a tab restarts its auto-cycle if a click had
+          // stopped it — only leaving the page (or a real refresh) should
+          // otherwise be needed to bring it back.
+          if (isMatch) {
+            var shownSection = panel.querySelector('.prov-list-section');
+            if (shownSection && shownSection._resetAutoCycle) shownSection._resetAutoCycle();
+          }
         });
       });
     });
@@ -308,6 +315,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var autoCycleTimer = null;
     var autoCycleStopped = false;
     startAutoCycle();
+
+    // Lets the tab-switch handler above restart this list's cycle whenever
+    // its tab is shown again, even after a click had stopped it for good.
+    section._resetAutoCycle = function () {
+      autoCycleStopped = false;
+      startAutoCycle();
+    };
 
     items.forEach(function (item) {
       // Hovering previews a provider's bio without changing what's pinned,
