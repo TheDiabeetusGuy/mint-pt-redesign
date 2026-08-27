@@ -67,25 +67,52 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
+    function showPanel(panel) {
+      document.querySelectorAll('.loc-detail').forEach(function (d) {
+        d.classList.remove('is-active', 'is-visible');
+      });
+      panel.classList.add('is-active');
+      locLoadMap(panel);
+      // Force layout so the browser registers the starting (invisible) state
+      // before switching it to visible — otherwise it just snaps straight in.
+      void panel.offsetWidth;
+      requestAnimationFrame(function () {
+        panel.classList.add('is-visible');
+      });
+    }
+
     function activateLocation(slug) {
       var targetId = 'loc-' + slug;
       var item = locList.querySelector('.loc-list-item[data-target="' + targetId + '"]');
       var panel = document.getElementById(targetId);
       if (!item || !panel) return false;
+      if (panel.classList.contains('is-active')) return true;
+
       locList.querySelectorAll('.loc-list-item').forEach(function (i) { i.classList.remove('is-active'); });
       item.classList.add('is-active');
-      document.querySelectorAll('.loc-detail').forEach(function (d) { d.classList.remove('is-active'); });
-      panel.classList.add('is-active');
-      locLoadMap(panel);
+
+      var current = document.querySelector('.loc-detail.is-active');
+      if (current && current !== panel) {
+        current.classList.remove('is-visible');
+        window.setTimeout(function () { showPanel(panel); }, 220);
+      } else {
+        showPanel(panel);
+      }
       return true;
     }
 
     // On page load: if the URL points at a specific clinic (e.g. from a
     // header link), show that one instead of always defaulting to the first.
     var startSlug = window.location.hash ? window.location.hash.slice(1) : null;
-    if (!startSlug || !activateLocation(startSlug)) {
-      var defaultPanel = document.querySelector('.loc-detail.is-active');
-      if (defaultPanel) locLoadMap(defaultPanel);
+    var startPanel = (startSlug && document.getElementById('loc-' + startSlug)) || document.querySelector('.loc-detail.is-active');
+    if (startSlug) {
+      locList.querySelectorAll('.loc-list-item').forEach(function (i) { i.classList.remove('is-active'); });
+      var startItem = locList.querySelector('.loc-list-item[data-target="loc-' + startSlug + '"]');
+      if (startItem) startItem.classList.add('is-active');
+    }
+    if (startPanel) {
+      startPanel.classList.add('is-active', 'is-visible');
+      locLoadMap(startPanel);
     }
 
     locList.querySelectorAll('.loc-list-item').forEach(function (item) {

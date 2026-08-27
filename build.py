@@ -645,10 +645,10 @@ def locations_page():
     )
 
     def detail_panel(l, i):
-        return f'''<div class="loc-detail{" is-active" if i == 0 else ""}" id="loc-{l['slug']}">
+        return f'''<div class="loc-detail{" is-active is-visible" if i == 0 else ""}" id="loc-{l['slug']}">
       <div class="loc-detail-info">
-        <h3>{l['name']}</h3>
-        <p class="loc-detail-addr">{l['addr1']}<br>{l['city']}</p>
+        <h3>{icon('pin', cls='icon', extra='style="width:17px;height:17px;color:var(--forest-600);flex:none"')}{l['name']}</h3>
+        <p class="loc-detail-addr">{l['addr1']}, {l['city']}</p>
         <div class="loc-detail-meta">
           <div><span>Phone</span>{l['phone']}</div>
           <div><span>Fax</span>{l['fax']}</div>
@@ -659,6 +659,7 @@ def locations_page():
       </div>
       <div class="loc-detail-map">
         <iframe data-src="{maps_embed_src(l)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map to {l['name']}"></iframe>
+        <a class="loc-map-chip" href="{maps_href(l)}" target="_blank" rel="noopener">{icon('navigate', cls='icon', extra='style="width:13px;height:13px"')} Get Directions</a>
       </div>
     </div>'''
 
