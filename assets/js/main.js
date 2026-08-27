@@ -103,13 +103,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // On page load: if the URL points at a specific clinic (e.g. from a
     // header link), show that one instead of always defaulting to the first.
+    // Ogden ships pre-marked active in the raw HTML (so the page still looks
+    // right before JS runs) — that has to be cleared before switching, or
+    // both Ogden and the target clinic end up visible at once.
     var startSlug = window.location.hash ? window.location.hash.slice(1) : null;
     var startPanel = (startSlug && document.getElementById('loc-' + startSlug)) || document.querySelector('.loc-detail.is-active');
-    if (startSlug) {
-      locList.querySelectorAll('.loc-list-item').forEach(function (i) { i.classList.remove('is-active'); });
-      var startItem = locList.querySelector('.loc-list-item[data-target="loc-' + startSlug + '"]');
-      if (startItem) startItem.classList.add('is-active');
-    }
+    document.querySelectorAll('.loc-detail').forEach(function (d) { d.classList.remove('is-active', 'is-visible'); });
+    locList.querySelectorAll('.loc-list-item').forEach(function (i) { i.classList.remove('is-active'); });
+    var startItem = startSlug
+      ? locList.querySelector('.loc-list-item[data-target="loc-' + startSlug + '"]')
+      : locList.querySelector('.loc-list-item');
+    if (startItem) startItem.classList.add('is-active');
     if (startPanel) {
       startPanel.classList.add('is-active', 'is-visible');
       locLoadMap(startPanel);
