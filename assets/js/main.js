@@ -271,18 +271,57 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    function pinItem(item) {
+    function applyPin(item) {
       pinnedTarget = item.dataset.target;
       items.forEach(function (i) { i.classList.toggle('is-active', i === item); });
       showPanel(pinnedTarget);
     }
 
+    function pauseAutoCycle() {
+      if (autoCycleTimer) { clearInterval(autoCycleTimer); autoCycleTimer = null; }
+    }
+
+    function startAutoCycle() {
+      if (autoCycleStopped || items.length <= 1 || autoCycleTimer) return;
+      autoCycleTimer = window.setInterval(advanceAuto, 4000);
+    }
+
+    // A click (or keyboard select) is a deliberate choice — it pins the
+    // provider and permanently stops the auto-cycle for this list. Only a
+    // page refresh restarts it. Hovering only pauses it (see below).
+    function pinItem(item) {
+      autoCycleStopped = true;
+      pauseAutoCycle();
+      applyPin(item);
+    }
+
+    // Advances to the next provider in the list, wrapping around, and
+    // highlights it exactly like a click would (green dot + shown bio) —
+    // just without stopping the cycle.
+    function advanceAuto() {
+      var currentIndex = -1;
+      items.forEach(function (i, idx) { if (i.dataset.target === pinnedTarget) currentIndex = idx; });
+      var nextIndex = (currentIndex + 1) % items.length;
+      applyPin(items[nextIndex]);
+    }
+
+    var autoCycleTimer = null;
+    var autoCycleStopped = false;
+    startAutoCycle();
+
     items.forEach(function (item) {
-      // Hovering previews a provider's bio without changing what's pinned;
-      // moving away reverts to whichever provider was last clicked (or the
-      // default), so only one bio is ever shown at a time.
-      item.addEventListener('mouseenter', function () { showPanel(item.dataset.target); });
-      item.addEventListener('mouseleave', function () { showPanel(pinnedTarget); });
+      // Hovering previews a provider's bio without changing what's pinned,
+      // and pauses the auto-cycle for as long as the mouse stays there;
+      // moving away resumes it (unless a click has stopped it for good) and
+      // reverts the panel to whichever provider is currently pinned.
+      item.addEventListener('mouseenter', function () {
+        pauseAutoCycle();
+        showPanel(item.dataset.target);
+      });
+      item.addEventListener('mouseleave', function () {
+        showPanel(pinnedTarget);
+        startAutoCycle();
+      });
       item.addEventListener('click', function () { pinItem(item); });
       item.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -290,8 +329,14 @@ document.addEventListener('DOMContentLoaded', function () {
           pinItem(item);
         }
       });
-      item.addEventListener('focus', function () { showPanel(item.dataset.target); });
-      item.addEventListener('blur', function () { showPanel(pinnedTarget); });
+      item.addEventListener('focus', function () {
+        pauseAutoCycle();
+        showPanel(item.dataset.target);
+      });
+      item.addEventListener('blur', function () {
+        showPanel(pinnedTarget);
+        startAutoCycle();
+      });
     });
   });
 
