@@ -496,8 +496,14 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 @media (max-width: 860px){
   .prov-split{ display:none; }
   .prov-tab{ font-size: clamp(20px,2.4vw,27px); }
-  .prov-detail-card{ grid-template-columns:1fr; }
-  .prov-detail-visual{ max-width:208px; margin:0 auto; }
+  .prov-detail-card{
+    grid-template-columns:1fr; background:none; border:none; box-shadow:none;
+    border-radius:0; padding:0; overflow:visible;
+  }
+  .prov-detail-visual{ max-width:none; width:100%; margin:0 auto; }
+  .prov-detail-info h3{ font-size:16px; }
+  .prov-detail-role{ font-size:6px; }
+  .prov-detail-bio{ font-size:9.5px; }
 }
 
 /* -------------------- Providers page: mobile carousel -------------------- */
@@ -508,7 +514,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .prov-carousel-slide{ flex:0 0 auto; }
 .prov-carousel-slide .prov-detail-card{ margin:0; }
 .prov-carousel-arrow{
-  position:absolute; top:118px; z-index:3;
+  position:absolute; top:50%; transform:translateY(-50%); z-index:3;
   width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:#fff;
   display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--forest-700);
   box-shadow: var(--shadow-1);
@@ -520,7 +526,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .prov-carousel-arrow:focus-visible{ outline:2px solid var(--forest-600); outline-offset:2px; }
 .prov-carousel-arrow .icon{ width:18px; height:18px; }
 @media (max-width: 420px){
-  .prov-carousel-arrow{ width:30px; height:30px; top:121px; }
+  .prov-carousel-arrow{ width:30px; height:30px; }
   .prov-carousel-arrow .icon{ width:15px; height:15px; }
 }
 .provider-initials{

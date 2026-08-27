@@ -377,6 +377,17 @@ document.addEventListener('DOMContentLoaded', function () {
     var timer = null;
     var stopped = false;
 
+    function positionArrows() {
+      if (!prevBtn || !nextBtn) return;
+      var visual = slides[currentIndex].querySelector('.prov-detail-visual');
+      if (!visual) return;
+      var carouselRect = carousel.getBoundingClientRect();
+      var visualRect = visual.getBoundingClientRect();
+      var centerY = (visualRect.top - carouselRect.top) + (visualRect.height / 2);
+      prevBtn.style.top = centerY + 'px';
+      nextBtn.style.top = centerY + 'px';
+    }
+
     function render(withTransition) {
       var w = viewport.clientWidth;
       track.style.transition = withTransition === false ? 'none' : '';
@@ -385,6 +396,10 @@ document.addEventListener('DOMContentLoaded', function () {
         s.style.width = w + 'px';
         s.classList.toggle('is-active', i === currentIndex);
       });
+      // The photo now fills most of the card and varies in height with
+      // screen width, so the arrows track its actual center instead of a
+      // fixed offset.
+      positionArrows();
     }
 
     function goTo(index) {
