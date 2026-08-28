@@ -55,7 +55,7 @@
 
 /* -------------------- Reset -------------------- */
 *,*::before,*::after{ box-sizing: border-box; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-html{ scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html{ scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x:hidden; width:100%; }
 body{
   margin:0;
   font-family: var(--f-body);
@@ -555,20 +555,16 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .prov-carousel-slide .prov-detail-card{ margin:0; }
 .prov-carousel-arrow{
   position:absolute; top:50%; transform:translateY(-50%); z-index:3;
-  width:54px; height:54px; border:none; background:none; box-shadow:none;
+  width:40px; height:40px; border:none; background:none; box-shadow:none;
   display:flex; align-items:center; justify-content:center; cursor:pointer;
-  color: rgba(255,255,255,.85);
+  color: rgba(255,255,255,.9); padding:0;
   transition: color .18s ease;
 }
-.prov-carousel-prev{ left:8px; }
-.prov-carousel-next{ right:8px; }
+.prov-carousel-prev{ left:4px; }
+.prov-carousel-next{ right:4px; }
 .prov-carousel-arrow:hover{ color:#fff; }
 .prov-carousel-arrow:focus-visible{ outline:2px solid rgba(255,255,255,.8); outline-offset:2px; border-radius:50%; }
-.prov-carousel-arrow .icon{ width:26px; height:26px; filter: drop-shadow(0 1px 4px rgba(0,0,0,.5)); }
-@media (max-width: 420px){
-  .prov-carousel-arrow{ width:45px; height:45px; }
-  .prov-carousel-arrow .icon{ width:22px; height:22px; }
-}
+.prov-carousel-arrow .icon{ width:24px; height:24px; filter: drop-shadow(0 1px 4px rgba(0,0,0,.5)); }
 .provider-initials{
   font-family:var(--f-display); font-weight:700; font-size:44px; color:rgba(255,255,255,.32); letter-spacing:.02em;
 }
