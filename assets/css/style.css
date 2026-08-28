@@ -570,8 +570,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 }
 .prov-detail-visual{ width:270px; max-width:100%; margin:0 auto; }
 .prov-detail-visual .provider-card{ width:100%; aspect-ratio: 4/5; }
-.prov-detail-info h3{ font-size:22px; }
-.prov-detail-role{ font-family:var(--f-mono); font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--forest-700); margin-top:6px; }
+.prov-detail-info h3{ font-size:22px; text-align:center; }
+.prov-detail-role{ font-family:var(--f-mono); font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--forest-700); margin-top:6px; text-align:center; }
 .prov-detail-bio{ color:var(--ink-700); font-size:15.5px; line-height:1.65; margin-top:18px; }
 
 @media (max-width: 860px){
