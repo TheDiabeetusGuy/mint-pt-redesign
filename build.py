@@ -16,7 +16,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "7"
+ASSET_VERSION = "8"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
