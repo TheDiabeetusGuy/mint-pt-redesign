@@ -399,6 +399,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   .loc-providers-wrap{ margin-top:90px; }
   .loc-providers-grid.grid-mobile-hide-860{ display:none; }
   .loc-providers-carousel-wrap .hz-carousel{ display:block; }
+  .loc-providers-carousel-wrap .provider-card{ max-width:90%; margin:0 auto; }
 }
 @media (min-width: 861px){
   .loc-providers-carousel-wrap{ display:none; }
