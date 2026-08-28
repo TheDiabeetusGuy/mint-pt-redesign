@@ -346,29 +346,36 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------- Providers page: DPT / PTA tabs ---------- */
   document.querySelectorAll('.prov-tabs').forEach(function (tabs) {
     var buttons = tabs.querySelectorAll('.prov-tab');
-    buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var targetId = btn.dataset.tabTarget;
-        buttons.forEach(function (b) {
-          var isMatch = b === btn;
-          b.classList.toggle('is-active', isMatch);
-          b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
-        });
-        document.querySelectorAll('.prov-tab-panel').forEach(function (panel) {
-          var isMatch = panel.id === targetId;
-          panel.classList.toggle('is-active', isMatch);
-          panel.hidden = !isMatch;
-          // Coming back to a tab restarts its auto-cycle (desktop list or
-          // mobile carousel, whichever applies) if it had stopped — only
-          // leaving the page (or a real refresh) should otherwise do that.
-          if (isMatch) {
-            var shownSection = panel.querySelector('.prov-list-section');
-            if (shownSection && shownSection._resetAutoCycle) shownSection._resetAutoCycle();
-            if (shownSection && shownSection._resetCarousel) shownSection._resetCarousel();
-          }
-        });
+    var mobileSelect = tabs.parentElement.querySelector('.prov-mobile-tab-select');
+
+    function activateTab(targetId) {
+      buttons.forEach(function (b) {
+        var isMatch = b.dataset.tabTarget === targetId;
+        b.classList.toggle('is-active', isMatch);
+        b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
       });
+      if (mobileSelect) mobileSelect.value = targetId;
+      document.querySelectorAll('.prov-tab-panel').forEach(function (panel) {
+        var isMatch = panel.id === targetId;
+        panel.classList.toggle('is-active', isMatch);
+        panel.hidden = !isMatch;
+        // Coming back to a tab restarts its auto-cycle (desktop list or
+        // mobile carousel, whichever applies) if it had stopped — only
+        // leaving the page (or a real refresh) should otherwise do that.
+        if (isMatch) {
+          var shownSection = panel.querySelector('.prov-list-section');
+          if (shownSection && shownSection._resetAutoCycle) shownSection._resetAutoCycle();
+          if (shownSection && shownSection._resetCarousel) shownSection._resetCarousel();
+        }
+      });
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () { activateTab(btn.dataset.tabTarget); });
     });
+    if (mobileSelect) {
+      mobileSelect.addEventListener('change', function () { activateTab(mobileSelect.value); });
+    }
   });
 
   /* ---------- Providers page: hover-preview / click-to-pin list + detail panel ---------- */

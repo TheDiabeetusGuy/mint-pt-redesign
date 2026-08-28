@@ -20,7 +20,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "23"
+ASSET_VERSION = "24"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -474,7 +474,7 @@ def footer_html(depth=""):
 
 def base_page(title, description, body, depth="", active="", extra_head=""):
     full_title = f"{title} | MINT Physical Therapy"
-    og_image = f"{SITE_URL}/assets/img/logo.png"
+    og_image = f"{SITE_URL}/assets/img/social-preview.png"
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -485,6 +485,9 @@ def base_page(title, description, body, depth="", active="", extra_head=""):
 <meta property="og:title" content="{full_title}">
 <meta property="og:description" content="{description}">
 <meta property="og:image" content="{og_image}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{full_title}">
@@ -926,6 +929,10 @@ def providers_page():
         <button type="button" class="prov-tab is-active" role="tab" aria-selected="true" data-tab-target="prov-panel-dpt">Doctors of Physical Therapy</button>
         <button type="button" class="prov-tab" role="tab" aria-selected="false" data-tab-target="prov-panel-pta">Physical Therapist Assistants</button>
       </div>
+      <select class="prov-mobile-tab-select" id="provTabSelect" aria-label="Choose provider type">
+        <option value="prov-panel-dpt" selected>Doctors of Physical Therapy</option>
+        <option value="prov-panel-pta">Physical Therapist Assistants</option>
+      </select>
       <div class="prov-tab-panel is-active" id="prov-panel-dpt" role="tabpanel">
         <div class="prov-list-section">
           <div class="prov-split">

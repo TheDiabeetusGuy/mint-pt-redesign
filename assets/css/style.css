@@ -528,6 +528,13 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .prov-tab:hover{ color: var(--forest-700); }
 .prov-tab.is-active{ color: var(--ink-900); }
 .prov-tab:focus-visible{ outline:2px solid var(--forest-600); outline-offset:4px; border-radius:4px; }
+.prov-mobile-tab-select{
+  display:none; width:100%; padding:14px 16px; border-radius:10px; border:1.5px solid var(--line);
+  background:#fff; font-family:var(--f-body); font-size:15px; font-weight:600; color:var(--ink-900);
+  appearance:none; -webkit-appearance:none; margin: 18px 0 36px;
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E6B37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 14px center; background-size:18px;
+}
 
 .prov-tab-panel{ display:none; }
 .prov-tab-panel.is-active{ display:block; }
@@ -561,7 +568,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   display:grid; grid-template-columns:1fr; gap:24px; align-items:start;
   background:none; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible;
 }
-.prov-detail-visual{ width:300px; max-width:100%; margin:0 auto; }
+.prov-detail-visual{ width:270px; max-width:100%; margin:0 auto; }
 .prov-detail-visual .provider-card{ width:100%; aspect-ratio: 4/5; }
 .prov-detail-info h3{ font-size:22px; }
 .prov-detail-role{ font-family:var(--f-mono); font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--forest-700); margin-top:6px; }
@@ -569,7 +576,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 
 @media (max-width: 860px){
   .prov-split{ display:none; }
-  .prov-tab{ font-size: clamp(20px,2.4vw,27px); }
+  .prov-tabs{ display:none; }
+  .prov-mobile-tab-select{ display:block; }
   .prov-detail-visual{ max-width:none; width:80%; margin:0 auto; }
   .prov-detail-info h3{ font-size:22px; line-height:1.25; -webkit-text-size-adjust:none; text-size-adjust:none; }
   .prov-detail-role{ font-size:13px; line-height:1.4; -webkit-text-size-adjust:none; text-size-adjust:none; }
@@ -800,7 +808,9 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
    page, and hides it again once scrolling resumes or the top is reached. */
 .scroll-top-btn{
   display:none;
-  position:fixed; right:18px; bottom:18px; z-index:80;
+  position:fixed; right:18px; z-index:999;
+  bottom:18px;
+  bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 18px));
   width:46px; height:46px; border-radius:50%; border:none;
   background: var(--forest-600); color:#fff; box-shadow: var(--shadow-2);
   align-items:center; justify-content:center;
