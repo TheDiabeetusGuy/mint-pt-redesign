@@ -37,8 +37,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ---------- Dropdowns (desktop + mobile click) ---------- */
   var dropdownParents = document.querySelectorAll('.nav-links > li.has-dropdown');
+
+  // Forces the flattened mobile look directly on the element, bypassing
+  // the stylesheet entirely. Used as a hard guarantee that the dropdown
+  // never renders as the floating desktop card on small screens,
+  // regardless of any CSS cascade/caching issue.
+  function forceMobileDropdownLayout(dropdownEl) {
+    if (!dropdownEl) return;
+    var props = {
+      'position': 'static', 'transform': 'none', 'box-shadow': 'none',
+      'border': 'none', 'border-radius': '0', 'max-width': '100%',
+      'width': '100%', 'min-width': '0', 'left': 'auto'
+    };
+    Object.keys(props).forEach(function (k) {
+      dropdownEl.style.setProperty(k, props[k], 'important');
+    });
+  }
+  function clearForcedDropdownLayout(dropdownEl) {
+    if (dropdownEl) dropdownEl.removeAttribute('style');
+  }
+
   dropdownParents.forEach(function (li) {
     var btn = li.querySelector('button');
+    var dropdownEl = li.querySelector('.dropdown');
     btn.setAttribute('aria-expanded', 'false');
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
@@ -46,10 +67,14 @@ document.addEventListener('DOMContentLoaded', function () {
       dropdownParents.forEach(function (other) {
         other.classList.remove('open');
         other.querySelector('button').setAttribute('aria-expanded', 'false');
+        clearForcedDropdownLayout(other.querySelector('.dropdown'));
       });
       if (!isOpen) {
         li.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
+        if (window.matchMedia('(max-width: 980px)').matches) {
+          forceMobileDropdownLayout(dropdownEl);
+        }
       }
     });
 
