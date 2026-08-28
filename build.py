@@ -16,7 +16,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "8"
+ASSET_VERSION = "9"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -652,11 +652,7 @@ def home_page():
 
   <section class="home-intro">
     <div class="container home-intro-grid">
-      <div class="home-intro-social">
-        <a href="{SOCIAL['facebook']}" target="_blank" rel="noopener" aria-label="Facebook">{icon('facebook')}</a>
-        <a href="{SOCIAL['instagram']}" target="_blank" rel="noopener" aria-label="Instagram">{icon('instagram')}</a>
-      </div>
-      <p class="home-intro-text">MINT Physical Therapy is a Utah-based practice offering both mobile and in-clinic care. We work with cash-pay, workers&rsquo; compensation, and auto-accident patients, and every session is one-on-one &mdash; so you get the attention and expertise needed to recover faster. If you&rsquo;ve spent years searching for answers, or you&rsquo;re simply looking for a better approach to physical therapy, give us a call. We&rsquo;ll help you find real answers and get back to living pain-free.</p>
+      <p class="home-intro-text">MINT Physical Therapy delivers one-on-one care &mdash; mobile or in-clinic &mdash; for cash-pay, workers&rsquo; comp, and auto-accident patients across Utah. Whatever&rsquo;s been slowing you down, we&rsquo;ll get you back to MINT condition.</p>
     </div>
     <div class="container home-ig-video">{video_frame("Instagram video coming soon")}</div>
     <div class="container"><div class="intro-divider"></div></div>
@@ -674,7 +670,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section bg-stone">
+  <section class="section bg-stone" style="padding-top:clamp(28px,4.5vw,60px);">
     <div class="container">
       <div class="section-head">
         <div class="eyebrow">What We Treat</div>
@@ -691,7 +687,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" style="padding-top:clamp(28px,4.5vw,60px);">
     <div class="container split">
       <div class="panel-art dark">
         <img src="assets/img/mobile-pt.jpg" alt="A physical therapist guiding a patient through a shoulder stretch in her living room" style="width:100%;height:100%;object-fit:cover;display:block;">
@@ -713,11 +709,11 @@ def home_page():
     </div>
   </section>
 
-  <section class="section bg-mint team-section">
+  <section class="section bg-mint team-section" style="padding-top:clamp(28px,4.5vw,60px);">
     <div class="container">
       <div class="section-head center">
         <div class="eyebrow" style="justify-content:center;">Our Team</div>
-        <p style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; margin-top:14px;">Doctors of Physical Therapy and PTAs across our Utah clinics, all trained in the same hands-on, whole-person approach.</p>
+        <p style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; margin-top:14px;">All trained in the same hands-on, whole-person approach.</p>
       </div>
       <div class="grid-4 grid-mobile-hide">
         {''.join(provider_card(p, mode="hover") for p in PROVIDERS[:8])}
@@ -729,7 +725,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" style="padding-top:clamp(28px,4.5vw,60px);">
     <div class="container podcast-band">
       <div>
         {video_frame("The MINT Condition Podcast")}
@@ -746,7 +742,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section bg-stone">
+  <section class="section bg-stone" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container">
       <div class="section-head center">
         <div class="eyebrow" style="justify-content:center;">Patient Stories</div>
@@ -759,7 +755,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container">
       {cta_band("Ready to start feeling like yourself again?", "Tell us what&rsquo;s going on and we&rsquo;ll help you find the right provider, clinic, or mobile visit.")}
     </div>
