@@ -551,10 +551,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .provider-overlay h3{ font-size:15px; color: var(--forest-900); font-weight:700; line-height:1.25; }
 .provider-overlay .role{ font-family:var(--f-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color: var(--forest-700); font-weight:600; margin-top:3px; }
 .provider-overlay-bio{
-  max-height:0; opacity:0; overflow:hidden; color: var(--ink-700); font-size:12.5px; line-height:1.5;
-  transition: max-height .35s ease, opacity .3s ease, margin-top .35s ease;
+  color: var(--ink-700); font-size:12.5px; line-height:1.5; margin-top:9px;
 }
-.has-bio-hover:hover .provider-overlay-bio{ max-height:160px; opacity:1; margin-top:9px; }
 
 /* -------------------- Locations -------------------- */
 .location-card{

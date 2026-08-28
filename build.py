@@ -455,9 +455,19 @@ def testimonial_card(t):
       <div class="who">{avatar(t['name'], 36, 13)}<div><b>{t['name']}</b><span>{t['meta']}</span></div></div>
     </div>'''
 
+def short_bio(text, limit=100):
+    # A short, consistent-length teaser for cards that show the bio
+    # permanently (Home page) rather than the full paragraph used on the
+    # Providers page — keeps every card roughly the same height regardless
+    # of how long that provider's full bio happens to be.
+    if len(text) <= limit:
+        return text
+    cut = text[:limit].rsplit(" ", 1)[0].rstrip(",;: ")
+    return cut + "…"
+
 def provider_card(p, mode="static"):
     # mode "static":     no bio, no interaction (Locations page team sections)
-    # mode "hover":      bio reveals on hover (Home page)
+    # mode "hover":      short bio teaser always visible (Home page)
     # mode "photo-only": just the color/initials square, no overlay at all —
     #                    used wherever the name/role/bio already appears
     #                    right next to the photo (Providers page detail card
@@ -471,8 +481,8 @@ def provider_card(p, mode="static"):
     bio_html = ""
     card_cls = "provider-card"
     if mode == "hover":
-        card_cls = "provider-card has-bio-hover"
-        bio_html = f'<p class="provider-overlay-bio">{p["bio"]}</p>'
+        card_cls = "provider-card has-bio"
+        bio_html = f'<p class="provider-overlay-bio">{short_bio(p["bio"])}</p>'
     return f'''<div class="{card_cls}" style="background:{color};">
       <span class="provider-initials">{initials(p['name'])}</span>
       <div class="provider-overlay">
