@@ -288,8 +288,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .loc-hero h1{ margin-top:0; }
 
 .prov-hero{ background: var(--forest-mid); padding: 21px 0 48px; }
-.prov-first-section{ padding-top: clamp(28px,4.5vw,60px); padding-bottom: clamp(14px,2.25vw,30px); }
-.prov-cta-section{ padding-top: clamp(14px,2.25vw,30px); padding-bottom: clamp(28px,4.5vw,60px); }
+.prov-first-section{ padding-top: clamp(28px,4.5vw,60px); padding-bottom: clamp(28px,4.5vw,60px); }
+.prov-cta-section{ padding-top: clamp(28px,4.5vw,60px); padding-bottom: clamp(28px,4.5vw,60px); }
 
 /* -------------------- Locations: city list + detail panel -------------------- */
 .loc-list-section{ padding-top: clamp(28px,4.5vw,60px); padding-bottom: clamp(28px,4.5vw,60px); }

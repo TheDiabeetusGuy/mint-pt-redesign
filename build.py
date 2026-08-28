@@ -259,7 +259,7 @@ CLINIC_PROVIDERS = {
     "ogden": ["Joseph Zeigler", "Adam Gilbert", "Josh"],
     "clearfield": ["Joseph Zeigler", "Adam Gilbert", "Josh"],
     "brigham-city": ["Jason Gubler"],
-    "murray": ["Christian Bentley", "Brad Klemetson", "Grace Waters"],
+    "murray": ["Brad Klemetson", "Christian Bentley", "Grace Waters"],
     "riverton": ["Skyler Little", "Sandy Larson", "Amber Hankes"],
     "west-valley-city": ["Ryan Rindlesbacher", "Brad Klemetson"],
     "lehi": ["Casey Snell", "Natoshia Diffendaffer"],
