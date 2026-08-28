@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
         label.addEventListener('click', function (e) {
           if (window.matchMedia('(max-width: 980px)').matches) {
             e.preventDefault();
+            e.stopPropagation();
             btn.click();
           }
         });
