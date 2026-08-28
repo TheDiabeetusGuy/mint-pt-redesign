@@ -159,10 +159,19 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
    flex:0 0 auto + min-width:0 on the two children is defensive: nested
    flex items default to min-width:auto, which can otherwise force extra
    width and visually separate the label from the toggle button. */
-.nav-links > li.split{ display:flex; align-items:center; justify-content:flex-start; gap:0; }
+.nav-links > li.split{ display:flex; align-items:center; justify-content:flex-start; gap:0; border-radius:8px; transition: background .15s ease; }
 .nav-links > li.split > a, .nav-links > li.split > .dropdown-toggle{ flex:0 0 auto; min-width:0; }
 .nav-links > li.split > a{ padding-right:2px; }
 .nav-links > li.split > .dropdown-toggle{ padding:10px 10px 10px 2px; }
+/* The pill background lives on the whole item, not the individual label
+   or toggle, so hovering either one highlights them as a single unit
+   instead of two separate boxes. */
+.nav-links > li.split > a:hover, .nav-links > li.split > .dropdown-toggle:hover,
+.nav-links > li.split > a.active{ background: none !important; }
+.nav-links > li.split:hover, .nav-links > li.split.open, .nav-links > li.split.is-active{ background: var(--mint-050); }
+.nav-links > li.split:hover > a, .nav-links > li.split:hover > .dropdown-toggle,
+.nav-links > li.split.open > a, .nav-links > li.split.open > .dropdown-toggle,
+.nav-links > li.split.is-active > a, .nav-links > li.split.is-active > .dropdown-toggle{ color: var(--forest-700); }
 
 .dropdown{
   position:absolute; top: 100%; left:50%; transform: translateX(-50%) translateY(6px);
