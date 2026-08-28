@@ -252,7 +252,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .home-intro{ padding: 36px 0 clamp(16px,2.5vw,28px); }
 .intro-divider{ width:72px; height:1px; background:var(--line); margin:28px auto 0; }
 .home-intro-grid{ display:block; }
-.home-intro-text{ font-size:22px; line-height:1.75; color:var(--ink-700); max-width:820px; margin:0 auto; text-align:center; }
+.home-intro-text{ font-size:22px; font-weight:700; line-height:1.75; color:var(--ink-700); max-width:820px; margin:0 auto; text-align:center; }
 
 /* -------------------- Hero -------------------- */
 .hero{
