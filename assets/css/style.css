@@ -133,6 +133,10 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   background: rgba(251,250,246,.86);
   backdrop-filter: blur(14px) saturate(140%);
   border-bottom:1px solid var(--line-soft);
+  transition: transform .3s ease;
+}
+@media (max-width: 980px){
+  .site-header.header-hidden{ transform: translateY(-100%); }
 }
 .nav{
   height: var(--nav-h); display:flex; align-items:center; gap:20px;

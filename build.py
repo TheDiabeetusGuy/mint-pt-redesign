@@ -16,7 +16,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "17"
+ASSET_VERSION = "18"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -1024,7 +1024,7 @@ def contact_page():
                       ["Contact"])
     loc_options = "".join(f'<option>{l["name"]}</option>' for l in LOCATIONS)
     body = f'''{hero}
-  <section class="section">
+  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container split" style="align-items:start;">
       <div>
         <div class="form-card">
@@ -1091,14 +1091,14 @@ def join_team_page():
         dict(icon="award", title="Growing together", text="Nine clinics and counting across Utah, with the mobile care model built into how we work."),
     ]
     body = f'''{hero}
-  <section class="section">
+  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container">
       <div class="grid-4">
         {''.join(f'''<div class="card-service"><div class="ico-wrap">{icon(p["icon"])}</div><h3>{p["title"]}</h3><p>{p["text"]}</p></div>''' for p in perks)}
       </div>
     </div>
   </section>
-  <section class="section bg-stone">
+  <section class="section bg-stone" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container split">
       <div>
         <div class="eyebrow">Open Roles</div>

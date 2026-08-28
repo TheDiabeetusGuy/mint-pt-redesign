@@ -6,6 +6,47 @@ document.addEventListener('DOMContentLoaded', function () {
   var navLinks = document.querySelector('.nav-links');
   var menuScrollY = 0;
 
+  /* ---------- Mobile header: hide on scroll down, show on scroll up ---------- */
+  // Desktop keeps the header always visible (sticky); this only runs at
+  // mobile widths, where reclaiming the header's space while reading is
+  // more valuable than always having the nav in view.
+  (function () {
+    var header = document.querySelector('.site-header');
+    if (!header) return;
+    var lastY = window.scrollY || window.pageYOffset || 0;
+    var ticking = false;
+    var threshold = 8; // ignore tiny scroll jitter
+
+    function onScroll() {
+      var mobile = window.matchMedia('(max-width: 980px)').matches;
+      var y = window.scrollY || window.pageYOffset || 0;
+      var menuOpen = navLinks && navLinks.classList.contains('mobile-open');
+      if (!mobile || menuOpen) {
+        header.classList.remove('header-hidden');
+        lastY = y;
+        ticking = false;
+        return;
+      }
+      var delta = y - lastY;
+      if (Math.abs(delta) > threshold) {
+        if (delta > 0 && y > header.offsetHeight) {
+          header.classList.add('header-hidden');
+        } else if (delta < 0) {
+          header.classList.remove('header-hidden');
+        }
+        lastY = y;
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
+
   // Prevents the background page from scrolling while the mobile menu is
   // open. Deliberately NOT using body{overflow:hidden} — on iOS Safari that
   // snaps the scroll position back to 0, which is why the menu used to
