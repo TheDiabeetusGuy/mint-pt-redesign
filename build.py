@@ -13,6 +13,10 @@ SITE_NAME = "MINT Physical Therapy"
 PHONE_MAIN = "555-555-5555"
 PHONE_MAIN_TEL = "5555555555"
 EMAIL_MAIN = "info@mint-pt.com"
+# Bump this any time style.css or main.js changes. It's appended as a
+# ?v= query string on both files so browsers/CDNs treat an updated file
+# as a brand-new URL instead of serving a cached copy of the old one.
+ASSET_VERSION = "6"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -473,7 +477,7 @@ def base_page(title, description, body, depth="", active="", extra_head=""):
 <title>{title} | MINT Physical Therapy</title>
 <meta name="description" content="{description}">
 <link rel="icon" href="{depth}assets/img/favicon.png?v=2" type="image/png">
-<link rel="stylesheet" href="{depth}assets/css/style.css">
+<link rel="stylesheet" href="{depth}assets/css/style.css?v={ASSET_VERSION}">
 {extra_head}
 </head>
 <body>
@@ -483,7 +487,7 @@ def base_page(title, description, body, depth="", active="", extra_head=""):
 {body}
 </main>
 {footer_html(depth)}
-<script src="{depth}assets/js/main.js"></script>
+<script src="{depth}assets/js/main.js?v={ASSET_VERSION}"></script>
 </body>
 </html>'''
 

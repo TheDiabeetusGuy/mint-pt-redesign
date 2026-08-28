@@ -216,7 +216,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   .nav-links > li.split{ border-bottom:1px solid var(--line-soft); }
   .nav-links > li.split > a{ width:auto; flex:1; border-bottom:none; }
   .nav-links > li.split > .dropdown-toggle{ width:auto; flex:none; border-bottom:none; padding:16px 10px; justify-content:center; }
-  .dropdown{ position:static; transform:none; box-shadow:none; border:none; opacity:1; visibility:visible; display:none; padding:0 0 8px 14px; max-width:100%; width:100%; min-width:0; column-count:1; box-sizing:border-box; }
+  .dropdown{ position:static !important; transform:none !important; box-shadow:none !important; border:none !important; border-radius:0 !important; opacity:1; visibility:visible; display:none; padding:0 0 8px 14px; max-width:100% !important; width:100% !important; min-width:0 !important; column-count:1; box-sizing:border-box; }
   .nav-links li.open .dropdown{ transform:none; }
   .dropdown.wide{ column-count:1; min-width:0; width:100%; max-width:100%; }
   .dropdown.wide .svc-more{ display:none; }
