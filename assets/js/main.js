@@ -476,6 +476,72 @@ document.addEventListener('DOMContentLoaded', function () {
     start();
   });
 
+  /* ---------- Mobile swipe carousels (What We Treat, Our Team, Patient Stories) ---------- */
+  document.querySelectorAll('.hz-carousel').forEach(function (carousel) {
+    var viewport = carousel.querySelector('.hz-carousel-viewport');
+    var track = carousel.querySelector('.hz-carousel-track');
+    var slides = carousel.querySelectorAll('.hz-carousel-slide');
+    if (!viewport || !track || !slides.length) return;
+
+    var currentIndex = 0;
+    var timer = null;
+    var stopped = false;
+
+    function render(withTransition) {
+      var w = viewport.clientWidth;
+      track.style.transition = withTransition === false ? 'none' : '';
+      track.style.transform = 'translateX(-' + (currentIndex * w) + 'px)';
+      slides.forEach(function (s) { s.style.width = w + 'px'; });
+    }
+
+    function goTo(index) {
+      currentIndex = ((index % slides.length) + slides.length) % slides.length;
+      render();
+    }
+    function next() { goTo(currentIndex + 1); }
+
+    function pause() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() {
+      if (stopped || slides.length <= 1 || timer) return;
+      timer = window.setInterval(next, 4000);
+    }
+    function stopForGood() { stopped = true; pause(); }
+
+    var touchStartX = null, dragBase = 0, dragging = false;
+
+    viewport.addEventListener('touchstart', function (e) {
+      if (!e.touches || !e.touches.length) return;
+      stopForGood();
+      dragging = true;
+      touchStartX = e.touches[0].clientX;
+      dragBase = -currentIndex * viewport.clientWidth;
+      track.style.transition = 'none';
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', function (e) {
+      if (!dragging || touchStartX === null || !e.touches || !e.touches.length) return;
+      var dx = e.touches[0].clientX - touchStartX;
+      track.style.transform = 'translateX(' + (dragBase + dx) + 'px)';
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', function (e) {
+      if (!dragging) return;
+      dragging = false;
+      var endX = (e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX);
+      var dx = (endX === undefined ? touchStartX : endX) - touchStartX;
+      var threshold = 40;
+      if (dx <= -threshold) goTo(currentIndex + 1);
+      else if (dx >= threshold) goTo(currentIndex - 1);
+      else render();
+      touchStartX = null;
+    });
+
+    window.addEventListener('resize', function () { render(false); });
+
+    render(false);
+    start();
+  });
+
   /* ---------- Video placeholders ---------- */
   document.querySelectorAll('.video-frame').forEach(function (frame) {
     frame.addEventListener('click', function () {

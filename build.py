@@ -505,6 +505,17 @@ def location_card(l, depth=""):
       </div>
     </div>'''
 
+def hz_carousel(cards_html, extra_class=""):
+    # Generic mobile-only swipe carousel: one card per slide, auto-advances
+    # with a real sliding motion (not a fade) — used to replace a grid of
+    # cards on narrow screens. Desktop keeps the original grid.
+    slides = "".join(f'<div class="hz-carousel-slide">{c}</div>' for c in cards_html)
+    return f'''<div class="hz-carousel {extra_class}">
+      <div class="hz-carousel-viewport">
+        <div class="hz-carousel-track">{slides}</div>
+      </div>
+    </div>'''
+
 def cta_band(heading, sub, depth=""):
     return f'''<div class="cta-band">
       <div>
@@ -590,9 +601,10 @@ def home_page():
         <h2>Specialized care for the injuries that slow you down.</h2>
         <p>From everyday aches to complex, claim-based recovery &mdash; here&rsquo;s where we spend most of our time.</p>
       </div>
-      <div class="grid-4">
+      <div class="grid-4 grid-mobile-hide">
         {''.join(service_card(s) for s in top_services)}
       </div>
+      {hz_carousel([service_card(s) for s in top_services])}
       <div style="margin-top:34px;text-align:center;">
         <a class="btn btn-outline" href="services.html">View All Services &amp; Specialties {icon('arrow-right')}</a>
       </div>
@@ -627,9 +639,10 @@ def home_page():
         <div class="eyebrow" style="justify-content:center;">Our Team</div>
         <p style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; margin-top:14px;">Doctors of Physical Therapy and PTAs across our Utah clinics, all trained in the same hands-on, whole-person approach.</p>
       </div>
-      <div class="grid-4">
+      <div class="grid-4 grid-mobile-hide">
         {''.join(provider_card(p, mode="hover") for p in PROVIDERS[:8])}
       </div>
+      {hz_carousel([provider_card(p, mode="hover") for p in PROVIDERS[:8]])}
       <div style="margin-top:34px;text-align:center;">
         <a class="btn btn-outline" href="providers.html">Meet the Full Team {icon('arrow-right')}</a>
       </div>
@@ -659,9 +672,10 @@ def home_page():
         <div class="eyebrow" style="justify-content:center;">Patient Stories</div>
         <h2>Real progress, in their own words.</h2>
       </div>
-      <div class="tc-carousel" id="testimonialCarousel">
+      <div class="tc-carousel grid-mobile-hide" id="testimonialCarousel">
         {''.join(f'<div class="tc-page{" is-active" if i == 0 else ""}"><div class="grid-4">{"".join(testimonial_card(t) for t in page)}</div></div>' for i, page in enumerate([TESTIMONIALS[j:j+4] for j in range(0, len(TESTIMONIALS), 4)]))}
       </div>
+      {hz_carousel([testimonial_card(t) for t in TESTIMONIALS])}
     </div>
   </section>
 

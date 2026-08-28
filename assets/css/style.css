@@ -396,6 +396,18 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 @media (max-width: 980px){ .grid-3{ grid-template-columns:repeat(2,1fr);} .grid-4{ grid-template-columns:repeat(2,1fr);} }
 @media (max-width: 620px){ .grid-3,.grid-2,.grid-4{ grid-template-columns:1fr; } }
 
+/* -------------------- Mobile swipe carousel (What We Treat, Our Team, Patient Stories) -------------------- */
+.hz-carousel{ display:none; }
+@media (max-width: 620px){
+  .grid-mobile-hide{ display:none; }
+  .hz-carousel{ display:block; }
+}
+.hz-carousel-viewport{ width:100%; overflow:hidden; touch-action:pan-y; }
+.hz-carousel-track{ display:flex; transition: transform .45s ease; }
+.hz-carousel-slide{ flex:0 0 auto; padding:2px; }
+.hz-carousel-slide .card-service{ height:100%; }
+.hz-carousel-slide .testimonial{ height:100%; }
+
 .card-service{
   background:#fff; border:1px solid var(--line); border-radius: var(--radius-m); padding:28px;
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; display:flex; flex-direction:column; gap:14px;
@@ -592,7 +604,11 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .cta-band h2{ color:#fff; font-size: clamp(26px,3.2vw,36px); max-width:520px; }
 .cta-band p{ color: rgba(255,255,255,.7); margin-top:10px; }
 .cta-band .actions{ display:flex; gap:14px; flex:none; }
-@media (max-width: 760px){ .cta-band{ flex-direction:column; align-items:flex-start; } }
+@media (max-width: 760px){
+  .cta-band{ flex-direction:column; align-items:flex-start; }
+  .cta-band .actions{ flex-direction:column; align-items:stretch; width:100%; }
+  .cta-band .actions .btn{ width:100%; justify-content:center; }
+}
 
 /* -------------------- Accordion -------------------- */
 .accordion-item{ border-bottom:1px solid var(--line); }
@@ -642,6 +658,13 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .footer-legal{ display:flex; gap:20px; }
 .footer-legal a{ color: rgba(255,255,255,.68); transition: color .18s ease; }
 .footer-legal a:hover{ color:#fff; }
+
+@media (max-width: 620px){
+  .footer-top{ padding-left:28px; padding-right:28px; }
+  .footer-labels{ width:100%; justify-content:center; }
+  .footer-bottom{ justify-content:center; text-align:center; padding-left:28px; padding-right:28px; }
+  .footer-legal{ justify-content:center; width:100%; }
+}
 
 /* -------------------- Legal pages (Terms, Privacy) -------------------- */
 .legal-content{ max-width:760px; }
