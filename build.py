@@ -413,8 +413,9 @@ def nav_html(depth="", active=""):
             <div class="dropdown">{loc_links}</div>
           </li>
           <li>{a("providers.html", "Our Providers", "providers")}</li>
-          <li class="has-dropdown">
-            <button type="button" aria-haspopup="true">Services {icon("chev-down", cls="icon chev")}</button>
+          <li class="has-dropdown split">
+            {a("services.html", "Services", "services")}
+            <button type="button" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Show services menu">{icon("chev-down", cls="icon chev")}</button>
             <div class="dropdown wide">{svc_links}</div>
           </li>
           <li>{a("join-team.html", "Join Our Team", "join")}</li>
