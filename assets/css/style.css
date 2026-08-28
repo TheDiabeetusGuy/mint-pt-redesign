@@ -155,16 +155,21 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 /* "Services" nav item: label links straight to the hub page; the small
    chevron button is a separate hit target that opens the dropdown (for
    touch, where there's no hover). Hovering anywhere on the item still
-   reveals the dropdown on desktop, per the :hover rule below. */
-.nav-links > li.split{ display:flex; align-items:center; }
+   reveals the dropdown on desktop, per the :hover rule below.
+   flex:0 0 auto + min-width:0 on the two children is defensive: nested
+   flex items default to min-width:auto, which can otherwise force extra
+   width and visually separate the label from the toggle button. */
+.nav-links > li.split{ display:flex; align-items:center; justify-content:flex-start; gap:2px; }
+.nav-links > li.split > a, .nav-links > li.split > .dropdown-toggle{ flex:0 0 auto; min-width:0; }
 .nav-links > li.split > .dropdown-toggle{ padding:10px 8px; }
 
 .dropdown{
   position:absolute; top: 100%; left:50%; transform: translateX(-50%) translateY(6px);
   background:#fff; border:1px solid var(--line); border-radius: var(--radius-m); box-shadow: var(--shadow-3);
-  padding:18px 10px 10px; min-width:240px; opacity:0; visibility:hidden; transition: opacity .18s ease, transform .18s ease;
+  padding:18px 10px 10px; min-width:240px; opacity:0; visibility:hidden; pointer-events:none;
+  transition: opacity .18s ease, transform .18s ease;
 }
-.nav-links li.open .dropdown{ opacity:1; visibility:visible; transform: translateX(-50%) translateY(0); }
+.nav-links li.open .dropdown{ opacity:1; visibility:visible; pointer-events:auto; transform: translateX(-50%) translateY(0); }
 .dropdown a{ display:block; padding:10px 12px; border-radius:8px; font-size:14.5px; color:var(--ink-700); font-weight:500; }
 .dropdown a:hover{ background: var(--mint-050); color:var(--forest-700); }
 .dropdown.wide{ min-width:460px; column-count:2; column-gap:6px; }
@@ -172,7 +177,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .dropdown-viewall{ display:none; }
 
 @media (min-width: 981px){
-  .nav-links > li.has-dropdown:hover .dropdown{ opacity:1; visibility:visible; transform: translateX(-50%) translateY(0); }
+  .nav-links > li.has-dropdown:hover .dropdown{ opacity:1; visibility:visible; pointer-events:auto; transform: translateX(-50%) translateY(0); }
   .nav-links > li.has-dropdown:hover .chev{ transform: rotate(180deg); }
 }
 
@@ -206,7 +211,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   .dropdown.wide{ column-count:1; min-width:0; width:100%; max-width:100%; }
   .dropdown.wide .svc-more{ display:none; }
   .dropdown.wide .dropdown-viewall{ display:block; }
-  li.open .dropdown{ display:block; }
+  li.open .dropdown{ display:block; pointer-events:auto; }
   .menu-toggle{ display:inline-flex; }
   .btn-label-full{ display:none; }
   .btn-label-short{ display:inline; }
