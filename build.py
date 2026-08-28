@@ -16,7 +16,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "20"
+ASSET_VERSION = "21"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -539,7 +539,7 @@ def provider_card(p, mode="static"):
     #                    and mobile carousel), so it isn't shown twice.
     photo = p.get("photo")
     if photo:
-        visual = f'<img class="provider-photo" src="assets/img/providers/{photo}" alt="{p["name"]}" loading="lazy">'
+        visual = f'<img class="provider-photo" src="assets/img/providers/{photo}?v={ASSET_VERSION}" alt="{p["name"]}" loading="lazy">'
         bg_style = ""
     else:
         idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
