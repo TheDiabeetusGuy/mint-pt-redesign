@@ -8,7 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
     toggle.addEventListener('click', function () {
       var open = navLinks.classList.toggle('mobile-open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      document.body.style.overflow = open ? 'hidden' : '';
+      // Only lock vertical scrolling of the background page while the menu
+      // is open — using the shorthand here would also set overflow-x,
+      // which combined with the site-wide horizontal-scroll fix caused a
+      // layout conflict that visibly shifted the page sideways.
+      document.body.style.overflowY = open ? 'hidden' : '';
     });
   }
 
@@ -40,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'Escape') {
       dropdownParents.forEach(function (li) { li.classList.remove('open'); });
       if (navLinks) navLinks.classList.remove('mobile-open');
-      document.body.style.overflow = '';
+      document.body.style.overflowY = '';
     }
   });
 

@@ -178,7 +178,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 
 @media (max-width: 980px){
   .nav-links{
-    position:fixed; top: var(--nav-h); left:0; right:0; height: calc(100vh - var(--nav-h));
+    position:fixed; top: var(--nav-h); right:0; width: min(320px, 85vw); height: calc(100vh - var(--nav-h));
     background: var(--stone-50); flex-direction:column; align-items:stretch;
     padding: 18px var(--pad) 40px; overflow-y:auto; gap:2px;
     transform: translateX(100%); transition: transform .25s ease; box-shadow: -12px 0 30px rgba(0,0,0,.08);
