@@ -16,7 +16,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "9"
+ASSET_VERSION = "10"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -595,15 +595,17 @@ def hz_carousel(cards_html, extra_class=""):
       <div class="hz-carousel-progress">{bars}</div>
     </div>'''
 
-def cta_band(heading, sub, depth=""):
-    return f'''<div class="cta-band">
+def cta_band(heading, sub, depth="", plain=False):
+    cls = "cta-band cta-band-plain" if plain else "cta-band"
+    phone_cls = "btn btn-outline" if plain else "btn btn-outline on-dark"
+    return f'''<div class="{cls}">
       <div>
         <h2>{heading}</h2>
         <p>{sub}</p>
       </div>
       <div class="actions">
         <a class="btn btn-gold" href="{depth}contact.html">Request Appointment</a>
-        <a class="btn btn-outline on-dark" href="tel:+1{PHONE_MAIN_TEL}">{icon('phone')} {PHONE_MAIN}</a>
+        <a class="{phone_cls}" href="tel:+1{PHONE_MAIN_TEL}">{icon('phone')} {PHONE_MAIN}</a>
       </div>
     </div>'''
 
@@ -670,7 +672,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section bg-stone" style="padding-top:clamp(28px,4.5vw,60px);">
+  <section class="section bg-stone" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container">
       <div class="section-head">
         <div class="eyebrow">What We Treat</div>
@@ -687,7 +689,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section" style="padding-top:clamp(28px,4.5vw,60px);">
+  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container split">
       <div class="panel-art dark">
         <img src="assets/img/mobile-pt.jpg" alt="A physical therapist guiding a patient through a shoulder stretch in her living room" style="width:100%;height:100%;object-fit:cover;display:block;">
@@ -709,7 +711,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section bg-mint team-section" style="padding-top:clamp(28px,4.5vw,60px);">
+  <section class="section bg-mint team-section" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container">
       <div class="section-head center">
         <div class="eyebrow" style="justify-content:center;">Our Team</div>
@@ -725,7 +727,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section" style="padding-top:clamp(28px,4.5vw,60px);">
+  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container podcast-band">
       <div>
         {video_frame("The MINT Condition Podcast")}
@@ -757,7 +759,7 @@ def home_page():
 
   <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container">
-      {cta_band("Ready to start feeling like yourself again?", "Tell us what&rsquo;s going on and we&rsquo;ll help you find the right provider, clinic, or mobile visit.")}
+      {cta_band("Ready to start feeling like yourself again?", "Tell us what&rsquo;s going on and we&rsquo;ll help you find the right provider, clinic, or mobile visit.", plain=True)}
     </div>
   </section>
 '''
