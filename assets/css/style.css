@@ -159,9 +159,10 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
    flex:0 0 auto + min-width:0 on the two children is defensive: nested
    flex items default to min-width:auto, which can otherwise force extra
    width and visually separate the label from the toggle button. */
-.nav-links > li.split{ display:flex; align-items:center; justify-content:flex-start; gap:2px; }
+.nav-links > li.split{ display:flex; align-items:center; justify-content:flex-start; gap:0; }
 .nav-links > li.split > a, .nav-links > li.split > .dropdown-toggle{ flex:0 0 auto; min-width:0; }
-.nav-links > li.split > .dropdown-toggle{ padding:10px 8px; }
+.nav-links > li.split > a{ padding-right:2px; }
+.nav-links > li.split > .dropdown-toggle{ padding:10px 10px 10px 2px; }
 
 .dropdown{
   position:absolute; top: 100%; left:50%; transform: translateX(-50%) translateY(6px);
