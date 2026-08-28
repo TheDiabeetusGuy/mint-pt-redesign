@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.addEventListener('click', function () {
       var isOpen = item.classList.contains('open');
       item.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
       panel.style.maxHeight = !isOpen ? panel.scrollHeight + 'px' : '0px';
     });
   });

@@ -193,13 +193,13 @@ SERVICES = [
                    "A steady path back to full, pain-free function"]),
     dict(slug="workers-comp", title="Workers' Comp", icon="briefcase",
          card="Getting you back to work safely, with care coordinated around your claim.",
-         intro="A workplace injury shouldn't mean uncertainty about your recovery or your paycheck. We work directly with your employer, case manager, and insurance carrier so treatment moves forward without added stress on you.",
+         intro="A workplace injury shouldn't leave your recovery — or your paycheck — in question. We evaluate the injury, build a treatment plan around the physical demands of your specific job, and coordinate directly with your employer, case manager, and insurance carrier at every step.",
          causes_label="What We Treat",
          causes=["Overuse and repetitive strain injuries", "Lifting and back injuries", "Slip, trip, and fall injuries",
                  "Post-surgical work injuries", "Re-aggravated prior injuries"],
-         approach=["Direct communication with your case manager and employer", "Functional, work-specific rehabilitation and conditioning",
-                   "Clear documentation for your claim", "A safe, graded return-to-work plan",
-                   "Advocacy focused on getting you back to full duty"]),
+         approach=["Direct communication with your case manager and employer", "Work conditioning that simulates your actual job tasks",
+                   "Ergonomic recommendations to help prevent re-injury", "Clear documentation to support your claim",
+                   "A safe, graded return-to-work plan aimed at full duty"]),
 ]
 
 EXTRA_SPECIALTIES = ["Active Release Therapy (ASTYM)", "Manual Therapy & Massage", "Occupational Therapy Services",
@@ -919,18 +919,28 @@ def service_detail_page(s):
   <section class="section">
     <div class="container service-layout">
       <div class="service-body">
-        <h2>Overview</h2>
-        <p>{s['intro']}</p>
-
-        <h2>{s['causes_label']}</h2>
-        <ul class="list-check">
-          {''.join(f"<li>{icon('check')} {c}</li>" for c in s['causes'])}
-        </ul>
-
-        <h2>How MINT Helps</h2>
-        <ul class="list-check">
-          {''.join(f"<li>{icon('check')} {a}</li>" for a in s['approach'])}
-        </ul>
+        <div class="accordion">
+          <div class="accordion-item open">
+            <button type="button" aria-expanded="true"><span>Overview</span>{icon('plus', cls='icon')}</button>
+            <div class="panel" style="max-height:2000px"><div class="panel-inner"><p>{s['intro']}</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button type="button" aria-expanded="false"><span>{s['causes_label']}</span>{icon('plus', cls='icon')}</button>
+            <div class="panel"><div class="panel-inner">
+              <ul class="list-check">
+                {''.join(f"<li>{icon('check')} {c}</li>" for c in s['causes'])}
+              </ul>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <button type="button" aria-expanded="false"><span>How MINT Helps</span>{icon('plus', cls='icon')}</button>
+            <div class="panel"><div class="panel-inner">
+              <ul class="list-check">
+                {''.join(f"<li>{icon('check')} {a}</li>" for a in s['approach'])}
+              </ul>
+            </div></div>
+          </div>
+        </div>
 
         <div style="margin-top:40px;display:flex;gap:14px;flex-wrap:wrap;">
           <a class="btn btn-primary" href="../contact.html">Request an Appointment</a>
