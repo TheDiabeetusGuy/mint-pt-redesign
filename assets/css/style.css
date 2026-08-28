@@ -367,7 +367,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
     grid-template-columns:1fr; background:none; border:none; box-shadow:none; border-radius:0; overflow:visible;
   }
   .loc-detail-info{ padding:0; }
-  .loc-detail-map{ border-left:none; border-top:none; margin-top:20px; border-radius:var(--radius-m); overflow:hidden; }
+  .loc-detail-map{ border-left:none; border-top:none; margin-top:30px; border-radius:var(--radius-m); overflow:hidden; }
+  .loc-providers-wrap{ margin-top:48px; }
   .loc-providers-grid.grid-mobile-hide-860{ display:none; }
   .loc-providers-carousel-wrap .hz-carousel{ display:block; }
 }
