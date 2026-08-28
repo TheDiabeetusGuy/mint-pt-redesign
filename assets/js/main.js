@@ -481,6 +481,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var viewport = carousel.querySelector('.hz-carousel-viewport');
     var track = carousel.querySelector('.hz-carousel-track');
     var slides = carousel.querySelectorAll('.hz-carousel-slide');
+    var prevBtn = carousel.querySelector('.hz-carousel-prev');
+    var nextBtn = carousel.querySelector('.hz-carousel-next');
+    var bars = carousel.querySelectorAll('.hz-carousel-bar');
     if (!viewport || !track || !slides.length) return;
 
     var currentIndex = 0;
@@ -492,6 +495,7 @@ document.addEventListener('DOMContentLoaded', function () {
       track.style.transition = withTransition === false ? 'none' : '';
       track.style.transform = 'translateX(-' + (currentIndex * w) + 'px)';
       slides.forEach(function (s) { s.style.width = w + 'px'; });
+      bars.forEach(function (b, i) { b.classList.toggle('is-active', i === currentIndex); });
     }
 
     function goTo(index) {
@@ -499,6 +503,7 @@ document.addEventListener('DOMContentLoaded', function () {
       render();
     }
     function next() { goTo(currentIndex + 1); }
+    function prev() { goTo(currentIndex - 1); }
 
     function pause() { if (timer) { clearInterval(timer); timer = null; } }
     function start() {
@@ -506,6 +511,9 @@ document.addEventListener('DOMContentLoaded', function () {
       timer = window.setInterval(next, 4000);
     }
     function stopForGood() { stopped = true; pause(); }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { stopForGood(); prev(); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { stopForGood(); next(); });
 
     var touchStartX = null, dragBase = 0, dragging = false;
 
@@ -561,6 +569,15 @@ document.addEventListener('DOMContentLoaded', function () {
       // NOTE for site owner: this form currently only confirms in-page.
       // Connect it to Formspree, Netlify Forms, or your booking system
       // by adding an action/method to the <form id="appointment-form"> tag.
+    });
+  }
+
+  /* ---------- Footer logo: back to top ---------- */
+  var footerBrandTop = document.getElementById('footerBrandTop');
+  if (footerBrandTop) {
+    footerBrandTop.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 

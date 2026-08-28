@@ -208,20 +208,28 @@ EXTRA_SPECIALTIES = ["Active Release Therapy (ASTYM)", "Manual Therapy & Massage
 
 PROVIDERS = [
     dict(name="Brad Klemetson", cred="PT, DPT", role="Founder & Clinical Director",
+         short_bio="The steady hand behind MINT — patients call him relentless in the best way, staying on a problem until it's actually solved.",
          bio="Brad earned his Doctorate of Physical Therapy from UNLV in 2017 and has published research on balance and Parkinson's disease. He treats neck pain, dizziness, headaches, and migraines, using dry needling and manual therapy to speed recovery, and is certified in FCE, FJA, POET, and FFD testing. He also takes time to walk patients through their MRI findings and treatment options. Special interests: headaches, migraines, radiculopathies, auto accident and workplace injury care, and injury prevention."),
     dict(name="Ryan Rindlesbacher", cred="PT, DPT", role="Physical Therapist",
+         short_bio="Brings a calm, methodical approach to complex cases, breaking recovery into steps that make sense.",
          bio="Ryan grew up in northern Utah and earned his degree in Human Movement Science from Utah State University before completing his Doctorate of Physical Therapy at Touro University Nevada. He's trained in dry needling, FCE, FJA, POET, and FFD testing, and focuses on reducing workplace injury risk and helping injured workers return to the job. Ryan is fluent in Spanish and enjoys serving Utah's Hispanic community."),
     dict(name="Joseph Zeigler", cred="PT, DPT", role="Physical Therapist · Ogden",
+         short_bio="Focused on function first — getting patients back to the specific movements their life and work demand.",
          bio="Joseph grew up in Mesa, AZ playing soccer, swimming, cross country, and ultimate frisbee — recovering from his own sports injuries is what drew him to physical therapy. He earned a B.S. in Athletic Training from BYU and his Doctorate of Physical Therapy from Northern Arizona University. He's worked with collegiate and high school athletic teams, skilled nursing facilities, general orthopedics, and home health, with additional training in dry needling, myofascial release, joint manipulation, KT taping, and cupping. Special interests: shoulder and rotator cuff injuries, neck pain, headaches, knee pain, and low back pain."),
     dict(name="Christian Bentley", cred="PT, DPT", role="Physical Therapist",
+         short_bio="Blends manual therapy with hands-on coaching, with an eye for the small details that speed recovery.",
          bio="Christian earned his B.S. in Kinesiology, exercise science emphasis, from the University of Utah, and his Doctorate of Physical Therapy from Rocky Mountain University of Health Professions in 2024. He's trained in dry needling, spinal manipulation, and manual therapy, pairing that with exercise science to help patients reach their goals. Outside the clinic, he's usually with his wife and two kids, playing sports, or debating Lord of the Rings lore."),
     dict(name="Grace Waters", cred="PT, DPT", role="Physical Therapist",
+         short_bio="Brings warmth and patience to every session, with a gift for making a hard recovery feel manageable.",
          bio="Grace has been a physical therapist since 2019, specializing in pelvic health while treating all conditions with a whole-body, person-specific approach. She builds creative, activity-specific exercises to rebuild strength and confidence in the movements patients find hardest. Outside the clinic, she's an avid reader and traveler — she's lived in 16 states — and enjoys yoga, biking, and mountain time."),
     dict(name="Adam Gilbert", cred="PT, DPT", role="Physical Therapist · Ogden",
+         short_bio="Direct and encouraging, with a strength-and-conditioning background that shows in his treatment plans.",
          bio="Direct and encouraging, with a strength-and-conditioning background that shows in his treatment plans."),
     dict(name="Kate Light", cred="PT, DPT", role="Physical Therapist",
+         short_bio="Approaches every patient as an individual, tailoring pace and technique to what actually works for them.",
          bio="Kate studied Exercise Science at Ohio State and the University of Alabama as a Division I student-athlete, then earned her Doctorate of Physical Therapy from George Washington University with advanced pediatric certification from Georgetown. A former NFL cheerleader and current Utah Jazz dancer, she draws on that background to help patients perform at their best. Special interests: dance-related injuries, hypermobility, injury prevention, reflex integration, and pediatric neurodevelopmental care."),
     dict(name="Casey Snell", cred="PT, DPT", role="Physical Therapist",
+         short_bio="Combines a sharp clinical eye with genuine encouragement — patients leave sessions knowing their why.",
          bio="Combines a sharp clinical eye with genuine encouragement — patients leave sessions knowing their why."),
     dict(name="Andrew Mitchell", cred="PT, DPT", role="Physical Therapist",
          bio="Detail-oriented and thorough, with a knack for catching what other evaluations miss."),
@@ -374,7 +382,7 @@ def footer_html(depth=""):
     <div class="container footer-top">
       <div class="footer-row">
         <div class="footer-brand-block">
-          <div class="footer-brand"><img src="{depth}assets/img/logo.png" alt="MINT Physical Therapy" class="footer-logo"></div>
+          <a class="footer-brand" href="#" id="footerBrandTop" aria-label="Back to top"><img src="{depth}assets/img/logo.png" alt="MINT Physical Therapy" class="footer-logo"></a>
           <p class="footer-tagline">Utah-based, one-on-one physical therapy — in one of our clinics, or at your door. Mobile visits available from Ogden to Payson.</p>
         </div>
         <nav class="footer-labels" aria-label="Footer">
@@ -482,7 +490,7 @@ def provider_card(p, mode="static"):
     card_cls = "provider-card"
     if mode == "hover":
         card_cls = "provider-card has-bio"
-        bio_html = f'<p class="provider-overlay-bio">{short_bio(p["bio"])}</p>'
+        bio_html = f'<p class="provider-overlay-bio">{p.get("short_bio", short_bio(p["bio"]))}</p>'
     return f'''<div class="{card_cls}" style="background:{color};">
       <span class="provider-initials">{initials(p['name'])}</span>
       <div class="provider-overlay">
@@ -520,10 +528,14 @@ def hz_carousel(cards_html, extra_class=""):
     # with a real sliding motion (not a fade) — used to replace a grid of
     # cards on narrow screens. Desktop keeps the original grid.
     slides = "".join(f'<div class="hz-carousel-slide">{c}</div>' for c in cards_html)
+    bars = "".join(f'<span class="hz-carousel-bar{" is-active" if i == 0 else ""}"></span>' for i in range(len(cards_html)))
     return f'''<div class="hz-carousel {extra_class}">
       <div class="hz-carousel-viewport">
         <div class="hz-carousel-track">{slides}</div>
+        <button type="button" class="hz-carousel-arrow hz-carousel-prev" aria-label="Previous">{icon('chevron-left')}</button>
+        <button type="button" class="hz-carousel-arrow hz-carousel-next" aria-label="Next">{icon('chevron-right')}</button>
       </div>
+      <div class="hz-carousel-progress">{bars}</div>
     </div>'''
 
 def cta_band(heading, sub, depth=""):
@@ -589,6 +601,7 @@ def home_page():
       </div>
       <p class="home-intro-text">MINT Physical Therapy is a Utah-based practice offering both mobile and in-clinic care. We work with cash-pay, workers&rsquo; compensation, and auto-accident patients, and every session is one-on-one &mdash; so you get the attention and expertise needed to recover faster. If you&rsquo;ve spent years searching for answers, or you&rsquo;re simply looking for a better approach to physical therapy, give us a call. We&rsquo;ll help you find real answers and get back to living pain-free.</p>
     </div>
+    <div class="container home-ig-video">{video_frame("Instagram video coming soon")}</div>
     <div class="container"><div class="intro-divider"></div></div>
   </section>
 
@@ -652,7 +665,7 @@ def home_page():
       <div class="grid-4 grid-mobile-hide">
         {''.join(provider_card(p, mode="hover") for p in PROVIDERS[:8])}
       </div>
-      {hz_carousel([provider_card(p, mode="hover") for p in PROVIDERS[:8]])}
+      {hz_carousel([provider_card(p, mode="hover") for p in PROVIDERS[:8]], extra_class="hz-carousel-on-photo")}
       <div style="margin-top:34px;text-align:center;">
         <a class="btn btn-outline" href="providers.html">Meet the Full Team {icon('arrow-right')}</a>
       </div>
