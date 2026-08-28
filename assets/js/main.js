@@ -52,6 +52,23 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.setAttribute('aria-expanded', 'true');
       }
     });
+
+    // "Services" is split into a label (links to the hub page) and a
+    // separate toggle button, so hovering + clicking a specific service
+    // works on desktop. On mobile there's no hover, so tapping the label
+    // should behave exactly like every other mobile dropdown (Locations
+    // included) and just open the list — not navigate away immediately.
+    if (li.classList.contains('split')) {
+      var label = li.querySelector(':scope > a');
+      if (label) {
+        label.addEventListener('click', function (e) {
+          if (window.matchMedia('(max-width: 980px)').matches) {
+            e.preventDefault();
+            btn.click();
+          }
+        });
+      }
+    }
   });
   document.addEventListener('click', function () {
     dropdownParents.forEach(function (li) {
