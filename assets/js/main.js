@@ -4,15 +4,34 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------- Mobile menu ---------- */
   var toggle = document.querySelector('.menu-toggle');
   var navLinks = document.querySelector('.nav-links');
+  var menuScrollY = 0;
+
+  // Prevents the background page from scrolling while the mobile menu is
+  // open. Deliberately NOT using body{overflow:hidden} — on iOS Safari that
+  // snaps the scroll position back to 0, which is why the menu used to
+  // appear "at the top of the page" when opened partway down. Locking the
+  // body in place at its current scroll position avoids that entirely, so
+  // the menu opens exactly where you were.
+  function lockBodyScroll() {
+    menuScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top = (-menuScrollY) + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+  }
+  function unlockBodyScroll() {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    window.scrollTo(0, menuScrollY);
+  }
+
   if (toggle && navLinks) {
     toggle.addEventListener('click', function () {
       var open = navLinks.classList.toggle('mobile-open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      // Only lock vertical scrolling of the background page while the menu
-      // is open — using the shorthand here would also set overflow-x,
-      // which combined with the site-wide horizontal-scroll fix caused a
-      // layout conflict that visibly shifted the page sideways.
-      document.body.style.overflowY = open ? 'hidden' : '';
+      if (open) { lockBodyScroll(); } else { unlockBodyScroll(); }
     });
   }
 
@@ -43,8 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
       dropdownParents.forEach(function (li) { li.classList.remove('open'); });
-      if (navLinks) navLinks.classList.remove('mobile-open');
-      document.body.style.overflowY = '';
+      if (navLinks && navLinks.classList.contains('mobile-open')) {
+        navLinks.classList.remove('mobile-open');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        unlockBodyScroll();
+      }
     }
   });
 
