@@ -738,6 +738,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---------- Back to top button (home page, mobile only) ---------- */
+  // Shows shortly after the user stops scrolling (not while actively
+  // scrolling), and only once they've scrolled down a bit. Hides again
+  // the instant scrolling resumes, or once back near the top.
+  (function () {
+    var btn = document.getElementById('scrollTopBtn');
+    if (!btn) return;
+    var pauseTimer = null;
+    var showAfter = 400; // px scrolled before it's eligible to appear
+    var pauseDelay = 500; // ms of no scrolling before it pops up
+
+    function onScroll() {
+      btn.classList.remove('is-visible');
+      clearTimeout(pauseTimer);
+      var y = window.scrollY || window.pageYOffset || 0;
+      if (y < showAfter) return;
+      pauseTimer = setTimeout(function () {
+        btn.classList.add('is-visible');
+      }, pauseDelay);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      btn.classList.remove('is-visible');
+    });
+  })();
+
   /* ---------- Active nav link highlight ---------- */
   var here = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a').forEach(function (a) {

@@ -10,13 +10,17 @@ from icons import icon, ICONS
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_NAME = "MINT Physical Therapy"
+# Used to build absolute URLs for social-share meta tags (og:image etc.
+# need a full URL, not a relative path, to work when a link is shared).
+# Update this if the site ever moves to a custom domain.
+SITE_URL = "https://thediabeetusguy.github.io/mint-pt-redesign"
 PHONE_MAIN = "555-555-5555"
 PHONE_MAIN_TEL = "5555555555"
 EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "22"
+ASSET_VERSION = "23"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -469,13 +473,23 @@ def footer_html(depth=""):
   </footer>'''
 
 def base_page(title, description, body, depth="", active="", extra_head=""):
+    full_title = f"{title} | MINT Physical Therapy"
+    og_image = f"{SITE_URL}/assets/img/logo.png"
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} | MINT Physical Therapy</title>
+<title>{full_title}</title>
 <meta name="description" content="{description}">
+<meta property="og:title" content="{full_title}">
+<meta property="og:description" content="{description}">
+<meta property="og:image" content="{og_image}">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{full_title}">
+<meta name="twitter:description" content="{description}">
+<meta name="twitter:image" content="{og_image}">
 <link rel="icon" href="{depth}assets/img/favicon.png?v=2" type="image/png">
 <link rel="stylesheet" href="{depth}assets/css/style.css?v={ASSET_VERSION}">
 {extra_head}
@@ -769,6 +783,7 @@ def home_page():
       {cta_band("Ready to start feeling like yourself again?", "Tell us what&rsquo;s going on and we&rsquo;ll help you find the right provider, clinic, or mobile visit.", plain=True)}
     </div>
   </section>
+  <button type="button" class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">{icon('chev-down', cls='icon')}</button>
 '''
     return base_page("Home", "Utah-based mobile and in-clinic physical therapy. One-on-one care across nine Wasatch Front clinics, or right at your door.", body, depth="", active="home")
 

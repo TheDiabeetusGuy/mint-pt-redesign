@@ -794,3 +794,21 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 /* skip link */
 .skip-link{ position:absolute; left:-999px; top:auto; background:var(--forest-700); color:#fff; padding:12px 18px; border-radius:8px; z-index:200;}
 .skip-link:focus{ left:16px; top:16px; }
+
+/* Back-to-top button: home page only, mobile only. Hidden by default;
+   main.js shows it briefly whenever scrolling pauses partway down the
+   page, and hides it again once scrolling resumes or the top is reached. */
+.scroll-top-btn{
+  display:none;
+  position:fixed; right:18px; bottom:18px; z-index:80;
+  width:46px; height:46px; border-radius:50%; border:none;
+  background: var(--forest-600); color:#fff; box-shadow: var(--shadow-2);
+  align-items:center; justify-content:center;
+  opacity:0; visibility:hidden; transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+}
+.scroll-top-btn .icon{ width:20px; height:20px; transform: rotate(180deg); }
+.scroll-top-btn.is-visible{ opacity:1; visibility:visible; transform: translateY(0); }
+@media (max-width: 980px){
+  .scroll-top-btn{ display:flex; }
+}
