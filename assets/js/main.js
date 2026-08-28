@@ -343,6 +343,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /* ---------- Individual service pages: mobile "jump to a service" select ---------- */
+  document.querySelectorAll('.svc-mobile-select').forEach(function (select) {
+    select.addEventListener('change', function () {
+      if (select.value) window.location.href = select.value;
+    });
+  });
+
   /* ---------- Providers page: DPT / PTA tabs ---------- */
   document.querySelectorAll('.prov-tabs').forEach(function (tabs) {
     var buttons = tabs.querySelectorAll('.prov-tab');

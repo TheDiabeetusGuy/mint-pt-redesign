@@ -20,7 +20,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "26"
+ASSET_VERSION = "28"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -995,7 +995,14 @@ def services_page():
 
 def service_detail_page(s):
     others = [o for o in SERVICES if o['slug'] != s['slug']][:6]
+    svc_select_options = "".join(
+        f'<option value="{o["slug"]}.html"{" selected" if o["slug"] == s["slug"] else ""}>{o["title"]}</option>'
+        for o in SERVICES
+    )
     body = f'''{page_hero("Service", s['title'], s['card'], [f'<a href="../services.html">Services</a>', s['title']], depth="../")}
+  <div class="container svc-mobile-select-wrap">
+    <select class="svc-mobile-select" aria-label="Choose a service">{svc_select_options}</select>
+  </div>
   <section class="section">
     <div class="container service-layout">
       <div class="service-body">
