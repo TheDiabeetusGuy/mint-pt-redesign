@@ -345,7 +345,11 @@ def nav_html(depth="", active=""):
         return f'<a href="{depth}{href}"{cls}>{label}</a>'
 
     loc_links = "".join(f'<a href="{depth}locations.html#{l["slug"]}">{l["name"]}</a>' for l in LOCATIONS)
-    svc_links = "".join(f'<a href="{depth}services/{s["slug"]}.html">{s["title"]}</a>' for s in SERVICES)
+    svc_links = "".join(
+        f'<a href="{depth}services/{s["slug"]}.html"{" class=\"svc-more\"" if i >= 5 else ""}>{s["title"]}</a>'
+        for i, s in enumerate(SERVICES)
+    )
+    svc_links += f'<a href="{depth}services.html" class="dropdown-viewall">Explore All Services</a>'
 
     return f'''<header class="site-header">
     <div class="container nav">
