@@ -6,37 +6,50 @@ document.addEventListener('DOMContentLoaded', function () {
   var navLinks = document.querySelector('.nav-links');
   var menuScrollY = 0;
 
-  /* ---------- Mobile header: hide on scroll down, show on scroll up ---------- */
+  /* ---------- Mobile header: follows the swipe in real time ---------- */
   // Desktop keeps the header always visible (sticky); this only runs at
-  // mobile widths, where reclaiming the header's space while reading is
-  // more valuable than always having the nav in view.
+  // mobile widths. Rather than waiting for a scroll-distance threshold
+  // before snapping the header away, it tracks the header's hidden
+  // amount 1:1 with the scroll delta, so it slides out/in exactly as
+  // fast as you swipe. Once scrolling settles, it snaps to fully shown
+  // or fully hidden, whichever it's closer to.
   (function () {
     var header = document.querySelector('.site-header');
     if (!header) return;
     var lastY = window.scrollY || window.pageYOffset || 0;
+    var hidden = 0; // 0 = fully shown, header height = fully hidden
     var ticking = false;
-    var threshold = 8; // ignore tiny scroll jitter
+    var settleTimer = null;
+
+    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+    function apply(withTransition) {
+      header.style.transition = withTransition ? 'transform .2s ease' : 'none';
+      header.style.transform = 'translateY(' + (-hidden) + 'px)';
+    }
 
     function onScroll() {
       var mobile = window.matchMedia('(max-width: 980px)').matches;
-      var y = window.scrollY || window.pageYOffset || 0;
       var menuOpen = navLinks && navLinks.classList.contains('mobile-open');
+      var y = window.scrollY || window.pageYOffset || 0;
       if (!mobile || menuOpen) {
-        header.classList.remove('header-hidden');
+        hidden = 0;
+        apply(true);
         lastY = y;
         ticking = false;
         return;
       }
+      var h = header.offsetHeight;
       var delta = y - lastY;
-      if (Math.abs(delta) > threshold) {
-        if (delta > 0 && y > header.offsetHeight) {
-          header.classList.add('header-hidden');
-        } else if (delta < 0) {
-          header.classList.remove('header-hidden');
-        }
-        lastY = y;
-      }
+      lastY = y;
+      hidden = y <= 0 ? 0 : clamp(hidden + delta, 0, h);
+      apply(false);
       ticking = false;
+
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(function () {
+        hidden = hidden > h / 2 ? h : 0;
+        apply(true);
+      }, 120);
     }
 
     window.addEventListener('scroll', function () {

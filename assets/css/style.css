@@ -133,10 +133,6 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   background: rgba(251,250,246,.86);
   backdrop-filter: blur(14px) saturate(140%);
   border-bottom:1px solid var(--line-soft);
-  transition: transform .3s ease;
-}
-@media (max-width: 980px){
-  .site-header.header-hidden{ transform: translateY(-100%); }
 }
 .nav{
   height: var(--nav-h); display:flex; align-items:center; gap:20px;
@@ -597,6 +593,9 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .prov-carousel-arrow .icon{ width:24px; height:24px; filter: drop-shadow(0 1px 4px rgba(0,0,0,.5)); }
 .provider-initials{
   font-family:var(--f-display); font-weight:700; font-size:44px; color:rgba(255,255,255,.32); letter-spacing:.02em;
+}
+.provider-photo{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center;
 }
 .provider-overlay{
   position:absolute; left:0; right:0; bottom:0; padding:16px 16px 14px;

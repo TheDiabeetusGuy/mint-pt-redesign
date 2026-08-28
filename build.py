@@ -16,7 +16,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "18"
+ASSET_VERSION = "20"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -259,7 +259,7 @@ EXTRA_SPECIALTIES = ["Active Release Therapy (ASTYM)", "Manual Therapy & Massage
                       "TMJ/TMD Therapy", "Work Conditioning"]
 
 PROVIDERS = [
-    dict(name="Brad Klemetson", cred="PT, DPT", role="Founder & Clinical Director",
+    dict(name="Brad Klemetson", cred="PT, DPT", role="Founder & Clinical Director", photo="brad-klemetson.png",
          short_bio="The steady hand behind MINT — patients call him relentless in the best way, staying on a problem until it's actually solved.",
          bio="Brad earned his Doctorate of Physical Therapy from UNLV in 2017 and has published research on balance and Parkinson's disease. He treats neck pain, dizziness, headaches, and migraines, using dry needling and manual therapy to speed recovery, and is certified in FCE, FJA, POET, and FFD testing. He also takes time to walk patients through their MRI findings and treatment options. Special interests: headaches, migraines, radiculopathies, auto accident and workplace injury care, and injury prevention."),
     dict(name="Ryan Rindlesbacher", cred="PT, DPT", role="Physical Therapist",
@@ -537,19 +537,26 @@ def provider_card(p, mode="static"):
     #                    used wherever the name/role/bio already appears
     #                    right next to the photo (Providers page detail card
     #                    and mobile carousel), so it isn't shown twice.
-    idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
-    color = AVATAR_COLORS[idx]
+    photo = p.get("photo")
+    if photo:
+        visual = f'<img class="provider-photo" src="assets/img/providers/{photo}" alt="{p["name"]}" loading="lazy">'
+        bg_style = ""
+    else:
+        idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
+        color = AVATAR_COLORS[idx]
+        visual = f'<span class="provider-initials">{initials(p["name"])}</span>'
+        bg_style = f' style="background:{color};"'
     if mode == "photo-only":
-        return f'''<div class="provider-card" style="background:{color};">
-      <span class="provider-initials">{initials(p['name'])}</span>
+        return f'''<div class="provider-card"{bg_style}>
+      {visual}
     </div>'''
     bio_html = ""
     card_cls = "provider-card"
     if mode == "hover":
         card_cls = "provider-card has-bio"
         bio_html = f'<p class="provider-overlay-bio">{p.get("short_bio", short_bio(p["bio"]))}</p>'
-    return f'''<div class="{card_cls}" style="background:{color};">
-      <span class="provider-initials">{initials(p['name'])}</span>
+    return f'''<div class="{card_cls}"{bg_style}>
+      {visual}
       <div class="provider-overlay">
         <h3>{p['name']}, {p['cred']}</h3>
         <div class="role">{p['role']}</div>
