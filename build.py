@@ -726,12 +726,20 @@ def locations_page():
     )
     list_items += '<li class="loc-list-item loc-list-item-mobile" data-target="loc-mobile">Mobile Visit</li>'
 
+    select_options = "".join(
+        f'<option value="{l["slug"]}"{" selected" if i == 0 else ""}>{city_label(l)}</option>'
+        for i, l in enumerate(LOCATIONS)
+    )
+    select_options += '<option value="mobile">Mobile Visit</option>'
+    mobile_select = f'''<select class="loc-mobile-select" id="locMobileSelect" aria-label="Choose a clinic">{select_options}</select>'''
+
     def detail_panel(l, i):
         provs = providers_for_clinic(l["slug"])
         provider_cards = "".join(provider_card(p) for p in provs)
         providers_block = f'''<div class="loc-providers-wrap">
         <div class="loc-providers-heading">Meet the {city_label(l)} Team</div>
-        <div class="loc-providers-grid">{provider_cards}</div>
+        <div class="loc-providers-grid grid-mobile-hide-860">{provider_cards}</div>
+        <div class="loc-providers-carousel-wrap">{hz_carousel([provider_card(p) for p in provs], extra_class="hz-carousel-on-photo")}</div>
       </div>''' if provs else ""
         return f'''<div class="loc-detail{" is-active is-visible" if i == 0 else ""}" id="loc-{l['slug']}">
       <div class="loc-detail-card">
@@ -766,7 +774,10 @@ def locations_page():
   <section class="section loc-list-section">
     <div class="container loc-container">
       <div class="loc-split">
-        <ul class="loc-list">{list_items}</ul>
+        <div>
+          <ul class="loc-list">{list_items}</ul>
+          {mobile_select}
+        </div>
         <div class="loc-detail-wrap">{panels}</div>
       </div>
     </div>

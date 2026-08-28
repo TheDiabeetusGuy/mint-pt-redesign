@@ -59,6 +59,8 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------- Locations page: city list + detail panel ---------- */
   var locList = document.querySelector('.loc-list');
   if (locList) {
+    var locMobileSelect = document.getElementById('locMobileSelect');
+
     function locLoadMap(panel) {
       var frame = panel.querySelector('iframe[data-src]');
       if (frame) {
@@ -86,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var item = locList.querySelector('.loc-list-item[data-target="' + targetId + '"]');
       var panel = document.getElementById(targetId);
       if (!item || !panel) return false;
+      if (locMobileSelect) locMobileSelect.value = slug;
       if (panel.classList.contains('is-active')) return true;
 
       locList.querySelectorAll('.loc-list-item').forEach(function (i) { i.classList.remove('is-active'); });
@@ -118,6 +121,9 @@ document.addEventListener('DOMContentLoaded', function () {
       startPanel.classList.add('is-active', 'is-visible');
       locLoadMap(startPanel);
     }
+    if (locMobileSelect && startItem) {
+      locMobileSelect.value = startItem.dataset.target.replace(/^loc-/, '');
+    }
 
     locList.querySelectorAll('.loc-list-item').forEach(function (item) {
       item.addEventListener('click', function () {
@@ -126,6 +132,14 @@ document.addEventListener('DOMContentLoaded', function () {
         activateLocation(slug);
       });
     });
+
+    if (locMobileSelect) {
+      locMobileSelect.addEventListener('change', function () {
+        var slug = locMobileSelect.value;
+        history.replaceState(null, '', '#' + slug);
+        activateLocation(slug);
+      });
+    }
 
     // Clicking a location link in the header while already on this page only
     // changes the URL hash (no reload) — listen for that and switch to match.
