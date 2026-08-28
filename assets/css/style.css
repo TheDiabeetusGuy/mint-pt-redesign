@@ -371,10 +371,10 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .loc-map-chip .icon{ stroke-width:2; }
 
 /* Providers who work at this clinic, shown below the card */
-.loc-providers-wrap{ margin-top:32px; }
+.loc-providers-wrap{ margin-top:48px; }
 .loc-providers-heading{ font-family:var(--f-mono); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-500); margin-bottom:16px; }
 .loc-providers-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; justify-items:center; }
-.loc-providers-grid .provider-card{ width:75%; }
+.loc-providers-grid .provider-card{ width:90%; }
 
 /* Mobile Visit option: plain text on the page background, no card treatment */
 .loc-mobile-panel h2{ font-size: clamp(24px,3vw,32px); margin-top:12px; max-width:520px; }
