@@ -608,15 +608,16 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .provider-overlay-bio{
   color: var(--ink-700); font-size:12.5px; line-height:1.5; margin-top:9px;
 }
-/* On the homepage "Our Team" cards, keep name/role always visible but
-   have the short bio itself fade in on hover instead of always showing.
-   Scoped to (hover:hover) so touch devices (which reuse this same card
-   markup for the mobile carousel) keep the bio always visible, since
-   there's no hover state to reveal it there. */
+/* Homepage "Our Team" cards: name and role stay visible at all times;
+   only the bio line fades in/out. Desktop reveals it on mouse hover and
+   hides it again on mouse-out (pure CSS). Touch devices have no hover,
+   so main.js toggles the .is-open class instead: tapping a card reveals
+   its bio, tapping anywhere else hides it again. */
+.team-section .provider-overlay-bio{ opacity:0; transition: opacity .3s ease; }
 @media (hover: hover){
-  .team-section .provider-overlay-bio{ opacity:0; transition: opacity .3s ease; }
   .team-section .provider-card:hover .provider-overlay-bio{ opacity:1; }
 }
+.team-section .provider-card.is-open .provider-overlay-bio{ opacity:1; }
 
 /* -------------------- Locations -------------------- */
 .location-card{

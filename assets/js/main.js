@@ -634,6 +634,25 @@ document.addEventListener('DOMContentLoaded', function () {
     start();
   });
 
+  /* ---------- Home "Our Team" cards: tap-to-reveal bio on touch ---------- */
+  // Desktop reveals the overlay on hover via pure CSS. Touch devices have
+  // no hover, so tapping a card toggles it open, and tapping anywhere
+  // else (another card or the rest of the page) closes it again.
+  var teamCards = document.querySelectorAll('.team-section .provider-card.has-bio');
+  if (teamCards.length && !window.matchMedia('(hover: hover)').matches) {
+    teamCards.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        var isOpen = card.classList.contains('is-open');
+        teamCards.forEach(function (c) { c.classList.remove('is-open'); });
+        if (!isOpen) card.classList.add('is-open');
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('click', function () {
+      teamCards.forEach(function (c) { c.classList.remove('is-open'); });
+    });
+  }
+
   /* ---------- Video placeholders ---------- */
   document.querySelectorAll('.video-frame').forEach(function (frame) {
     frame.addEventListener('click', function () {
