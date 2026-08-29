@@ -92,7 +92,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 
 .section{ padding: clamp(56px,9vw,120px) 0; }
 .team-section{ padding: clamp(28px,4.5vw,60px) 0; }
-.section-head{ max-width: 640px; margin-bottom: 44px; }
+.section-head{ max-width: 820px; margin-bottom: 44px; }
 .section-head h2{ font-size: clamp(28px,3.6vw,42px); margin-top:14px; line-height:1.1; }
 .section-head p{ margin-top:16px; color: var(--ink-500); font-size:17px; }
 .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
@@ -137,6 +137,11 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .nav{
   height: var(--nav-h); display:flex; align-items:center; gap:20px;
 }
+/* Header uses the shared .container class for its max-width, but should
+   sit closer to both edges than page content does — halve its side
+   padding rather than touching --pad globally (which every section
+   on every page relies on). */
+.site-header .container.nav{ padding-left: calc(var(--pad) / 2); padding-right: calc(var(--pad) / 2); }
 .brand{ display:flex; align-items:center; flex:none; }
 .brand-logo{ height:40px; width:auto; display:block; }
 
@@ -152,56 +157,89 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .nav-links .chev{ width:13px; height:13px; transition: transform .2s ease; }
 .nav-links li.open .chev{ transform: rotate(180deg); }
 
+/* "Services" nav item: label links straight to the hub page; the small
+   chevron button is a separate hit target that opens the dropdown (for
+   touch, where there's no hover). Hovering anywhere on the item still
+   reveals the dropdown on desktop, per the :hover rule below.
+   flex:0 0 auto + min-width:0 on the two children is defensive: nested
+   flex items default to min-width:auto, which can otherwise force extra
+   width and visually separate the label from the toggle button. */
+.nav-links > li.split{ display:flex; align-items:center; justify-content:flex-start; gap:0; border-radius:8px; transition: background .15s ease; }
+.nav-links > li.split > a, .nav-links > li.split > .dropdown-toggle{ flex:0 0 auto; min-width:0; }
+.nav-links > li.split > a{ padding-right:2px; }
+.nav-links > li.split > .dropdown-toggle{ padding:10px 10px 10px 2px; }
+/* The pill background lives on the whole item, not the individual label
+   or toggle, so hovering either one highlights them as a single unit
+   instead of two separate boxes. */
+.nav-links > li.split > a:hover, .nav-links > li.split > .dropdown-toggle:hover,
+.nav-links > li.split > a.active{ background: none !important; }
+.nav-links > li.split:hover, .nav-links > li.split.open, .nav-links > li.split.is-active{ background: var(--mint-050); }
+.nav-links > li.split:hover > a, .nav-links > li.split:hover > .dropdown-toggle,
+.nav-links > li.split.open > a, .nav-links > li.split.open > .dropdown-toggle,
+.nav-links > li.split.is-active > a, .nav-links > li.split.is-active > .dropdown-toggle{ color: var(--forest-700); }
+
 .dropdown{
   position:absolute; top: 100%; left:50%; transform: translateX(-50%) translateY(6px);
   background:#fff; border:1px solid var(--line); border-radius: var(--radius-m); box-shadow: var(--shadow-3);
-  padding:18px 10px 10px; min-width:240px; opacity:0; visibility:hidden; transition: opacity .18s ease, transform .18s ease;
+  padding:18px 10px 10px; min-width:240px; opacity:0; visibility:hidden; pointer-events:none;
+  transition: opacity .18s ease, transform .18s ease;
 }
-.nav-links li.open .dropdown{ opacity:1; visibility:visible; transform: translateX(-50%) translateY(0); }
+.nav-links li.open .dropdown{ opacity:1; visibility:visible; pointer-events:auto; transform: translateX(-50%) translateY(0); }
 .dropdown a{ display:block; padding:10px 12px; border-radius:8px; font-size:14.5px; color:var(--ink-700); font-weight:500; }
 .dropdown a:hover{ background: var(--mint-050); color:var(--forest-700); }
 .dropdown.wide{ min-width:460px; column-count:2; column-gap:6px; }
 .dropdown.wide a{ break-inside: avoid; }
+.dropdown-viewall{ display:none; }
 
 @media (min-width: 981px){
-  .nav-links > li.has-dropdown:hover .dropdown{ opacity:1; visibility:visible; transform: translateX(-50%) translateY(0); }
+  .nav-links > li.has-dropdown:hover .dropdown{ opacity:1; visibility:visible; pointer-events:auto; transform: translateX(-50%) translateY(0); }
   .nav-links > li.has-dropdown:hover .chev{ transform: rotate(180deg); }
 }
 
 .nav-cta{ display:flex; align-items:center; gap:12px; flex:none; margin-left:16px; }
-.nav-links-cta-mobile{ display:none; }
 
 .menu-toggle{ display:none; background:none; border:1px solid var(--line); border-radius:8px; padding:9px; }
 .menu-toggle .icon{ width:22px; height:22px; }
 
 /* Request Appointment button: full label on desktop, short label on mobile */
 .btn-label-short{ display:none; }
+/* On mobile the header's own button is hidden entirely — a full-size
+   version appears inside the slide-out menu instead (below Contact). */
+.nav-mobile-cta{ display:none; }
 
 @media (max-width: 980px){
+  .nav-cta > a{ display:none; }
   .nav-links{
-    position:fixed; top: var(--nav-h); left:0; right:0; height: calc(100vh - var(--nav-h));
+    position:fixed; top: var(--nav-h); left:0; right:0;
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
     background: var(--stone-50); flex-direction:column; align-items:stretch;
     padding: 18px var(--pad) 40px; overflow-y:auto; gap:2px;
     transform: translateX(100%); transition: transform .25s ease; box-shadow: -12px 0 30px rgba(0,0,0,.08);
+    touch-action: pan-y; overscroll-behavior-y: contain;
+    max-width:100vw; box-sizing:border-box;
   }
   .nav-links.mobile-open{ transform: translateX(0); }
+  .nav-links > li{ max-width:100%; }
   .nav-links > li > a, .nav-links > li > button{ width:100%; justify-content:space-between; padding:16px 6px; font-size:17px; border-bottom:1px solid var(--line-soft); border-radius:0; }
-  .dropdown{ position:static; transform:none; box-shadow:none; border:none; opacity:1; visibility:visible; display:none; padding:0 0 8px 14px; max-width:none; column-count:1; }
+  .nav-links > li.split{ display:grid; grid-template-columns: minmax(0,1fr) auto; align-items:center; width:100%; border-bottom:1px solid var(--line-soft); }
+  .nav-links > li.split > a{ width:100%; min-width:0; flex:none; border-bottom:none; }
+  .nav-links > li.split > .dropdown-toggle{ width:auto; flex:none; border-bottom:none; padding:16px 10px; justify-content:center; }
+  .nav-links > li.split > .dropdown{ grid-column: 1 / -1; }
+  .dropdown{ position:static !important; transform:none !important; box-shadow:none !important; border:none !important; border-radius:0 !important; opacity:1; visibility:visible; display:none; padding:0 0 8px 14px; max-width:100% !important; width:100% !important; min-width:0 !important; column-count:1; box-sizing:border-box; }
   .nav-links li.open .dropdown{ transform:none; }
-  .dropdown.wide{ column-count:1; }
-  li.open .dropdown{ display:block; }
+  .dropdown.wide{ column-count:1; min-width:0; width:100%; max-width:100%; }
+  .dropdown.wide .svc-more{ display:none; }
+  .dropdown.wide .dropdown-viewall{ display:block; }
+  li.open .dropdown{ display:block; pointer-events:auto; }
   .menu-toggle{ display:inline-flex; }
   .btn-label-full{ display:none; }
   .btn-label-short{ display:inline; }
-  .nav-cta > a.btn{ display:none; }
-  .nav-links > li.nav-links-cta-mobile{
-    display:flex; justify-content:center; border-bottom:none; padding:22px 6px 6px;
+  .nav-mobile-cta{ display:block; margin-top:16px; }
+  .nav-links > li.nav-mobile-cta > a.nav-mobile-cta-btn{
+    width:100%; justify-content:center; padding:14px 20px; border-radius:100px;
+    border-bottom:none; font-size:16px; font-weight:600;
   }
-  .nav-links > li.nav-links-cta-mobile > a{
-    width:auto; padding:14px 32px; border-radius:100px; border-bottom:none; justify-content:center; font-size:15.5px;
-    background: var(--forest-600); color:#fff;
-  }
-  .nav-links > li.nav-links-cta-mobile > a:hover{ background: var(--forest-700); color:#fff; }
 }
 
 /* -------------------- Home hero (photo carousel) -------------------- */
@@ -227,17 +265,8 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 
 .home-intro{ padding: 36px 0 clamp(16px,2.5vw,28px); }
 .intro-divider{ width:72px; height:1px; background:var(--line); margin:28px auto 0; }
-.home-intro-grid{ display:grid; grid-template-columns: 120px 1fr; gap:36px; align-items:start; }
-@media (max-width: 700px){ .home-intro-grid{ grid-template-columns:1fr; } }
-.home-intro-social{ display:flex; flex-direction:row; gap:14px; }
-@media (min-width: 701px){ .home-intro-social{ flex-direction:column; } }
-@media (max-width: 700px){ .home-intro-social{ display:none; } }
-.home-intro-social a{
-  width:44px; height:44px; border-radius:50%; background:var(--stone-100); border:1px solid var(--line);
-  display:flex; align-items:center; justify-content:center; color:var(--ink-700); transition: background .2s ease, color .2s ease;
-}
-.home-intro-social a:hover{ background:var(--forest-600); color:#fff; border-color:var(--forest-600); }
-.home-intro-text{ font-size:20px; line-height:1.75; color:var(--ink-700); max-width:820px; }
+.home-intro-grid{ display:block; }
+.home-intro-text{ font-size:22px; font-weight:700; line-height:1.75; color:var(--ink-700); max-width:820px; margin:0 auto; text-align:center; }
 
 /* -------------------- Hero -------------------- */
 .hero{
@@ -294,22 +323,22 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .page-hero h1{ color:#fff; font-size: clamp(32px,5vw,50px); margin-top:12px; }
 .page-hero p.lead{ color: rgba(255,255,255,.75); max-width:640px; margin-top:14px; font-size:17px; }
 
-.loc-hero{ background: var(--forest-mid); padding: 39px 0 45px; }
+.loc-hero{ padding: 39px 0 45px; }
 .loc-hero h1{ margin-top:0; }
 
-.prov-hero{ background: var(--forest-mid); padding: 21px 0 48px; }
-.prov-first-section{ padding-top: clamp(28px,4.5vw,60px); padding-bottom: clamp(28px,4.5vw,60px); }
+.prov-hero{ padding: 21px 0 48px; }
+.prov-first-section{ padding-top: clamp(42px,6.75vw,90px); padding-bottom: clamp(28px,4.5vw,60px); }
 .prov-cta-section{ padding-top: clamp(28px,4.5vw,60px); padding-bottom: clamp(28px,4.5vw,60px); }
 
 /* -------------------- Locations: city list + detail panel -------------------- */
-.loc-list-section{ padding-top: clamp(28px,4.5vw,60px); padding-bottom: clamp(28px,4.5vw,60px); }
+.loc-list-section{ padding-top: clamp(42px,6.75vw,90px); padding-bottom: clamp(28px,4.5vw,60px); }
 .loc-container{ padding-left: clamp(10px,2.5vw,32px); }
-.loc-split{ display:grid; grid-template-columns: 190px 1fr; gap:52px; align-items:center; }
+.loc-split{ display:grid; grid-template-columns: 190px 1fr; gap:52px; align-items:start; }
 .loc-split > *{ min-width:0; }
 .loc-detail-meta > div{ min-width:0; }
 .loc-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
 .loc-list-item{
-  position:relative; padding:13px 0 13px 26px; font-size:13px; color:var(--ink-700); font-weight:500;
+  position:relative; padding:13px 0 13px 26px; font-size:15px; color:var(--ink-700); font-weight:500;
   cursor:pointer; transition: color .18s ease; user-select:none;
 }
 .loc-list-item::before{
@@ -336,18 +365,16 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .loc-detail.is-active{ display:block; }
 .loc-detail.is-active.is-visible{ opacity:1; }
 .loc-detail-card{
-  display:grid; grid-template-columns:1fr 1fr; align-items:stretch;
-  background:#fff; border:1px solid var(--line); border-top:4px solid var(--forest-600);
-  border-radius: var(--radius-m); box-shadow: var(--shadow-1); overflow:hidden;
+  display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:stretch;
 }
-.loc-detail-info{ padding:30px; display:flex; flex-direction:column; }
+.loc-detail-info{ padding:0; display:flex; flex-direction:column; }
 .loc-detail-info h3{ font-size:21px; display:flex; align-items:center; gap:8px; }
 .loc-detail-addr{ color:var(--ink-500); font-size:14px; margin:6px 0 0 25px; }
 .loc-detail-meta{ margin-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:16px 20px; }
 .loc-detail-meta div{ font-size:14px; color:var(--ink-700); }
 .loc-detail-meta span{ font-family:var(--f-mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-500); display:block; margin-bottom:2px; }
-.loc-detail-info .btn{ margin-top:24px; align-self:flex-start; }
-.loc-detail-map{ position:relative; min-height:280px; background:var(--stone-200); border-left:1px solid var(--line); }
+.loc-detail-info .btn{ margin-top:24px; align-self:flex-start; padding:11px 21px; font-size:12.5px; }
+.loc-detail-map{ position:relative; min-height:280px; background:var(--stone-200); border-radius:var(--radius-m); overflow:hidden; }
 .loc-detail-map iframe{ width:100%; height:100%; min-height:280px; border:0; display:block; }
 .loc-map-chip{
   position:absolute; bottom:14px; left:14px; background:#fff; border-radius:100px; padding:9px 16px 9px 14px;
@@ -358,10 +385,10 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .loc-map-chip .icon{ stroke-width:2; }
 
 /* Providers who work at this clinic, shown below the card */
-.loc-providers-wrap{ margin-top:32px; }
+.loc-providers-wrap{ margin-top:48px; }
 .loc-providers-heading{ font-family:var(--f-mono); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-500); margin-bottom:16px; }
 .loc-providers-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; justify-items:center; }
-.loc-providers-grid .provider-card{ width:75%; }
+.loc-providers-grid .provider-card{ width:90%; }
 
 /* Mobile Visit option: plain text on the page background, no card treatment */
 .loc-mobile-panel h2{ font-size: clamp(24px,3vw,32px); margin-top:12px; max-width:520px; }
@@ -381,6 +408,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   .loc-providers-wrap{ margin-top:90px; }
   .loc-providers-grid.grid-mobile-hide-860{ display:none; }
   .loc-providers-carousel-wrap .hz-carousel{ display:block; }
+  .loc-providers-carousel-wrap .provider-card{ max-width:90%; margin:0 auto; }
 }
 @media (min-width: 861px){
   .loc-providers-carousel-wrap{ display:none; }
@@ -493,6 +521,9 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   display:flex; align-items:center; justify-content:center;
 }
 @media (hover: hover){ .provider-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-2); } }
+/* "Our Team" cards on the homepage specifically shouldn't lift on hover —
+   only the bio should fade in (see .provider-overlay-bio below). */
+@media (hover: hover){ .team-section .provider-card:hover{ transform:none; box-shadow: var(--shadow-1); } }
 
 /* -------------------- Providers page: list + detail panel -------------------- */
 .prov-container{ padding-left: clamp(14px,3.5vw,45px); padding-right: clamp(14px,3.5vw,45px); }
@@ -507,8 +538,26 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .prov-tab:hover{ color: var(--forest-700); }
 .prov-tab.is-active{ color: var(--ink-900); }
 .prov-tab:focus-visible{ outline:2px solid var(--forest-600); outline-offset:4px; border-radius:4px; }
+.prov-mobile-tab-select{
+  display:none; width:100%; padding:14px 16px; border-radius:10px; border:1.5px solid var(--line);
+  background:#fff; font-family:var(--f-body); font-size:15px; font-weight:600; color:var(--ink-900);
+  appearance:none; -webkit-appearance:none; margin: 18px 0 36px;
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E6B37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 14px center; background-size:18px;
+}
 
 .prov-tab-panel{ display:none; }
+.svc-mobile-select-wrap{ display:none; }
+.svc-mobile-select{
+  width:100%; padding:14px 16px; border-radius:10px; border:1.5px solid var(--line);
+  background:#fff; font-family:var(--f-body); font-size:15px; font-weight:600; color:var(--ink-900);
+  appearance:none; -webkit-appearance:none;
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E6B37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 14px center; background-size:18px;
+}
+@media (max-width: 860px){
+  .svc-mobile-select-wrap{ display:block; padding-top:24px; }
+}
 .prov-tab-panel.is-active{ display:block; }
 .prov-list-section + .prov-list-section{ margin-top:8px; }
 .prov-split{ display:grid; grid-template-columns: 270px 1fr; gap:48px; align-items:start; }
@@ -540,15 +589,16 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
   display:grid; grid-template-columns:1fr; gap:24px; align-items:start;
   background:none; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible;
 }
-.prov-detail-visual{ max-width:300px; }
-.prov-detail-visual .provider-card{ aspect-ratio: 4/5; }
-.prov-detail-info h3{ font-size:22px; }
-.prov-detail-role{ font-family:var(--f-mono); font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--forest-700); margin-top:6px; }
+.prov-detail-visual{ width:270px; max-width:100%; margin:0 auto; }
+.prov-detail-visual .provider-card{ width:100%; aspect-ratio: 4/5; }
+.prov-detail-info h3{ font-size:22px; text-align:center; }
+.prov-detail-role{ font-family:var(--f-mono); font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--forest-700); margin-top:6px; text-align:center; }
 .prov-detail-bio{ color:var(--ink-700); font-size:15.5px; line-height:1.65; margin-top:18px; }
 
 @media (max-width: 860px){
   .prov-split{ display:none; }
-  .prov-tab{ font-size: clamp(20px,2.4vw,27px); }
+  .prov-tabs{ display:none; }
+  .prov-mobile-tab-select{ display:block; }
   .prov-detail-visual{ max-width:none; width:80%; margin:0 auto; }
   .prov-detail-info h3{ font-size:22px; line-height:1.25; -webkit-text-size-adjust:none; text-size-adjust:none; }
   .prov-detail-role{ font-size:13px; line-height:1.4; -webkit-text-size-adjust:none; text-size-adjust:none; }
@@ -578,18 +628,31 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .provider-initials{
   font-family:var(--f-display); font-weight:700; font-size:44px; color:rgba(255,255,255,.32); letter-spacing:.02em;
 }
+.provider-photo{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center;
+}
 .provider-overlay{
   position:absolute; left:0; right:0; bottom:0; padding:16px 16px 14px;
   background: rgba(255,255,255,.93);
   border-bottom-left-radius: var(--radius-m); border-bottom-right-radius: var(--radius-m);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  transition: padding-bottom .35s ease;
 }
 .provider-overlay h3{ font-size:15px; color: var(--forest-900); font-weight:700; line-height:1.25; }
 .provider-overlay .role{ font-family:var(--f-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color: var(--forest-700); font-weight:600; margin-top:3px; }
+/* Homepage "Our Team" cards: name and role sit in a compact panel at the
+   bottom at all times. The bio is collapsed to zero height (not just
+   invisible) so the white panel itself stays small, then expands and
+   fades/slides in on hover (desktop) or tap (mobile, via main.js toggling
+   .is-open, since touch has no hover state). */
 .provider-overlay-bio{
-  color: var(--ink-700); font-size:12.5px; line-height:1.5; margin-top:9px;
+  color: var(--ink-700); font-size:12.5px; line-height:1.5;
+  max-height:0; opacity:0; margin-top:0; overflow:hidden; transform: translateY(6px);
+  transition: max-height .35s ease, opacity .3s ease, margin-top .35s ease, transform .35s ease;
 }
+@media (hover: hover){
+  .team-section .provider-card:hover .provider-overlay-bio{ max-height:140px; opacity:1; margin-top:9px; transform:translateY(0); }
+}
+.team-section .provider-card.is-open .provider-overlay-bio{ max-height:140px; opacity:1; margin-top:9px; transform:translateY(0); }
 
 /* -------------------- Locations -------------------- */
 .location-card{
@@ -619,6 +682,9 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .video-frame .play:hover{ transform: scale(1.08); }
 .home-ig-video{ margin-top:28px; }
 .home-ig-video .video-frame{ aspect-ratio:9/16; max-width:360px; margin:0 auto; }
+@media (max-width: 700px){
+  .home-ig-video .video-frame{ max-width:252px; }
+}
 .video-frame .play .icon{ width:24px; height:24px; stroke:none; fill: var(--forest-700); margin-left:3px; }
 .video-frame .cap{ position:absolute; bottom:16px; left:18px; z-index:2; color:#fff; font-family:var(--f-mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; opacity:.8; }
 
@@ -641,6 +707,11 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 .cta-band h2{ color:#fff; font-size: clamp(26px,3.2vw,36px); max-width:520px; }
 .cta-band p{ color: rgba(255,255,255,.7); margin-top:10px; }
 .cta-band .actions{ display:flex; gap:14px; flex:none; }
+.cta-band-plain{ background:none; color:var(--ink-900); }
+.cta-band-plain h2{ color:var(--ink-900); }
+.cta-band-plain p{ color:var(--ink-500); }
+.cta-band-plain .btn-outline{ border-color:var(--line); color:var(--ink-900); }
+.cta-band-plain .btn-outline:hover{ border-color:var(--forest-600); color:var(--forest-700); background:none; }
 @media (max-width: 760px){
   .cta-band{
     flex-direction:column; align-items:flex-start;
@@ -755,3 +826,23 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
 /* skip link */
 .skip-link{ position:absolute; left:-999px; top:auto; background:var(--forest-700); color:#fff; padding:12px 18px; border-radius:8px; z-index:200;}
 .skip-link:focus{ left:16px; top:16px; }
+
+/* Back-to-top button: home page only, mobile only. Hidden by default;
+   main.js shows it briefly whenever scrolling pauses partway down the
+   page, and hides it again once scrolling resumes or the top is reached. */
+.scroll-top-btn{
+  display:none;
+  position:fixed; right:18px; z-index:999;
+  bottom:18px;
+  bottom: max(18px, calc(env(safe-area-inset-bottom, 0px) + 18px));
+  width:46px; height:46px; border-radius:50%; border:none;
+  background: var(--forest-600); color:#fff; box-shadow: var(--shadow-2);
+  align-items:center; justify-content:center;
+  opacity:0; visibility:hidden; transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+}
+.scroll-top-btn .icon{ width:20px; height:20px; transform: rotate(180deg); }
+.scroll-top-btn.is-visible{ opacity:1; visibility:visible; transform: translateY(0); }
+@media (max-width: 980px){
+  .scroll-top-btn{ display:flex; }
+}
