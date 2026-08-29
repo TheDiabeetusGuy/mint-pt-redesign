@@ -20,7 +20,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "32"
+ASSET_VERSION = "33"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -679,7 +679,7 @@ def home_page():
 
   <section class="home-intro">
     <div class="container home-intro-grid">
-      <p class="home-intro-text">Helping you move better, feel better, and get back to what you love through one-on-one care &mdash; mobile or in-clinic across Utah. Cash-pay, workers&rsquo; comp, and auto-accident patients welcome. Let&rsquo;s get you back to MINT condition.</p>
+      <p class="home-intro-text">Move better, feel better, get back to what you love. One-on-one care &mdash; mobile or in-clinic across Utah &mdash; for cash-pay, workers&rsquo; comp, and auto-accident patients. Let&rsquo;s get you back to MINT condition.</p>
     </div>
     <div class="container home-ig-video">{video_frame("Instagram video coming soon")}</div>
     <div class="container"><div class="intro-divider"></div></div>
