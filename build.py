@@ -10,17 +10,9 @@ from icons import icon, ICONS
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_NAME = "MINT Physical Therapy"
-# Used to build absolute URLs for social-share meta tags (og:image etc.
-# need a full URL, not a relative path, to work when a link is shared).
-# Update this if the site ever moves to a custom domain.
-SITE_URL = "https://thediabeetusguy.github.io/mint-pt-redesign"
 PHONE_MAIN = "555-555-5555"
 PHONE_MAIN_TEL = "5555555555"
 EMAIL_MAIN = "info@mint-pt.com"
-# Bump this any time style.css or main.js changes. It's appended as a
-# ?v= query string on both files so browsers/CDNs treat an updated file
-# as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "29"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -106,156 +98,108 @@ SERVICES = [
          causes_label="Common Causes",
          causes=["Muscle strain or ligament sprain", "Herniated or bulging discs", "Poor posture and prolonged sitting",
                  "Degenerative changes or spinal stenosis", "Past injury, including auto accidents"],
-         approach=["Manual therapy — joint mobilization and soft-tissue work to ease pain and restore movement",
-                   "A personalized strengthening plan targeting your core and spine",
-                   "Targeted stretching to release the tight muscles feeding the pain",
-                   "Posture and body-mechanics coaching for how you sit, stand, and lift",
-                   "Heat, cold, or other modalities to calm pain and inflammation early on",
-                   "Dry needling for stubborn muscle knots and trigger points",
-                   "Functional rehab to rebuild the strength your work and daily life demand",
+         approach=["Hands-on manual therapy to ease tension and restore movement", "A personalized strengthening plan for your core and spine",
+                   "Posture and body-mechanics coaching for work and home", "Dry needling or other modalities when helpful",
                    "A gradual, guided return to the activities you miss"]),
     dict(slug="sciatica", title="Sciatica", icon="leg",
-         card="Real relief from nerve pain that radiates through the hip, leg, or foot — treated at the source, not just the symptom.",
+         card="Calming nerve pain that radiates through the hip, leg, or foot — at the source, not just the symptom.",
          intro="That sharp, shooting pain down your leg has a root cause — usually pressure or irritation somewhere along the sciatic nerve. We find where it starts and treat it there, so relief actually lasts.",
          causes_label="Common Causes",
          causes=["Herniated disc pressing on the nerve", "Spinal stenosis", "Piriformis muscle tightness",
                  "Pregnancy-related nerve pressure", "Prolonged sitting or poor movement patterns"],
-         approach=["Targeted nerve-gliding and mobility exercises to reduce nerve irritation",
-                   "Manual therapy to release the tight muscles compressing the nerve",
-                   "Core and hip strengthening to take pressure off the lower spine",
-                   "Dry needling for stubborn muscle tension along the nerve's path",
-                   "Heat or cold therapy to calm acute flare-ups",
-                   "Posture and movement coaching for sitting, standing, and daily habits",
-                   "A gradual return to the activities flare-ups put on hold"]),
+         approach=["Targeted nerve-gliding and mobility exercises", "Manual therapy to release tight muscles around the nerve",
+                   "Core and hip strengthening to reduce pressure on the spine", "Dry needling for stubborn muscle tension",
+                   "Movement coaching to help prevent flare-ups"]),
     dict(slug="chronic-pain", title="Chronic Pain", icon="pulse",
          card="A steady, whole-person plan for pain that's stuck around longer than it should.",
          intro="Pain that lingers for months or years changes how you move, sleep, and live. Our approach treats the whole picture — body and habits together — so you can build momentum instead of just managing symptoms.",
          causes_label="Common Contributors",
          causes=["Old injuries that never fully resolved", "Ongoing inflammation or joint changes", "Nervous system sensitization",
                  "Compensating movement patterns", "Stress, poor sleep, and inactivity feeding the cycle"],
-         approach=["A graded activity plan that rebuilds tolerance without triggering flare-ups",
-                   "Manual therapy, including myofascial release and joint mobilization, to ease tension",
-                   "Advanced modalities — E-stim, KT-tape, the BEMER mat, and massage guns — to calm pain and speed healing",
-                   "Functional rehab exercises that restore natural movement patterns",
-                   "Education on pain science, so you understand what's actually happening",
-                   "Personalized strength and conditioning matched to your current capacity",
+         approach=["A graded activity plan that rebuilds tolerance safely", "Manual therapy to reduce tension and improve mobility",
+                   "Education on pain science, so you understand what's happening", "Strength and conditioning tailored to your capacity",
                    "Ongoing check-ins so we can adjust the plan as you improve"]),
     dict(slug="knee-pain", title="Knee Pain", icon="knee",
-         card="Stronger, steadier knees — whether you're dealing with an old injury, arthritis, or overuse.",
+         card="Stronger, steadier knees — whether it's an old injury, arthritis, or overuse.",
          intro="Knees carry a lot of weight, literally and figuratively. Whether it's a sports injury, post-surgical recovery, or pain that crept in over time, we build the strength and mechanics your knee needs to trust itself again.",
          causes_label="Common Causes",
          causes=["Ligament or meniscus injury", "Overuse or tendinitis", "Osteoarthritis",
                  "Muscle imbalances at the hip or ankle", "Post-surgical stiffness"],
-         approach=["Targeted strengthening for the muscles that support the knee",
-                   "Manual therapy to restore joint and soft-tissue mobility",
-                   "Advanced modalities — ultrasound, electrical stimulation, and cold laser — to ease pain and speed tissue repair",
-                   "Balance and mobility training to rebuild confidence in the joint",
-                   "Gait and movement analysis to correct mechanics that stress the knee",
-                   "Sport- and activity-specific return-to-motion training",
-                   "Bracing, taping, or lifestyle guidance to support long-term joint health"]),
+         approach=["Targeted strengthening for the muscles that support the knee", "Manual therapy to restore range of motion",
+                   "Gait and movement analysis", "Sport- and activity-specific return-to-motion training",
+                   "Bracing or taping guidance when helpful"]),
     dict(slug="shoulder-pain", title="Shoulder Pain", icon="shoulder",
          card="Restoring reach, strength, and sleep-through-the-night comfort to a cranky shoulder.",
          intro="Shoulder pain has a way of showing up in everything — reaching for a cabinet, sleeping on your side, throwing a ball. We rebuild strength and mobility through the whole shoulder complex, not just the sore spot.",
          causes_label="Common Causes",
          causes=["Rotator cuff strain or tear", "Impingement or bursitis", "Frozen shoulder",
                  "Instability or a past dislocation", "Postural strain from desk work"],
-         approach=["Manual therapy to restore joint and soft-tissue mobility",
-                   "A progressive strengthening program for the rotator cuff and scapula",
-                   "Range-of-motion exercises to reverse stiffness and rebuild flexibility",
-                   "Postural correction for lasting relief, especially after desk work",
-                   "Dry needling for trigger points that refer pain into the shoulder",
-                   "A guided, gradual return to lifting, throwing, or reaching overhead"]),
+         approach=["Manual therapy to restore joint and soft-tissue mobility", "A progressive strengthening program for the rotator cuff and scapula",
+                   "Postural correction for lasting relief", "Dry needling for trigger points",
+                   "A guided return to lifting, throwing, or reaching overhead"]),
     dict(slug="headaches-migraines", title="Headaches & Migraines", icon="head",
          card="Getting to the root of tension headaches and migraines — often hiding in the neck.",
          intro="Many headaches and migraines are connected to tension and restriction in the neck and upper back. We assess that connection and treat it directly, often bringing relief other approaches miss.",
          causes_label="Common Triggers",
          causes=["Neck and upper-back muscle tension", "Poor posture, especially from screen time", "TMJ dysfunction",
                  "Stress and muscle guarding", "Cervicogenic (neck-related) triggers"],
-         approach=["Manual therapy for the neck, jaw, and upper back",
-                   "Dry needling for trigger-point release",
-                   "Postural retraining for desk, driving, and screen-time habits",
-                   "TMJ-specific treatment when jaw tension is contributing",
-                   "Gentle mobility and strengthening exercises for the neck and upper back",
-                   "Guidance on identifying and managing your personal triggers between visits"]),
+         approach=["Manual therapy for the neck, jaw, and upper back", "Dry needling for trigger-point release",
+                   "Postural retraining for desk and driving habits", "Gentle mobility and strengthening exercises",
+                   "Guidance on triggers and self-management between visits"]),
     dict(slug="concussion-tbi", title="Concussion / Mild TBI", icon="brain",
          card="A careful, step-by-step return to clear thinking, balance, and daily life.",
          intro="Recovering from a concussion or mild traumatic brain injury isn't one-size-fits-all. We assess balance, vision, and neck function together, then guide a safe, steady return to school, work, and sport.",
-         causes_label="Common Symptoms We Treat",
-         causes=["Neck pain and headaches following the injury", "Balance, coordination, and vestibular issues (dizziness, vertigo)",
-                 "Vision changes or difficulty with eye tracking", "Exercise or activity intolerance",
-                 "Orthostatic intolerance and dysautonomia, including POTS", "Persistent fatigue"],
-         approach=["Vestibular and visual training for balance, dizziness, and eye-tracking issues",
-                   "Manual therapy — massage, joint mobilization, and stretching — for neck-related symptoms",
-                   "Dry needling for muscle tension contributing to headaches",
-                   "Strengthening, balance, and coordination training",
-                   "Cardiovascular exercise introduced at a pace your symptoms can tolerate",
-                   "Autonomic reconditioning for dysautonomia and orthostatic intolerance",
-                   "Hot/cold and compression therapy for symptom relief",
-                   "Graded exertion protocols with close coordination with your physician or care team"]),
+         causes_label="Common Causes",
+         causes=["Sports injuries or falls", "Auto accidents", "Workplace incidents",
+                 "Repeated head impacts", "Whiplash-associated neck involvement"],
+         approach=["Vestibular (balance and dizziness) rehabilitation", "Vision and eye-tracking exercises",
+                   "Neck assessment and treatment — a frequent hidden contributor", "Graded exertion protocols to safely rebuild tolerance",
+                   "Close coordination with your physician or care team"]),
     dict(slug="long-covid", title="Long COVID / Post-COVID Syndrome", icon="lungs",
          card="Rebuilding stamina and function after long COVID or a tough post-viral recovery.",
-         intro="Long COVID and post-viral syndromes can leave you fatigued, short of breath, or simply not yourself. We build a pacing and conditioning plan that respects your limits while steadily expanding them — with providers specifically trained in Long COVID, POTS, ME/CFS, and dysautonomia.",
+         intro="Long COVID and post-viral syndromes can leave you fatigued, short of breath, or simply not yourself. We build a pacing and conditioning plan that respects your limits while steadily expanding them.",
          causes_label="Common Symptoms We Address",
-         causes=["Post-exertional malaise (PEM) and post-viral fatigue", "Orthostatic intolerance and dysautonomia, including POTS",
-                 "Breathing pattern changes and reduced cardiovascular tolerance", "Muscle weakness from extended rest or illness",
-                 "Brain fog, headache, and generalized pain", "Mast Cell Activation Syndrome (MCAS) symptoms"],
-         approach=["Careful, symptom-guided pacing that avoids triggering PEM",
-                   "For ME/CFS, a collaborative approach that does not default to prescribed exercise",
-                   "Breathing retraining exercises",
-                   "Autonomic and orthostatic tolerance training for POTS and dysautonomia",
-                   "Gradual, individualized reconditioning when it's appropriate for your condition",
-                   "Energy conservation strategies for daily life",
-                   "Ongoing monitoring so we adjust before you crash",
-                   "Both in-person and virtual visit options"]),
+         causes=["Post-viral fatigue and deconditioning", "Breathing pattern changes", "Reduced cardiovascular tolerance",
+                 "Muscle weakness from extended rest", "Post-exertional symptom flare-ups"],
+         approach=["Careful, symptom-guided pacing that avoids overexertion", "Breathing retraining exercises",
+                   "Gradual cardiovascular and strength reconditioning", "Energy conservation strategies for daily life",
+                   "Ongoing monitoring so we adjust before you crash"]),
     dict(slug="dry-needling", title="Dry Needling", icon="needle",
          card="A thin-needle technique that releases tight, irritable muscle knots fast.",
          intro="Dry needling targets the small, contracted knots in muscle tissue — often called trigger points — that cause pain, stiffness, and referred discomfort elsewhere in the body. It's a precise, effective tool we use alongside hands-on and exercise-based care.",
          causes_label="Commonly Used For",
          causes=["Muscle tightness and trigger points", "Chronic tension patterns", "Sports-related muscle strain",
                  "Headaches originating in the neck and shoulders", "Slow-healing overuse injuries"],
-         approach=["A focused evaluation to find the muscles actually driving your pain",
-                   "Thin filament needles placed directly into trigger points for fast relief",
-                   "Improved muscle function and range of motion as tight bands release",
-                   "Increased local blood flow that speeds the body's natural healing",
-                   "Reduced inflammation in the treated muscle",
-                   "Often paired with stretching or strengthening the same visit",
+         approach=["A focused evaluation to find the muscles driving your pain", "Thin filament needles placed directly into trigger points",
+                   "Often paired with stretching or strengthening the same visit", "Fast, targeted relief for stubborn muscle tension",
                    "A clear plan for how many sessions typically help"]),
-    dict(slug="winback-diathermy", title="WinBack TECAR Therapy", icon="waves",
-         card="Deep, therapeutic heat that speeds tissue healing and eases stiffness — applied while we treat you.",
-         intro="WinBack TECAR therapy delivers gentle radiofrequency energy deep into muscle and connective tissue — well beyond what a heating pad can reach — to boost circulation, ease pain, and speed recovery. Most patients describe it as comfortable and relaxing, with a mild warming sensation.",
+    dict(slug="winback-diathermy", title="WinBack Diathermy", icon="waves",
+         card="Deep, therapeutic heat that speeds tissue healing and eases stiffness.",
+         intro="WinBack diathermy uses a gentle electromagnetic current to generate heat deep inside muscle and connective tissue — well beyond what a heating pad can reach — to boost circulation, ease pain, and accelerate recovery.",
          causes_label="Well Suited For",
-         causes=["Muscle strains and sports injuries", "Tendon and ligament injuries, including sprains",
-                 "Back, neck, shoulder, hip, and knee pain", "Joint stiffness and limited mobility",
-                 "Chronic muscle and joint pain", "Recovery following certain surgeries or injuries"],
-         approach=["Gentle radiofrequency energy that creates therapeutic heat deep in the tissue",
-                   "Used live, during manual therapy, stretching, or mobility work — not a stand-alone sit-and-wait treatment",
-                   "Increased local circulation to speed the body's natural healing",
-                   "A comfortable, non-invasive treatment — no needles, no downtime",
-                   "Intensity customized to your tissue and tolerance",
-                   "One more tool in a broader plan, not a quick fix on its own"]),
+         causes=["Muscle stiffness and chronic tightness", "Slow-healing soft-tissue injuries", "Pre-exercise warm-up for injured areas",
+                 "Scar tissue and post-surgical stiffness", "Pain that responds well to heat"],
+         approach=["A comfortable, non-invasive treatment — no needles, no downtime", "Increases blood flow to accelerate natural healing",
+                   "Often combined with manual therapy or exercise the same visit", "Intensity customized to your tissue and tolerance",
+                   "A relaxing addition to your broader treatment plan"]),
     dict(slug="auto-accidents", title="Auto Accident Recovery", icon="car",
          card="Full-picture recovery after a collision, from whiplash to lasting nerve pain.",
          intro="Car accidents can leave injuries that aren't obvious right away — whiplash, joint strain, nerve irritation — that show up hours or days later. We evaluate thoroughly, document your recovery, and work directly with your claim so you can focus on healing.",
          causes_label="What We Treat",
          causes=["Whiplash-associated neck injuries", "Back and joint strain from impact", "Headaches and concussion-like symptoms",
                  "Nerve compression or irritation", "Soft-tissue injury that worsens without early treatment"],
-         approach=["A thorough initial evaluation, even if pain seems mild at first",
-                   "Pain management using manual therapy, heat/cold, and therapeutic exercise",
-                   "Personalized exercises to restore flexibility, strength, and range of motion",
-                   "Balance and coordination training when the accident has affected either",
-                   "Cognitive rehab support for concussion or traumatic brain injury, coordinated with your other providers",
-                   "Detailed documentation to support your claim",
-                   "Coordination with attorneys, case managers, or insurers",
-                   "A steady, educated path back to full, pain-free function — with guidance on preventing re-injury"]),
+         approach=["A thorough initial evaluation, even if pain seems mild", "A treatment plan tailored to your specific injuries",
+                   "Detailed documentation to support your claim", "Coordination with attorneys, case managers, or insurers",
+                   "A steady path back to full, pain-free function"]),
     dict(slug="workers-comp", title="Workers' Comp", icon="briefcase",
          card="Getting you back to work safely, with care coordinated around your claim.",
-         intro="A workplace injury shouldn't leave your recovery — or your paycheck — in question. We evaluate the injury, build a treatment plan around the physical demands of your specific job, and coordinate directly with your employer, case manager, and insurance carrier at every step.",
+         intro="A workplace injury shouldn't mean uncertainty about your recovery or your paycheck. We work directly with your employer, case manager, and insurance carrier so treatment moves forward without added stress on you.",
          causes_label="What We Treat",
          causes=["Overuse and repetitive strain injuries", "Lifting and back injuries", "Slip, trip, and fall injuries",
                  "Post-surgical work injuries", "Re-aggravated prior injuries"],
-         approach=["Direct communication with your case manager and employer", "Work conditioning that simulates your actual job tasks",
-                   "Ergonomic recommendations to help prevent re-injury", "Clear documentation to support your claim",
-                   "A safe, graded return-to-work plan aimed at full duty"]),
+         approach=["Direct communication with your case manager and employer", "Functional, work-specific rehabilitation and conditioning",
+                   "Clear documentation for your claim", "A safe, graded return-to-work plan",
+                   "Advocacy focused on getting you back to full duty"]),
 ]
 
 EXTRA_SPECIALTIES = ["Active Release Therapy (ASTYM)", "Manual Therapy & Massage", "Occupational Therapy Services",
@@ -263,7 +207,7 @@ EXTRA_SPECIALTIES = ["Active Release Therapy (ASTYM)", "Manual Therapy & Massage
                       "TMJ/TMD Therapy", "Work Conditioning"]
 
 PROVIDERS = [
-    dict(name="Brad Klemetson", cred="PT, DPT", role="Founder & Clinical Director", photo="brad-klemetson.png",
+    dict(name="Brad Klemetson", cred="PT, DPT", role="Founder & Clinical Director",
          short_bio="The steady hand behind MINT — patients call him relentless in the best way, staying on a problem until it's actually solved.",
          bio="Brad earned his Doctorate of Physical Therapy from UNLV in 2017 and has published research on balance and Parkinson's disease. He treats neck pain, dizziness, headaches, and migraines, using dry needling and manual therapy to speed recovery, and is certified in FCE, FJA, POET, and FFD testing. He also takes time to walk patients through their MRI findings and treatment options. Special interests: headaches, migraines, radiculopathies, auto accident and workplace injury care, and injury prevention."),
     dict(name="Ryan Rindlesbacher", cred="PT, DPT", role="Physical Therapist",
@@ -401,11 +345,7 @@ def nav_html(depth="", active=""):
         return f'<a href="{depth}{href}"{cls}>{label}</a>'
 
     loc_links = "".join(f'<a href="{depth}locations.html#{l["slug"]}">{l["name"]}</a>' for l in LOCATIONS)
-    svc_links = "".join(
-        f'<a href="{depth}services/{s["slug"]}.html"{" class=\"svc-more\"" if i >= 5 else ""}>{s["title"]}</a>'
-        for i, s in enumerate(SERVICES)
-    )
-    svc_links += f'<a href="{depth}services.html" class="dropdown-viewall">Explore All Services</a>'
+    svc_links = "".join(f'<a href="{depth}services/{s["slug"]}.html">{s["title"]}</a>' for s in SERVICES)
 
     return f'''<header class="site-header">
     <div class="container nav">
@@ -421,13 +361,13 @@ def nav_html(depth="", active=""):
             <div class="dropdown">{loc_links}</div>
           </li>
           <li>{a("providers.html", "Our Providers", "providers")}</li>
-          <li class="has-dropdown split{' is-active' if active == 'services' else ''}">
-            {a("services.html", "Services", "services")}
-            <button type="button" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Show services menu">{icon("chev-down", cls="icon chev")}</button>
+          <li class="has-dropdown">
+            <button type="button" aria-haspopup="true">Services {icon("chev-down", cls="icon chev")}</button>
             <div class="dropdown wide">{svc_links}</div>
           </li>
           <li>{a("join-team.html", "Join Our Team", "join")}</li>
           <li>{a("contact.html", "Contact", "contact")}</li>
+          <li class="nav-links-cta-mobile"><a class="btn btn-primary" href="{depth}contact.html">Request Appointment</a></li>
         </ul>
       </nav>
 
@@ -473,28 +413,15 @@ def footer_html(depth=""):
   </footer>'''
 
 def base_page(title, description, body, depth="", active="", extra_head=""):
-    full_title = f"{title} | MINT Physical Therapy"
-    og_image = f"{SITE_URL}/assets/img/social-preview.png"
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{full_title}</title>
+<title>{title} | MINT Physical Therapy</title>
 <meta name="description" content="{description}">
-<meta property="og:title" content="{full_title}">
-<meta property="og:description" content="{description}">
-<meta property="og:image" content="{og_image}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:type" content="image/png">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="{full_title}">
-<meta name="twitter:description" content="{description}">
-<meta name="twitter:image" content="{og_image}">
 <link rel="icon" href="{depth}assets/img/favicon.png?v=2" type="image/png">
-<link rel="stylesheet" href="{depth}assets/css/style.css?v={ASSET_VERSION}">
+<link rel="stylesheet" href="{depth}assets/css/style.css">
 {extra_head}
 </head>
 <body>
@@ -504,7 +431,7 @@ def base_page(title, description, body, depth="", active="", extra_head=""):
 {body}
 </main>
 {footer_html(depth)}
-<script src="{depth}assets/js/main.js?v={ASSET_VERSION}"></script>
+<script src="{depth}assets/js/main.js"></script>
 </body>
 </html>'''
 
@@ -554,26 +481,19 @@ def provider_card(p, mode="static"):
     #                    used wherever the name/role/bio already appears
     #                    right next to the photo (Providers page detail card
     #                    and mobile carousel), so it isn't shown twice.
-    photo = p.get("photo")
-    if photo:
-        visual = f'<img class="provider-photo" src="assets/img/providers/{photo}?v={ASSET_VERSION}" alt="{p["name"]}" loading="lazy">'
-        bg_style = ""
-    else:
-        idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
-        color = AVATAR_COLORS[idx]
-        visual = f'<span class="provider-initials">{initials(p["name"])}</span>'
-        bg_style = f' style="background:{color};"'
+    idx = sum(ord(c) for c in p['name']) % len(AVATAR_COLORS)
+    color = AVATAR_COLORS[idx]
     if mode == "photo-only":
-        return f'''<div class="provider-card"{bg_style}>
-      {visual}
+        return f'''<div class="provider-card" style="background:{color};">
+      <span class="provider-initials">{initials(p['name'])}</span>
     </div>'''
     bio_html = ""
     card_cls = "provider-card"
     if mode == "hover":
         card_cls = "provider-card has-bio"
         bio_html = f'<p class="provider-overlay-bio">{p.get("short_bio", short_bio(p["bio"]))}</p>'
-    return f'''<div class="{card_cls}"{bg_style}>
-      {visual}
+    return f'''<div class="{card_cls}" style="background:{color};">
+      <span class="provider-initials">{initials(p['name'])}</span>
       <div class="provider-overlay">
         <h3>{p['name']}, {p['cred']}</h3>
         <div class="role">{p['role']}</div>
@@ -619,17 +539,15 @@ def hz_carousel(cards_html, extra_class=""):
       <div class="hz-carousel-progress">{bars}</div>
     </div>'''
 
-def cta_band(heading, sub, depth="", plain=False):
-    cls = "cta-band cta-band-plain" if plain else "cta-band"
-    phone_cls = "btn btn-outline" if plain else "btn btn-outline on-dark"
-    return f'''<div class="{cls}">
+def cta_band(heading, sub, depth=""):
+    return f'''<div class="cta-band">
       <div>
         <h2>{heading}</h2>
         <p>{sub}</p>
       </div>
       <div class="actions">
         <a class="btn btn-gold" href="{depth}contact.html">Request Appointment</a>
-        <a class="{phone_cls}" href="tel:+1{PHONE_MAIN_TEL}">{icon('phone')} {PHONE_MAIN}</a>
+        <a class="btn btn-outline on-dark" href="tel:+1{PHONE_MAIN_TEL}">{icon('phone')} {PHONE_MAIN}</a>
       </div>
     </div>'''
 
@@ -678,7 +596,11 @@ def home_page():
 
   <section class="home-intro">
     <div class="container home-intro-grid">
-      <p class="home-intro-text">Helping you move better, feel better, and get back to what you love through one-on-one care &mdash; mobile or in-clinic across Utah. Cash-pay, workers&rsquo; comp, and auto-accident patients welcome. Let&rsquo;s get you back to MINT condition.</p>
+      <div class="home-intro-social">
+        <a href="{SOCIAL['facebook']}" target="_blank" rel="noopener" aria-label="Facebook">{icon('facebook')}</a>
+        <a href="{SOCIAL['instagram']}" target="_blank" rel="noopener" aria-label="Instagram">{icon('instagram')}</a>
+      </div>
+      <p class="home-intro-text">MINT Physical Therapy is a Utah-based practice offering both mobile and in-clinic care. We work with cash-pay, workers&rsquo; compensation, and auto-accident patients, and every session is one-on-one &mdash; so you get the attention and expertise needed to recover faster. If you&rsquo;ve spent years searching for answers, or you&rsquo;re simply looking for a better approach to physical therapy, give us a call. We&rsquo;ll help you find real answers and get back to living pain-free.</p>
     </div>
     <div class="container home-ig-video">{video_frame("Instagram video coming soon")}</div>
     <div class="container"><div class="intro-divider"></div></div>
@@ -688,7 +610,7 @@ def home_page():
     <div class="container">
       <div class="section-head center">
         <div class="eyebrow" style="justify-content:center;">Why Physical Therapy</div>
-        <h2>Three reasons people choose to move first, not last.</h2>
+        <h2>Physical therapy effectively manages pain and restores mobility through personalized, non-invasive treatments.</h2>
       </div>
       <div class="journey">
         {''.join(f"""<div class="journey-step"><div class="n">{s['n']}</div><h3>{s['title']}</h3><p>{s['text']}</p><div class="journey-photo"><img src="assets/img/{s['img']}" alt="{s['alt']}" loading="lazy"></div></div>""" for s in steps)}
@@ -696,7 +618,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section bg-stone" style="padding:clamp(28px,4.5vw,60px) 0;">
+  <section class="section bg-stone">
     <div class="container">
       <div class="section-head">
         <div class="eyebrow">What We Treat</div>
@@ -713,7 +635,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
+  <section class="section">
     <div class="container split">
       <div class="panel-art dark">
         <img src="assets/img/mobile-pt.jpg" alt="A physical therapist guiding a patient through a shoulder stretch in her living room" style="width:100%;height:100%;object-fit:cover;display:block;">
@@ -735,11 +657,11 @@ def home_page():
     </div>
   </section>
 
-  <section class="section bg-mint team-section" style="padding:clamp(28px,4.5vw,60px) 0;">
+  <section class="section bg-mint team-section">
     <div class="container">
       <div class="section-head center">
         <div class="eyebrow" style="justify-content:center;">Our Team</div>
-        <p style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; margin-top:14px;">All trained in the same hands-on, whole-person approach.</p>
+        <p style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; margin-top:14px;">Doctors of Physical Therapy and PTAs across our Utah clinics, all trained in the same hands-on, whole-person approach.</p>
       </div>
       <div class="grid-4 grid-mobile-hide">
         {''.join(provider_card(p, mode="hover") for p in PROVIDERS[:8])}
@@ -751,7 +673,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
+  <section class="section">
     <div class="container podcast-band">
       <div>
         {video_frame("The MINT Condition Podcast")}
@@ -768,7 +690,7 @@ def home_page():
     </div>
   </section>
 
-  <section class="section bg-stone" style="padding:clamp(28px,4.5vw,60px) 0;">
+  <section class="section bg-stone">
     <div class="container">
       <div class="section-head center">
         <div class="eyebrow" style="justify-content:center;">Patient Stories</div>
@@ -781,12 +703,11 @@ def home_page():
     </div>
   </section>
 
-  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
+  <section class="section">
     <div class="container">
-      {cta_band("Ready to start feeling like yourself again?", "Tell us what&rsquo;s going on and we&rsquo;ll help you find the right provider, clinic, or mobile visit.", plain=True)}
+      {cta_band("Ready to start feeling like yourself again?", "Tell us what&rsquo;s going on and we&rsquo;ll help you find the right provider, clinic, or mobile visit.")}
     </div>
   </section>
-  <button type="button" class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">{icon('chev-down', cls='icon')}</button>
 '''
     return base_page("Home", "Utah-based mobile and in-clinic physical therapy. One-on-one care across nine Wasatch Front clinics, or right at your door.", body, depth="", active="home")
 
@@ -929,10 +850,6 @@ def providers_page():
         <button type="button" class="prov-tab is-active" role="tab" aria-selected="true" data-tab-target="prov-panel-dpt">Doctors of Physical Therapy</button>
         <button type="button" class="prov-tab" role="tab" aria-selected="false" data-tab-target="prov-panel-pta">Physical Therapist Assistants</button>
       </div>
-      <select class="prov-mobile-tab-select" id="provTabSelect" aria-label="Choose provider type">
-        <option value="prov-panel-dpt" selected>Doctors of Physical Therapy</option>
-        <option value="prov-panel-pta">Physical Therapist Assistants</option>
-      </select>
       <div class="prov-tab-panel is-active" id="prov-panel-dpt" role="tabpanel">
         <div class="prov-list-section">
           <div class="prov-split">
@@ -995,39 +912,22 @@ def services_page():
 
 def service_detail_page(s):
     others = [o for o in SERVICES if o['slug'] != s['slug']][:6]
-    svc_select_options = "".join(
-        f'<option value="{o["slug"]}.html"{" selected" if o["slug"] == s["slug"] else ""}>{o["title"]}</option>'
-        for o in SERVICES
-    )
     body = f'''{page_hero("Service", s['title'], s['card'], [f'<a href="../services.html">Services</a>', s['title']], depth="../")}
-  <div class="container svc-mobile-select-wrap">
-    <select class="svc-mobile-select" aria-label="Choose a service">{svc_select_options}</select>
-  </div>
   <section class="section">
     <div class="container service-layout">
       <div class="service-body">
-        <div class="accordion">
-          <div class="accordion-item open">
-            <button type="button" aria-expanded="true"><span>Overview</span>{icon('plus', cls='icon')}</button>
-            <div class="panel" style="max-height:2000px"><div class="panel-inner"><p>{s['intro']}</p></div></div>
-          </div>
-          <div class="accordion-item">
-            <button type="button" aria-expanded="false"><span>{s['causes_label']}</span>{icon('plus', cls='icon')}</button>
-            <div class="panel"><div class="panel-inner">
-              <ul class="list-check">
-                {''.join(f"<li>{icon('check')} {c}</li>" for c in s['causes'])}
-              </ul>
-            </div></div>
-          </div>
-          <div class="accordion-item">
-            <button type="button" aria-expanded="false"><span>How MINT Helps</span>{icon('plus', cls='icon')}</button>
-            <div class="panel"><div class="panel-inner">
-              <ul class="list-check">
-                {''.join(f"<li>{icon('check')} {a}</li>" for a in s['approach'])}
-              </ul>
-            </div></div>
-          </div>
-        </div>
+        <h2>Overview</h2>
+        <p>{s['intro']}</p>
+
+        <h2>{s['causes_label']}</h2>
+        <ul class="list-check">
+          {''.join(f"<li>{icon('check')} {c}</li>" for c in s['causes'])}
+        </ul>
+
+        <h2>How MINT Helps</h2>
+        <ul class="list-check">
+          {''.join(f"<li>{icon('check')} {a}</li>" for a in s['approach'])}
+        </ul>
 
         <div style="margin-top:40px;display:flex;gap:14px;flex-wrap:wrap;">
           <a class="btn btn-primary" href="../contact.html">Request an Appointment</a>
@@ -1060,7 +960,7 @@ def contact_page():
                       ["Contact"])
     loc_options = "".join(f'<option>{l["name"]}</option>' for l in LOCATIONS)
     body = f'''{hero}
-  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
+  <section class="section">
     <div class="container split" style="align-items:start;">
       <div>
         <div class="form-card">
@@ -1127,14 +1027,14 @@ def join_team_page():
         dict(icon="award", title="Growing together", text="Nine clinics and counting across Utah, with the mobile care model built into how we work."),
     ]
     body = f'''{hero}
-  <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
+  <section class="section">
     <div class="container">
       <div class="grid-4">
         {''.join(f'''<div class="card-service"><div class="ico-wrap">{icon(p["icon"])}</div><h3>{p["title"]}</h3><p>{p["text"]}</p></div>''' for p in perks)}
       </div>
     </div>
   </section>
-  <section class="section bg-stone" style="padding:clamp(28px,4.5vw,60px) 0;">
+  <section class="section bg-stone">
     <div class="container split">
       <div>
         <div class="eyebrow">Open Roles</div>

@@ -6,60 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var navLinks = document.querySelector('.nav-links');
   var menuScrollY = 0;
 
-  /* ---------- Mobile header: follows the swipe in real time ---------- */
-  // Desktop keeps the header always visible (sticky); this only runs at
-  // mobile widths. Rather than waiting for a scroll-distance threshold
-  // before snapping the header away, it tracks the header's hidden
-  // amount 1:1 with the scroll delta, so it slides out/in exactly as
-  // fast as you swipe. Once scrolling settles, it snaps to fully shown
-  // or fully hidden, whichever it's closer to.
-  (function () {
-    var header = document.querySelector('.site-header');
-    if (!header) return;
-    var lastY = window.scrollY || window.pageYOffset || 0;
-    var hidden = 0; // 0 = fully shown, header height = fully hidden
-    var ticking = false;
-    var settleTimer = null;
-
-    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-    function apply(withTransition) {
-      header.style.transition = withTransition ? 'transform .2s ease' : 'none';
-      header.style.transform = 'translateY(' + (-hidden) + 'px)';
-    }
-
-    function onScroll() {
-      var mobile = window.matchMedia('(max-width: 980px)').matches;
-      var menuOpen = navLinks && navLinks.classList.contains('mobile-open');
-      var y = window.scrollY || window.pageYOffset || 0;
-      if (!mobile || menuOpen) {
-        hidden = 0;
-        apply(true);
-        lastY = y;
-        ticking = false;
-        return;
-      }
-      var h = header.offsetHeight;
-      var delta = y - lastY;
-      lastY = y;
-      hidden = y <= 0 ? 0 : clamp(hidden + delta, 0, h);
-      apply(false);
-      ticking = false;
-
-      clearTimeout(settleTimer);
-      settleTimer = setTimeout(function () {
-        hidden = hidden > h / 2 ? h : 0;
-        apply(true);
-      }, 120);
-    }
-
-    window.addEventListener('scroll', function () {
-      if (!ticking) {
-        window.requestAnimationFrame(onScroll);
-        ticking = true;
-      }
-    }, { passive: true });
-  })();
-
   // Prevents the background page from scrolling while the mobile menu is
   // open. Deliberately NOT using body{overflow:hidden} — on iOS Safari that
   // snaps the scroll position back to 0, which is why the menu used to
@@ -91,29 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ---------- Dropdowns (desktop + mobile click) ---------- */
   var dropdownParents = document.querySelectorAll('.nav-links > li.has-dropdown');
-
-  // Forces the flattened mobile look directly on the element, bypassing
-  // the stylesheet entirely. Used as a hard guarantee that the dropdown
-  // never renders as the floating desktop card on small screens,
-  // regardless of any CSS cascade/caching issue.
-  function forceMobileDropdownLayout(dropdownEl) {
-    if (!dropdownEl) return;
-    var props = {
-      'position': 'static', 'transform': 'none', 'box-shadow': 'none',
-      'border': 'none', 'border-radius': '0', 'max-width': '100%',
-      'width': '100%', 'min-width': '0', 'left': 'auto'
-    };
-    Object.keys(props).forEach(function (k) {
-      dropdownEl.style.setProperty(k, props[k], 'important');
-    });
-  }
-  function clearForcedDropdownLayout(dropdownEl) {
-    if (dropdownEl) dropdownEl.removeAttribute('style');
-  }
-
   dropdownParents.forEach(function (li) {
     var btn = li.querySelector('button');
-    var dropdownEl = li.querySelector('.dropdown');
     btn.setAttribute('aria-expanded', 'false');
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
@@ -121,34 +46,12 @@ document.addEventListener('DOMContentLoaded', function () {
       dropdownParents.forEach(function (other) {
         other.classList.remove('open');
         other.querySelector('button').setAttribute('aria-expanded', 'false');
-        clearForcedDropdownLayout(other.querySelector('.dropdown'));
       });
       if (!isOpen) {
         li.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
-        if (window.matchMedia('(max-width: 980px)').matches) {
-          forceMobileDropdownLayout(dropdownEl);
-        }
       }
     });
-
-    // "Services" is split into a label (links to the hub page) and a
-    // separate toggle button, so hovering + clicking a specific service
-    // works on desktop. On mobile there's no hover, so tapping the label
-    // should behave exactly like every other mobile dropdown (Locations
-    // included) and just open the list — not navigate away immediately.
-    if (li.classList.contains('split')) {
-      var label = li.querySelector(':scope > a');
-      if (label) {
-        label.addEventListener('click', function (e) {
-          if (window.matchMedia('(max-width: 980px)').matches) {
-            e.preventDefault();
-            e.stopPropagation();
-            btn.click();
-          }
-        });
-      }
-    }
   });
   document.addEventListener('click', function () {
     dropdownParents.forEach(function (li) {
@@ -175,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.addEventListener('click', function () {
       var isOpen = item.classList.contains('open');
       item.classList.toggle('open', !isOpen);
-      btn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
       panel.style.maxHeight = !isOpen ? panel.scrollHeight + 'px' : '0px';
     });
   });
@@ -343,46 +245,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  /* ---------- Individual service pages: mobile "jump to a service" select ---------- */
-  document.querySelectorAll('.svc-mobile-select').forEach(function (select) {
-    select.addEventListener('change', function () {
-      if (select.value) window.location.href = select.value;
-    });
-  });
-
   /* ---------- Providers page: DPT / PTA tabs ---------- */
   document.querySelectorAll('.prov-tabs').forEach(function (tabs) {
     var buttons = tabs.querySelectorAll('.prov-tab');
-    var mobileSelect = tabs.parentElement.querySelector('.prov-mobile-tab-select');
-
-    function activateTab(targetId) {
-      buttons.forEach(function (b) {
-        var isMatch = b.dataset.tabTarget === targetId;
-        b.classList.toggle('is-active', isMatch);
-        b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
-      });
-      if (mobileSelect) mobileSelect.value = targetId;
-      document.querySelectorAll('.prov-tab-panel').forEach(function (panel) {
-        var isMatch = panel.id === targetId;
-        panel.classList.toggle('is-active', isMatch);
-        panel.hidden = !isMatch;
-        // Coming back to a tab restarts its auto-cycle (desktop list or
-        // mobile carousel, whichever applies) if it had stopped — only
-        // leaving the page (or a real refresh) should otherwise do that.
-        if (isMatch) {
-          var shownSection = panel.querySelector('.prov-list-section');
-          if (shownSection && shownSection._resetAutoCycle) shownSection._resetAutoCycle();
-          if (shownSection && shownSection._resetCarousel) shownSection._resetCarousel();
-        }
-      });
-    }
-
     buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () { activateTab(btn.dataset.tabTarget); });
+      btn.addEventListener('click', function () {
+        var targetId = btn.dataset.tabTarget;
+        buttons.forEach(function (b) {
+          var isMatch = b === btn;
+          b.classList.toggle('is-active', isMatch);
+          b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+        document.querySelectorAll('.prov-tab-panel').forEach(function (panel) {
+          var isMatch = panel.id === targetId;
+          panel.classList.toggle('is-active', isMatch);
+          panel.hidden = !isMatch;
+          // Coming back to a tab restarts its auto-cycle (desktop list or
+          // mobile carousel, whichever applies) if it had stopped — only
+          // leaving the page (or a real refresh) should otherwise do that.
+          if (isMatch) {
+            var shownSection = panel.querySelector('.prov-list-section');
+            if (shownSection && shownSection._resetAutoCycle) shownSection._resetAutoCycle();
+            if (shownSection && shownSection._resetCarousel) shownSection._resetCarousel();
+          }
+        });
+      });
     });
-    if (mobileSelect) {
-      mobileSelect.addEventListener('change', function () { activateTab(mobileSelect.value); });
-    }
   });
 
   /* ---------- Providers page: hover-preview / click-to-pin list + detail panel ---------- */
@@ -702,25 +590,6 @@ document.addEventListener('DOMContentLoaded', function () {
     start();
   });
 
-  /* ---------- Home "Our Team" cards: tap-to-reveal bio on touch ---------- */
-  // Desktop reveals the overlay on hover via pure CSS. Touch devices have
-  // no hover, so tapping a card toggles it open, and tapping anywhere
-  // else (another card or the rest of the page) closes it again.
-  var teamCards = document.querySelectorAll('.team-section .provider-card.has-bio');
-  if (teamCards.length && !window.matchMedia('(hover: hover)').matches) {
-    teamCards.forEach(function (card) {
-      card.addEventListener('click', function (e) {
-        var isOpen = card.classList.contains('is-open');
-        teamCards.forEach(function (c) { c.classList.remove('is-open'); });
-        if (!isOpen) card.classList.add('is-open');
-        e.stopPropagation();
-      });
-    });
-    document.addEventListener('click', function () {
-      teamCards.forEach(function (c) { c.classList.remove('is-open'); });
-    });
-  }
-
   /* ---------- Video placeholders ---------- */
   document.querySelectorAll('.video-frame').forEach(function (frame) {
     frame.addEventListener('click', function () {
@@ -751,34 +620,6 @@ document.addEventListener('DOMContentLoaded', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
-
-  /* ---------- Back to top button (home page, mobile only) ---------- */
-  // Shows shortly after the user stops scrolling (not while actively
-  // scrolling), and only once they've scrolled down a bit. Hides again
-  // the instant scrolling resumes, or once back near the top.
-  (function () {
-    var btn = document.getElementById('scrollTopBtn');
-    if (!btn) return;
-    var pauseTimer = null;
-    var showAfter = 400; // px scrolled before it's eligible to appear
-    var pauseDelay = 500; // ms of no scrolling before it pops up
-
-    function onScroll() {
-      btn.classList.remove('is-visible');
-      clearTimeout(pauseTimer);
-      var y = window.scrollY || window.pageYOffset || 0;
-      if (y < showAfter) return;
-      pauseTimer = setTimeout(function () {
-        btn.classList.add('is-visible');
-      }, pauseDelay);
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    btn.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      btn.classList.remove('is-visible');
-    });
-  })();
 
   /* ---------- Active nav link highlight ---------- */
   var here = location.pathname.split('/').pop() || 'index.html';
