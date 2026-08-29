@@ -20,7 +20,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "30"
+ASSET_VERSION = "32"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -743,7 +743,7 @@ def home_page():
         <p style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; margin-top:14px;">All trained in the same hands-on, whole-person approach.</p>
       </div>
       <div class="grid-4 grid-mobile-hide">
-        {''.join(provider_card(p, mode="hover") for p in PROVIDERS[:8])}
+        {''.join(f'<a href="providers.html?provider={prov_slug(p["name"])}" class="team-card-link">{provider_card(p, mode="hover")}</a>' for p in PROVIDERS[:8])}
       </div>
       {hz_carousel([provider_card(p, mode="hover") for p in PROVIDERS[:8]], extra_class="hz-carousel-on-photo")}
       <div style="margin-top:34px;text-align:center;">
@@ -895,7 +895,7 @@ def providers_page():
             for p in providers
         )
         slides = "".join(
-            f'''<div class="prov-carousel-slide{" is-active is-visible" if prov_slug(p['name']) == default_slug else ""}">
+            f'''<div class="prov-carousel-slide{" is-active is-visible" if prov_slug(p['name']) == default_slug else ""}" data-slug="{prov_slug(p['name'])}">
           <div class="prov-detail-card">
             <div class="prov-detail-visual">{provider_card(p, mode="photo-only")}</div>
             <div class="prov-detail-info">

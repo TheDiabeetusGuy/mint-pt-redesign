@@ -481,6 +481,15 @@ document.addEventListener('DOMContentLoaded', function () {
       startAutoCycle();
     };
 
+    // Used by the homepage "Our Team" cards' deep links (?provider=slug)
+    // to land directly on a specific provider with the cycle already
+    // stopped — exactly as if the visitor had clicked that list item
+    // themselves.
+    section._pinBySlug = function (slug) {
+      var item = list.querySelector('[data-target="prov-' + slug + '"]');
+      if (item) pinItem(item);
+    };
+
     items.forEach(function (item) {
       // Hovering previews a provider's bio without changing what's pinned,
       // and pauses the auto-cycle for as long as the mouse stays there;
@@ -591,6 +600,14 @@ document.addEventListener('DOMContentLoaded', function () {
       stopped = true;
       pause();
     }
+
+    // Same purpose as _pinBySlug above, for the mobile carousel version
+    // of this same list.
+    section._pinCarouselBySlug = function (slug) {
+      var idx = -1;
+      slides.forEach(function (s, i) { if (s.dataset.slug === slug) idx = i; });
+      if (idx >= 0) { stopForGood(); goTo(idx); }
+    };
 
     if (prevBtn) prevBtn.addEventListener('click', function () { stopForGood(); prev(); });
     if (nextBtn) nextBtn.addEventListener('click', function () { stopForGood(); next(); });
@@ -778,6 +795,29 @@ document.addEventListener('DOMContentLoaded', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       btn.classList.remove('is-visible');
     });
+  })();
+
+  /* ---------- Providers page: deep link from a homepage card ---------- */
+  // ?provider=<slug> in the URL (added by the homepage "Our Team" cards)
+  // switches to whichever tab (DPT or PTA) that provider is in and pins
+  // them immediately — same end state as a real click, cycle stopped —
+  // rather than landing on the default tab's default provider.
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var slug = params.get('provider');
+    if (!slug) return;
+    var targetItem = document.querySelector('.prov-list-item[data-target="prov-' + slug + '"]');
+    if (!targetItem) return; // unknown slug — leave the page at its normal default
+    var targetPanel = targetItem.closest('.prov-tab-panel');
+    if (targetPanel && !targetPanel.classList.contains('is-active')) {
+      var tabBtn = document.querySelector('.prov-tab[data-tab-target="' + targetPanel.id + '"]');
+      if (tabBtn) tabBtn.click();
+    }
+    var section = targetPanel ? targetPanel.querySelector('.prov-list-section') : null;
+    if (section) {
+      if (section._pinBySlug) section._pinBySlug(slug);
+      if (section._pinCarouselBySlug) section._pinCarouselBySlug(slug);
+    }
   })();
 
   /* ---------- Active nav link highlight ---------- */
