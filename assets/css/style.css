@@ -143,7 +143,7 @@ input,textarea,select{ font-family:inherit; font-size:16px; }
    on every page relies on). */
 .site-header .container.nav{ padding-left: calc(var(--pad) / 2); padding-right: calc(var(--pad) / 2); }
 .brand{ display:flex; align-items:center; flex:none; }
-.brand-logo{ height:30px; width:auto; display:block; }
+.brand-logo{ height:40px; width:auto; display:block; }
 
 .main-nav{ margin-left:auto; }
 .nav-links{ display:flex; align-items:center; gap:1px; flex-wrap:nowrap; }
