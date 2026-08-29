@@ -20,7 +20,7 @@ EMAIL_MAIN = "info@mint-pt.com"
 # Bump this any time style.css or main.js changes. It's appended as a
 # ?v= query string on both files so browsers/CDNs treat an updated file
 # as a brand-new URL instead of serving a cached copy of the old one.
-ASSET_VERSION = "34"
+ASSET_VERSION = "35"
 
 # ---------------------------------------------------------------
 # Logo mark (recreated as scalable SVG from the client's existing
@@ -689,7 +689,7 @@ def home_page():
     <div class="container">
       <div class="section-head center">
         <div class="eyebrow" style="justify-content:center;">Why Physical Therapy</div>
-        <h2>Physical therapy effectively manages pain and restores mobility through personalized, non-invasive treatments.</h2>
+        <h2>Manage pain, restore mobility, all through personalized non-invasive treatments.</h2>
       </div>
       <div class="journey">
         {''.join(f"""<div class="journey-step"><div class="n">{s['n']}</div><h3>{s['title']}</h3><p>{s['text']}</p><div class="journey-photo"><img src="assets/img/{s['img']}" alt="{s['alt']}" loading="lazy"></div></div>""" for s in steps)}
@@ -702,7 +702,7 @@ def home_page():
       <div class="section-head">
         <div class="eyebrow">What We Treat</div>
         <h2>Specialized care for the injuries that slow you down.</h2>
-        <p>From everyday aches to complex, claim-based recovery &mdash; here&rsquo;s where we spend most of our time.</p>
+        <p>From everyday aches to complex, claim-based recovery &mdash; we&rsquo;ve got you covered.</p>
       </div>
       <div class="grid-4 grid-mobile-hide">
         {''.join(service_card(s) for s in top_services)}
@@ -784,7 +784,7 @@ def home_page():
 
   <section class="section" style="padding:clamp(28px,4.5vw,60px) 0;">
     <div class="container">
-      {cta_band("Ready to start feeling like yourself again?", "Tell us what&rsquo;s going on and we&rsquo;ll help you find the right provider, clinic, or mobile visit.", plain=True)}
+      {cta_band("Ready to feel MINT again?", "Tell us what&rsquo;s going on and we&rsquo;ll help you find the right provider, clinic, or mobile visit.", plain=True)}
     </div>
   </section>
   <button type="button" class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">{icon('chev-down', cls='icon')}</button>
